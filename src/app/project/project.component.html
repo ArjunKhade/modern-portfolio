@@ -1,0 +1,13 @@
+<div class="container" #contentDiv [style.height.px]="divHeight">
+  <h1>Projects</h1>
+  <section *ngFor="let project of projects">
+    <h2>{{ project.title }}</h2>
+    <h3>
+      <span>Technologies:</span>
+      <span>{{ project.technology }}</span>
+    </h3>
+    <ul *ngFor="let desc of project.description">
+      <li>{{ desc }}</li>
+    </ul>
+  </section>
+</div>
