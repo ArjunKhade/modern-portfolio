@@ -5,11 +5,11 @@
       <h2>{{ workexp.role }}</h2>
       <h3>{{ workexp.company }}</h3>
       <h4>{{ workexp.duration }}</h4>
-      <ul>
-        <li *ngFor="let desc of workexp.description">
+      <section>
+        <p *ngFor="let desc of workexp.description">
           {{ desc }}
-        </li>
-      </ul>
+        </p>
+      </section>
     </li>
   </ul>
 </div>

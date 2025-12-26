@@ -12,8 +12,8 @@ export class PersonalInformationComponent {
     ['MOB', '8788225355'],
     ['Email', 'khadearjun@gmail.com'],
     ['Work Exp', '3+ Year'],
-    ['Education', 'PG-DAC(2022) BE(2019) DME(2016)'],
-    ['Interests', 'Cricket'],
+    ['Education', 'PG-DAC, BE, DME'],
+   
   ];
 
   aboutMe: string[] = [
