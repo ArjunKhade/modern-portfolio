@@ -41,7 +41,7 @@
   padding: 2rem;
   color: white;
   font-size: 2rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
   font-family: "Roboto Condensed", sans-serif;
 }
 
@@ -88,7 +88,7 @@
   padding: 0 0 2rem;
   text-align: center;
   font-style: italic;
-  padding-bottom: 0px;
+  /* padding-bottom: 0px; */
   /* color: var(--green); */
   color: white;
   text-decoration: underline;
