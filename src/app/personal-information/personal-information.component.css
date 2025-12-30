@@ -28,7 +28,7 @@ table tr td:nth-child(even) {
 
 section p {
   font-size: 1.2rem;
-  text-align: justify;
+  text-align: left;
 }
 
 section p:not(:first-child) {
