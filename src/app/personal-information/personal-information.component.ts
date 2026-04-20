@@ -17,9 +17,13 @@ export class PersonalInformationComponent {
   ];
 
   aboutMe: string[] = [
-    'Hi, I am a software Engineer with 3+ years of experience in software industry.',
-    'Worked as Software Developer in Aloha Technology for various technologies like Angular, ReactJS, Java, SpringBoot, .NetCore Web API',
-    'Delivered all products within deadlines. Always eager to learn new technologies',
-    'Currently, working as Full Stack Software Developer At Aloha Technology Pune, Maharashtra',
-  ];
+  'I am a passionate Software Engineer focused on building efficient, scalable, and user-centric web applications.',
+  'I have hands-on experience in frontend and backend development using technologies like Angular, React, and Java.',
+  'I design and develop applications with clean architecture and modern UI/UX principles to deliver seamless digital experiences.',
+  'I enjoy solving complex problems, optimizing performance, and creating intuitive and accessible user interfaces.',
+  'I have experience working on healthcare software and full-stack solutions across diverse projects.',
+  'I am driven by continuous learning and always strive to improve my technical and problem-solving skills.',
+  'Currently working as a Full Stack Software Developer at Aloha Technology, Pune, Maharashtra.',
+  'In my free time, I explore new frameworks, focus on fitness, and brainstorm innovative tech ideas.'
+];
 }
