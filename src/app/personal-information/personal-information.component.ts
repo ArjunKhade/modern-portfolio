@@ -11,7 +11,7 @@ export class PersonalInformationComponent {
   personalInfo = [
     { label: 'Name', value: 'Arjun Khade', icon: 'bx-user' },
     { label: 'Role', value: 'Full Stack Software Engineer', icon: 'bx-code-alt' },
-    { label: 'Experience', value: '3+ Years Industry Experience', icon: 'bx-time' },
+    { label: 'Experience', value: '4 Years Industry Experience', icon: 'bx-time' },
     { label: 'Company', value: 'Aloha Technology, Pune', icon: 'bx-buildings' },
     { label: 'Email', value: 'khadearjun@gmail.com', icon: 'bx-envelope' },
     { label: 'Phone', value: '+91 8788225355 / 9545176916', icon: 'bx-phone' },
@@ -47,7 +47,7 @@ export const engineer = {
   title: "Full Stack Software Developer",
   location: "Pune, MH, India",
   currentCompany: "Aloha Technology",
-  experienceYears: 3,
+  experienceYears: 4,
   passions: ["Clean Code", "Microservices", "AI Systems", "High Perf"],
   technologies: {
     frontend: ["Angular 15-21", "Signals", "React.js", "TypeScript"],

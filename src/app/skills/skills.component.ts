@@ -19,17 +19,17 @@ export class SkillsComponent {
 
   skills: Skill[] = [
     // Frontend
-    { name: 'Angular (v13 - v21)', level: 'Expert', rating: 92, category: 'frontend', icon: 'bxl-angular', experience: '3+ Yrs' },
+    { name: 'Angular (v13 - v21)', level: 'Expert', rating: 92, category: 'frontend', icon: 'bxl-angular', experience: '4 Yrs' },
     { name: 'Signals & Reactive Architecture', level: 'Expert', rating: 90, category: 'frontend', icon: 'bx-broadcast', experience: '2+ Yrs' },
     { name: 'React.js & Redux Toolkit', level: 'Expert', rating: 86, category: 'frontend', icon: 'bxl-react', experience: '2+ Yrs' },
-    { name: 'TypeScript & JavaScript (ES6+)', level: 'Expert', rating: 92, category: 'frontend', icon: 'bxl-typescript', experience: '3+ Yrs' },
-    { name: 'HTML5, Modern CSS3, Tailwind', level: 'Expert', rating: 95, category: 'frontend', icon: 'bxl-css3', experience: '3+ Yrs' },
+    { name: 'TypeScript & JavaScript (ES6+)', level: 'Expert', rating: 92, category: 'frontend', icon: 'bxl-typescript', experience: '4 Yrs' },
+    { name: 'HTML5, Modern CSS3, Tailwind', level: 'Expert', rating: 95, category: 'frontend', icon: 'bxl-css3', experience: '4 Yrs' },
     { name: 'PWA & Service Workers', level: 'Advanced', rating: 88, category: 'frontend', icon: 'bx-mobile-alt', experience: '2+ Yrs' },
 
     // Backend
-    { name: 'Java 17 & Spring Boot', level: 'Expert', rating: 90, category: 'backend', icon: 'bxl-spring-boot', experience: '3+ Yrs' },
+    { name: 'Java 17 & Spring Boot', level: 'Expert', rating: 90, category: 'backend', icon: 'bxl-spring-boot', experience: '4 Yrs' },
     { name: 'Microservices & Spring Cloud', level: 'Expert', rating: 88, category: 'backend', icon: 'bx-network-chart', experience: '2.5+ Yrs' },
-    { name: 'REST APIs & JWT Security', level: 'Expert', rating: 92, category: 'backend', icon: 'bx-code-curly', experience: '3+ Yrs' },
+    { name: 'REST APIs & JWT Security', level: 'Expert', rating: 92, category: 'backend', icon: 'bx-code-curly', experience: '4 Yrs' },
     { name: 'ASP.NET Core & EF Core', level: 'Intermediate', rating: 72, category: 'backend', icon: 'bx-laptop', experience: '1.5+ Yrs' },
 
     // AI & Streaming
@@ -39,10 +39,10 @@ export class SkillsComponent {
     { name: 'Keycloak OAuth2 / PKCE Flow', level: 'Advanced', rating: 85, category: 'ai_cloud', icon: 'bx-shield-quarter', experience: '2+ Yrs' },
 
     // Databases & Tools
-    { name: 'PostgreSQL & MySQL', level: 'Expert', rating: 88, category: 'database', icon: 'bx-cylinder', experience: '3+ Yrs' },
+    { name: 'PostgreSQL & MySQL', level: 'Expert', rating: 88, category: 'database', icon: 'bx-cylinder', experience: '4 Yrs' },
     { name: 'MongoDB', level: 'Advanced', rating: 82, category: 'database', icon: 'bx-data', experience: '2+ Yrs' },
     { name: 'Docker & Containerization', level: 'Advanced', rating: 84, category: 'database', icon: 'bxl-docker', experience: '2+ Yrs' },
-    { name: 'Linux OS & Shell Scripting', level: 'Expert', rating: 90, category: 'database', icon: 'bxl-tux', experience: '3+ Yrs' },
+    { name: 'Linux OS & Shell Scripting', level: 'Expert', rating: 90, category: 'database', icon: 'bxl-tux', experience: '4 Yrs' },
   ];
 
   get filteredSkills(): Skill[] {
