@@ -1,15 +1,65 @@
-<div class="container">
-  <h1>Skills</h1>
-
-  <section *ngFor="let skill of skills">
-    <h2>{{ skill.name }}</h2>
-    <h4>{{ skill.level }}</h4>
-
-    <div class="rating">
-      <div class="bar">
-        <div [ngStyle]="{ width: skill.rating + '%' }"></div>
+<section class="portfolio-section" id="skills">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="bx bx-code-block"></i>
+        <span>Technical Arsenal</span>
       </div>
-      <div>{{ skill.rating }}%</div>
+      <h2 class="section-title">
+        Skills & <span class="gradient-text">Expertise</span>
+      </h2>
+      <p class="section-subtitle">
+        A comprehensive technical stack honed through 3+ years of building production-grade microservices and modern frontend architectures.
+      </p>
     </div>
-  </section>
-</div>
+
+    <!-- Category Filter Tabs -->
+    <div class="category-tabs-wrapper">
+      <div class="category-tabs">
+        <button
+          *ngFor="let cat of categories"
+          class="category-btn"
+          [class.active]="activeCategory === cat.key"
+          (click)="setCategory(cat.key)"
+        >
+          <i class="bx {{ cat.icon }}"></i>
+          <span>{{ cat.label }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="skills-grid">
+      <div
+        class="skill-card glass-card"
+        *ngFor="let skill of filteredSkills"
+      >
+        <div class="skill-card-top">
+          <div class="skill-icon-wrapper">
+            <i class="bx {{ skill.icon }} skill-icon"></i>
+          </div>
+          <div class="skill-meta">
+            <span class="skill-badge" [class.badge-expert]="skill.level === 'Expert'">
+              {{ skill.level }}
+            </span>
+            <span class="skill-exp font-mono">{{ skill.experience }}</span>
+          </div>
+        </div>
+
+        <div class="skill-info">
+          <h3 class="skill-name">{{ skill.name }}</h3>
+          <div class="skill-rating-wrapper">
+            <div class="progress-track">
+              <div
+                class="progress-fill"
+                [style.width.%]="skill.rating"
+              ></div>
+            </div>
+            <span class="skill-pct font-mono">{{ skill.rating }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,21 +1,105 @@
-<div class="container">
-  <h1 class="title">
-    <span>Personal Information</span>
-  </h1>
+<section class="portfolio-section" id="about">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="bx bx-terminal"></i>
+        <span>Developer Overview</span>
+      </div>
+      <h2 class="section-title">
+        About <span class="gradient-text">Me</span>
+      </h2>
+      <p class="section-subtitle">
+        Bridging the gap between robust microservices architecture and pixel-perfect interactive web interfaces.
+      </p>
+    </div>
 
-  <table>
-    <tbody>
-      <tr *ngFor="let row of mydata">
-        <td *ngFor="let col of row">
-          {{ col }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- Main Content: Terminal & Highlights Grid -->
+    <div class="about-grid">
+      <!-- Left: Interactive Terminal Window -->
+      <div class="terminal-card glass-card">
+        <!-- Terminal Header Bar -->
+        <div class="terminal-bar">
+          <div class="terminal-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="terminal-tabs">
+            <button
+              class="terminal-tab-btn"
+              [class.active]="activeTab === 'bio'"
+              (click)="setActiveTab('bio')"
+            >
+              <i class="bx bx-file-blank"></i> overview.md
+            </button>
+            <button
+              class="terminal-tab-btn"
+              [class.active]="activeTab === 'profile'"
+              (click)="setActiveTab('profile')"
+            >
+              <i class="bx bx-code-curly"></i> engineer.ts
+            </button>
+          </div>
+        </div>
 
-  <section>
-    <p *ngFor="let sentence of aboutMe">
-      {{ sentence }}
-    </p>
-  </section>
-</div>
+        <!-- Terminal Body -->
+        <div class="terminal-body">
+          <!-- Tab 1: Bio View -->
+          <div *ngIf="activeTab === 'bio'" class="bio-content">
+            <div class="terminal-prompt">
+              <span class="text-green">arjun@aloha</span>:<span class="text-cyan">~/about</span>$ cat overview.md
+            </div>
+            <p class="bio-lead">
+              Hello! I'm <strong>Arjun Khade</strong>, a passionate Software Engineer based in Pune, India.
+              With over 3+ years of professional experience, I specialize in crafting robust, fault-tolerant backend
+              services and responsive, accessible frontend user experiences.
+            </p>
+            <p class="bio-text">
+              At <strong>Aloha Technology</strong>, I architect and build enterprise healthcare solutions,
+              streamline client application performance (improving speed by 25%), and modernize legacy Angular
+              codebases into modern, scalable architectures.
+            </p>
+            <p class="bio-text">
+              My engineering philosophy revolves around <strong>clean code, decoupled microservices, and AI-driven enhancements</strong>.
+              Whether implementing event streams with Kafka or integrating Gemini AI into consumer applications,
+              I focus on creating business impact through elegant engineering.
+            </p>
+
+            <div class="quick-facts-row">
+              <div class="quick-fact-item" *ngFor="let item of personalInfo">
+                <i class="bx {{ item.icon }} fact-icon"></i>
+                <div class="fact-content">
+                  <span class="fact-label">{{ item.label }}</span>
+                  <span class="fact-val">{{ item.value }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Code View -->
+          <div *ngIf="activeTab === 'profile'" class="code-view">
+            <div class="terminal-prompt">
+              <span class="text-green">arjun@aloha</span>:<span class="text-cyan">~/config</span>$ cat engineer.ts
+            </div>
+            <pre class="code-block font-mono"><code>{{ codeSnippet }}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Engineering Pillars Cards -->
+      <div class="highlights-column">
+        <div
+          class="pillar-card glass-card"
+          *ngFor="let pillar of aboutMeHighlights; let i = index"
+        >
+          <div class="pillar-header">
+            <div class="pillar-index font-mono">0{{ i + 1 }}</div>
+            <h3 class="pillar-title">{{ pillar.title }}</h3>
+          </div>
+          <p class="pillar-desc">{{ pillar.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,13 +1,126 @@
-<div class="container" #contentDiv [style.height.px]="divHeight">
-  <h1>Projects</h1>
-  <section *ngFor="let project of projects">
-    <h2>{{ project.title }}</h2>
-    <h3>
-      <span>Technologies:</span>
-      <span>{{ project.technology }}</span>
-    </h3>
-    <ul *ngFor="let desc of project.description">
-      <li>{{ desc }}</li>
-    </ul>
-  </section>
-</div>
+<section class="portfolio-section" id="projects">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="bx bx-folder-open"></i>
+        <span>Featured Engineering</span>
+      </div>
+      <h2 class="section-title">
+        Featured <span class="gradient-text">Projects</span>
+      </h2>
+      <p class="section-subtitle">
+        Real-world enterprise solutions combining distributed microservices, AI recommendation engines, and lightning-fast frontend applications.
+      </p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="project-filters">
+      <button
+        *ngFor="let f of filters"
+        class="filter-pill-btn"
+        [class.active]="activeFilter === f.key"
+        (click)="setFilter(f.key)"
+      >
+        {{ f.label }}
+      </button>
+    </div>
+
+    <!-- Project Cards Grid -->
+    <div class="projects-grid">
+      <div
+        class="project-card glass-card"
+        *ngFor="let project of filteredProjects; let i = index"
+        [class.featured-border]="project.featured"
+      >
+        <!-- Card Top Bar -->
+        <div class="card-header-bar">
+          <div class="project-icon-box">
+            <i class="bx {{ project.icon || 'bx-code' }}"></i>
+          </div>
+          <div class="project-links">
+            <a
+              *ngIf="project.demoUrl"
+              [href]="project.demoUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="icon-link-btn"
+              title="Live Demo"
+              [attr.aria-label]="'Live Demo link for ' + project.title"
+            >
+              <i class="bx bx-link-external"></i>
+            </a>
+            <a
+              *ngIf="project.githubUrl"
+              [href]="project.githubUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="icon-link-btn"
+              title="Source Code"
+              [attr.aria-label]="'GitHub Repository link for ' + project.title"
+            >
+              <i class="bx bxl-github"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project Title & Category -->
+        <div class="card-body">
+          <h3 class="project-title">{{ project.title }}</h3>
+
+          <!-- Tech Stack Pills -->
+          <div class="tech-tags-list">
+            <span class="tech-pill" *ngFor="let badge of project.techBadges">
+              {{ badge }}
+            </span>
+          </div>
+
+          <!-- Description Bullet Highlights -->
+          <ul class="project-highlights">
+            <li *ngFor="let point of project.description | slice: 0 : 2">
+              <i class="bx bx-check text-primary"></i>
+              <span>{{ point }}</span>
+            </li>
+          </ul>
+
+          <!-- Expandable extra details -->
+          <div class="extra-details" *ngIf="expandedProjectIndex === i">
+            <ul class="project-highlights extra-list">
+              <li *ngFor="let point of project.description | slice: 2">
+                <i class="bx bx-check text-primary"></i>
+                <span>{{ point }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card Footer Action -->
+        <div class="card-footer">
+          <button
+            class="expand-btn font-mono"
+            (click)="toggleExpand(i)"
+            *ngIf="project.description.length > 2"
+          >
+            <span>{{ expandedProjectIndex === i ? 'Show Less' : 'Architecture Highlights' }}</span>
+            <i
+              class="bx"
+              [class.bx-chevron-down]="expandedProjectIndex !== i"
+              [class.bx-chevron-up]="expandedProjectIndex === i"
+            ></i>
+          </button>
+          
+          <a
+            *ngIf="project.demoUrl"
+            [href]="project.demoUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="live-action-btn"
+          >
+            <span>Live Demo</span>
+            <i class="bx bx-right-arrow-alt"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

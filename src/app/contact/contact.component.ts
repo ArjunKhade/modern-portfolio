@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -7,26 +6,90 @@ import { Router } from '@angular/router';
   styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent {
-  constructor(private router: Router) {}
+  email = 'khadearjun@gmail.com';
+  phone = '+91 9545176916 / 8788225355';
+  location = 'Pune, Maharashtra, India';
 
-  navigateToLinkedInProfile(): void {
-    const linkedInProfileUrl =
-      'https://www.linkedin.com/in/arjun-khade-ba825017b/';
-    window.open(linkedInProfileUrl, '_blank');
+  isCopied = false;
+  copyTimeout: any;
+
+  formData = {
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  };
+
+  isSubmitting = false;
+  submitSuccess = false;
+
+  socialLinks = [
+    {
+      name: 'LinkedIn',
+      icon: 'bxl-linkedin',
+      url: 'https://www.linkedin.com/in/arjun-khade-ba825017b/',
+      handle: 'arjun-khade',
+      color: '#0a66c2'
+    },
+    {
+      name: 'GitHub',
+      icon: 'bxl-github',
+      url: 'https://github.com/ArjunKhade',
+      handle: 'ArjunKhade',
+      color: '#ffffff'
+    },
+    {
+      name: 'Gmail',
+      icon: 'bxl-gmail',
+      url: 'mailto:khadearjun@gmail.com',
+      handle: 'khadearjun@gmail.com',
+      color: '#ea4335'
+    },
+    {
+      name: 'Instagram',
+      icon: 'bxl-instagram',
+      url: 'https://www.instagram.com/me_arjun_khade/',
+      handle: '@me_arjun_khade',
+      color: '#e1306c'
+    },
+  ];
+
+  copyEmail() {
+    navigator.clipboard.writeText(this.email).then(() => {
+      this.isCopied = true;
+      if (this.copyTimeout) clearTimeout(this.copyTimeout);
+      this.copyTimeout = setTimeout(() => {
+        this.isCopied = false;
+      }, 2500);
+    });
   }
 
-  navigateToInstaProfile(): void {
-    const linkedInProfileUrl = 'https://www.instagram.com/me_arjun_khade/';
-    window.open(linkedInProfileUrl, '_blank');
+  sendMessage(event: Event) {
+    event.preventDefault();
+    if (!this.formData.name || !this.formData.email || !this.formData.message) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+
+    this.isSubmitting = true;
+    setTimeout(() => {
+      this.isSubmitting = false;
+      this.submitSuccess = true;
+      // Pre-fill mailto fallback
+      const mailtoUrl = `mailto:${this.email}?subject=${encodeURIComponent(this.formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(
+        `Hi Arjun,\n\nName: ${this.formData.name}\nEmail: ${this.formData.email}\n\n${this.formData.message}`
+      )}`;
+      window.open(mailtoUrl, '_blank');
+
+      setTimeout(() => {
+        this.submitSuccess = false;
+        this.formData = { name: '', email: '', subject: '', message: '' };
+      }, 4000);
+    }, 600);
   }
 
-  navigateToFacebookProfile(): void {
-    const linkedInProfileUrl = 'https://www.facebook.com/arjun.khade.37';
-    window.open(linkedInProfileUrl, '_blank');
-  }
-  navigateToGmailProfile(): void {
-    const linkedInProfileUrl =
-      'https://mail.google.com/mail/u/0/#inbox?compose=new';
-    window.open(linkedInProfileUrl, '_blank');
+  scrollToTop(event: Event) {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

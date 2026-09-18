@@ -1,10 +1,54 @@
-<div class="container">
-  <h1>Education</h1>
+<section class="portfolio-section" id="education">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="bx bx-book-open"></i>
+        <span>Academic Background</span>
+      </div>
+      <h2 class="section-title">
+        Education & <span class="gradient-text">Qualifications</span>
+      </h2>
+      <p class="section-subtitle">
+        Rigorous engineering and computer science foundations from premier institutions in Maharashtra.
+      </p>
+    </div>
 
-  <section *ngFor="let education of educationList">
-    <h2>{{ education.course }}</h2>
-    <h3>{{ education.institute }}</h3>
-    <h4>{{ education.duration }}</h4>
-    <h4>{{ education.score }}</h4>
-  </section>
-</div>
+    <!-- Education Grid -->
+    <div class="education-grid">
+      <div
+        class="education-card glass-card"
+        *ngFor="let edu of educationList"
+      >
+        <div class="edu-top">
+          <div class="edu-icon-circle">
+            <i class="bx bxs-graduation"></i>
+          </div>
+          <div class="edu-score-pill font-mono">
+            <span>Score: </span>
+            <strong>{{ edu.score }}</strong>
+          </div>
+        </div>
+
+        <div class="edu-content">
+          <h3 class="edu-course">{{ edu.course }}</h3>
+          <h4 class="edu-institute">
+            <i class="bx bx-buildings text-primary"></i>
+            <span>{{ edu.institute }}</span>
+          </h4>
+          <div class="edu-duration font-mono">
+            <i class="bx bx-time-five"></i>
+            <span>{{ edu.duration }}</span>
+          </div>
+
+          <ul class="edu-details" *ngIf="edu.details">
+            <li *ngFor="let d of edu.details">
+              <i class="bx bx-check-circle text-secondary"></i>
+              <span>{{ d }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,27 +1,130 @@
-<div class="container">
-  <div class="title">
-    <span>My Portfolio</span>
-  </div>
+<div class="hero-wrapper" id="home">
+  <!-- High Graphics Cyber Canvas Background -->
+  <canvas #cyberCanvas class="cyber-canvas" aria-hidden="true"></canvas>
+  <div class="hero-grid-overlay" aria-hidden="true"></div>
+  <div class="hero-gradient-overlay" aria-hidden="true"></div>
 
-  <div class="name">
-    <span> <span>Hi,</span> I am </span><br />
-    <span>Arjun Khade</span><br />
-    <span>Software Developer</span>
-    <div class="download-resume">
-      <a [href]="resume" download="ArjunKhade_Resume.pdf" class="download-btn">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Download Resume
-      </a>
+  <div class="container hero-container">
+    <!-- Left Column: Hero Intro & Actions -->
+    <div class="hero-content">
+      <!-- Availability Badge -->
+      <div class="status-pill">
+        <span class="pulse-dot"></span>
+        <span class="status-text">Available for Senior Full Stack & AI Opportunities</span>
+      </div>
+
+      <!-- Developer Greeting -->
+      <div class="greeting-tag">
+        <span class="font-mono text-primary">&gt; console.log("Hello, World!");</span>
+      </div>
+
+      <!-- Main Name -->
+      <h1 class="hero-title">
+        I am <span class="gradient-text">Arjun Khade</span>
+      </h1>
+
+      <!-- Dynamic Role Typing -->
+      <div class="role-container">
+        <span class="role-label font-mono">Specializing in: </span>
+        <span class="role-typing">{{ displayedRole }}</span>
+        <span class="typing-cursor">_</span>
+      </div>
+
+      <!-- Professional Summary Brief -->
+      <p class="hero-description">
+        Full Stack Software Engineer with <strong>3+ years</strong> of expertise in designing high-throughput
+        <strong>microservices</strong> with Java & Spring Boot, reactive frontends with
+        <strong>Angular</strong> & React, real-time streaming with <strong>Apache Kafka</strong>,
+        and intelligent features powered by <strong>Google Gemini AI</strong>.
+      </p>
+
+      <!-- Key Metrics Strip -->
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-number">3+</span>
+          <span class="stat-label">Years Exp</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">5+</span>
+          <span class="stat-label">Enterprise Projects</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">+25%</span>
+          <span class="stat-label">Performance Boost</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">PWA</span>
+          <span class="stat-label">Offline & SEO Ready</span>
+        </div>
+      </div>
+
+      <!-- Hero CTAs -->
+      <div class="hero-cta-group">
+        <a href="#projects" class="btn-primary" (click)="scrollToSection('#projects', $event)">
+          <i class="bx bx-briefcase-alt-2"></i>
+          <span>View Projects</span>
+        </a>
+        <a [href]="resumeUrl" download="ArjunKhade_Resume.pdf" class="btn-outline">
+          <i class="bx bx-download"></i>
+          <span>Download Resume</span>
+        </a>
+        <a href="#contact" class="btn-ghost" (click)="scrollToSection('#contact', $event)">
+          <i class="bx bx-paper-plane"></i>
+          <span>Let's Talk</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Column: High-Tech Profile Graphic -->
+    <div class="hero-graphic">
+      <div class="profile-card-glow">
+        <!-- Floating Tech Pill 1 -->
+        <div class="floating-badge badge-top-left">
+          <i class="bx bxl-angular text-red"></i>
+          <div>
+            <div class="badge-title">Angular & React</div>
+            <div class="badge-sub">Signals & PWA</div>
+          </div>
+        </div>
+
+        <!-- Floating Tech Pill 2 -->
+        <div class="floating-badge badge-bottom-right">
+          <i class="bx bxl-spring-boot text-green"></i>
+          <div>
+            <div class="badge-title">Spring Boot & Kafka</div>
+            <div class="badge-sub">Microservices</div>
+          </div>
+        </div>
+
+        <!-- Floating Tech Pill 3 -->
+        <div class="floating-badge badge-bottom-left">
+          <i class="bx bx-chip text-cyan"></i>
+          <div>
+            <div class="badge-title">Google Gemini AI</div>
+            <div class="badge-sub">Smart Workflows</div>
+          </div>
+        </div>
+
+        <!-- Profile Frame -->
+        <div class="profile-avatar-frame">
+          <div class="avatar-ring-outer"></div>
+          <div class="avatar-ring-inner"></div>
+          <img
+            src="assets/New_Image.png"
+            alt="Arjun Khade - Full Stack Software Developer"
+            class="profile-img"
+            loading="eager"
+          />
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="profile">
-    <div class="profile-bg"></div>
-    <img src="assets/New_Image.png
-    " alt="" />
-  </div>
+  <!-- Scroll Down Hint Indicator -->
+  <a href="#about" class="scroll-down-indicator" (click)="scrollToSection('#about', $event)" aria-label="Scroll to About Section">
+    <span class="scroll-mouse">
+      <span class="scroll-wheel"></span>
+    </span>
+    <span class="scroll-text">SCROLL</span>
+  </a>
 </div>

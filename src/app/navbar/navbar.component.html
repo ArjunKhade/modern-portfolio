@@ -1,1 +1,72 @@
-<p>navbar works!</p>
+<header class="navbar-wrapper" [class.scrolled]="isScrolled">
+  <div class="nav-container">
+    <!-- Brand Logo -->
+    <a href="#home" class="brand" (click)="scrollToSection('#home', $event)">
+      <span class="code-bracket">&lt;</span>
+      <span class="brand-text">Arjun</span>
+      <span class="brand-accent">.dev</span>
+      <span class="code-bracket">/&gt;</span>
+      <span class="status-indicator" title="Available for hire"></span>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav" aria-label="Main Navigation">
+      <ul class="nav-list">
+        <li *ngFor="let item of navItems">
+          <a
+            [href]="item.link"
+            class="nav-link"
+            [class.active]="activeSection === item.link.substring(1)"
+            (click)="scrollToSection(item.link, $event)"
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Actions: Resume CTA & Mobile Toggle -->
+    <div class="nav-actions">
+      <a
+        [href]="resumeUrl"
+        download="ArjunKhade_Resume.pdf"
+        class="resume-cta-btn"
+        aria-label="Download Arjun's Resume"
+      >
+        <i class="bx bx-download"></i>
+        <span>Resume</span>
+      </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button
+        class="mobile-menu-btn"
+        (click)="toggleMobileMenu()"
+        [attr.aria-expanded]="isMobileMenuOpen"
+        aria-label="Toggle Navigation Menu"
+      >
+        <i class="bx" [class.bx-menu]="!isMobileMenuOpen" [class.bx-x]="isMobileMenuOpen"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" [class.open]="isMobileMenuOpen">
+    <ul class="mobile-nav-list">
+      <li *ngFor="let item of navItems">
+        <a
+          [href]="item.link"
+          class="mobile-nav-link"
+          [class.active]="activeSection === item.link.substring(1)"
+          (click)="scrollToSection(item.link, $event)"
+        >
+          {{ item.label }}
+        </a>
+      </li>
+      <li class="mobile-resume-item">
+        <a [href]="resumeUrl" download="ArjunKhade_Resume.pdf" class="btn-primary mobile-btn">
+          <i class="bx bx-download"></i> Download Resume
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>

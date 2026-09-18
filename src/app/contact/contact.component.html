@@ -1,19 +1,182 @@
-<div class="container">
-  <h1>Contact Me</h1>
+<section class="portfolio-section" id="contact">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="bx bx-paper-plane"></i>
+        <span>Get In Touch</span>
+      </div>
+      <h2 class="section-title">
+        Let's Build Something <span class="gradient-text">Extraordinary</span>
+      </h2>
+      <p class="section-subtitle">
+        Whether you have an enterprise project, an engineering opening, or want to discuss modern architectures, I'm just a message away.
+      </p>
+    </div>
 
-  <ul class="social-media">
-    <li (click)="navigateToGmailProfile()"><i class="bx bxl-gmail"></i></li>
-    <li (click)="navigateToFacebookProfile()">
-      <i class="bx bxl-facebook-circle"></i>
-    </li>
-    <li (click)="navigateToInstaProfile()"><i class="bx bxl-instagram"></i></li>
-    <li (click)="navigateToLinkedInProfile()">
-      <i class="bx bxl-linkedin"></i>
-    </li>
-  </ul>
+    <!-- Contact Grid -->
+    <div class="contact-grid">
+      <!-- Left Column: Contact Methods & Socials -->
+      <div class="contact-info-col">
+        <!-- Direct Quick Reach Card -->
+        <div class="info-card glass-card">
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="bx bx-envelope"></i>
+            </div>
+            <div class="info-content">
+              <span class="info-label">Direct Email</span>
+              <a [href]="'mailto:' + email" class="info-link font-mono">{{ email }}</a>
+            </div>
+            <button
+              class="copy-btn"
+              (click)="copyEmail()"
+              title="Copy Email Address"
+              [class.copied]="isCopied"
+            >
+              <i class="bx" [class.bx-copy]="!isCopied" [class.bx-check]="isCopied"></i>
+              <span>{{ isCopied ? 'Copied!' : 'Copy' }}</span>
+            </button>
+          </div>
 
-  <div class="contact-info">
-    <li>Mobile: 9545176916</li>
-    <li>Email: khadearjun@gmail.com</li>
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="bx bx-phone-call"></i>
+            </div>
+            <div class="info-content">
+              <span class="info-label">Mobile Phone</span>
+              <span class="info-val font-mono">{{ phone }}</span>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="bx bx-map-pin"></i>
+            </div>
+            <div class="info-content">
+              <span class="info-label">Current Location</span>
+              <span class="info-val">{{ location }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Grid -->
+        <div class="socials-wrapper">
+          <h3 class="social-heading">Connect On Social & Dev Channels</h3>
+          <div class="social-cards-grid">
+            <a
+              *ngFor="let social of socialLinks"
+              [href]="social.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-card glass-card"
+              [style.--hover-color]="social.color"
+              [attr.aria-label]="'Visit Arjun\'s ' + social.name + ' Profile'"
+            >
+              <i class="bx {{ social.icon }} social-icon"></i>
+              <div class="social-meta">
+                <span class="social-name">{{ social.name }}</span>
+                <span class="social-handle font-mono">{{ social.handle }}</span>
+              </div>
+              <i class="bx bx-right-arrow-alt social-arrow"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Quick Contact Form -->
+      <div class="contact-form-col">
+        <form class="contact-form glass-card" (submit)="sendMessage($event)">
+          <h3 class="form-title">Send a Direct Message</h3>
+          <p class="form-sub">Fill out the form below to initiate an email conversation directly.</p>
+
+          <div class="form-group">
+            <label for="senderName" class="form-label font-mono">Your Name *</label>
+            <input
+              type="text"
+              id="senderName"
+              name="name"
+              [(ngModel)]="formData.name"
+              required
+              class="form-input"
+              placeholder="e.g. Satya Nadella"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="senderEmail" class="form-label font-mono">Your Email Address *</label>
+            <input
+              type="email"
+              id="senderEmail"
+              name="email"
+              [(ngModel)]="formData.email"
+              required
+              class="form-input"
+              placeholder="e.g. name@company.com"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="senderSubject" class="form-label font-mono">Subject</label>
+            <input
+              type="text"
+              id="senderSubject"
+              name="subject"
+              [(ngModel)]="formData.subject"
+              class="form-input"
+              placeholder="Full Stack Developer Opportunity / Project Inquiry"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="senderMessage" class="form-label font-mono">Message *</label>
+            <textarea
+              id="senderMessage"
+              name="message"
+              rows="4"
+              [(ngModel)]="formData.message"
+              required
+              class="form-input form-textarea"
+              placeholder="Hi Arjun, I reviewed your portfolio and would like to discuss..."
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="btn-primary submit-btn"
+            [disabled]="isSubmitting"
+          >
+            <span *ngIf="!isSubmitting">
+              <i class="bx bx-send"></i> Send Message
+            </span>
+            <span *ngIf="isSubmitting">
+              <i class="bx bx-loader-alt bx-spin"></i> Preparing...
+            </span>
+          </button>
+
+          <div class="form-success-banner" *ngIf="submitSuccess">
+            <i class="bx bx-check-circle"></i>
+            <span>Opening email client with your message!</span>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modern Footer -->
+    <footer class="portfolio-footer">
+      <div class="footer-divider"></div>
+      <div class="footer-content">
+        <div class="footer-brand font-mono">
+          <span class="text-primary">&lt;</span>Arjun.dev<span class="text-primary">/&gt;</span>
+        </div>
+        <p class="footer-copy">
+          © {{ 2026 }} Arjun Khade. Built with Angular, TypeScript, Modern CSS & Boxicons. Fully optimized for SEO.
+        </p>
+        <a href="#home" class="back-to-top-btn" (click)="scrollToTop($event)" aria-label="Back to Top">
+          <i class="bx bx-up-arrow-alt"></i>
+          <span>Back to Top</span>
+        </a>
+      </div>
+    </footer>
   </div>
-</div>
+</section>

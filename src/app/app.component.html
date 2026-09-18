@@ -1,9 +1,20 @@
-<app-baner appResponsive></app-baner>
-<app-personal-information appResponsive></app-personal-information>
-<div class="container">
-  <app-education appResponsive></app-education>
-  <app-work-experience appResponsive></app-work-experience>
+<!-- Global Ambient Background Lighting -->
+<div class="ambient-glow-wrapper" aria-hidden="true">
+  <div class="ambient-orb ambient-orb-1"></div>
+  <div class="ambient-orb ambient-orb-2"></div>
+  <div class="ambient-orb ambient-orb-3"></div>
 </div>
-<app-skills appResponsive></app-skills>
-<app-project appResponsive></app-project>
-<app-contact appResponsive></app-contact>
+
+<!-- Floating Navigation Bar -->
+<app-navbar></app-navbar>
+
+<!-- Main Page Sections -->
+<main id="main-content">
+  <app-baner></app-baner>
+  <app-personal-information></app-personal-information>
+  <app-skills></app-skills>
+  <app-project></app-project>
+  <app-work-experience></app-work-experience>
+  <app-education></app-education>
+  <app-contact></app-contact>
+</main>

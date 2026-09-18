@@ -6,24 +6,59 @@ import { Component } from '@angular/core';
   styleUrls: ['./personal-information.component.css'],
 })
 export class PersonalInformationComponent {
-  mydata: string[][] = [
-    ['Name', 'Arjun Khade'],
-    ['DOB', '15/08/1997'],
-    ['MOB', '8788225355'],
-    ['Email', 'khadearjun@gmail.com'],
-    ['Work Exp', '3+ Year'],
-    ['Education', 'PG-DAC, BE, DME'],
-   
+  activeTab: 'bio' | 'profile' = 'bio';
+
+  personalInfo = [
+    { label: 'Name', value: 'Arjun Khade', icon: 'bx-user' },
+    { label: 'Role', value: 'Full Stack Software Engineer', icon: 'bx-code-alt' },
+    { label: 'Experience', value: '3+ Years Industry Experience', icon: 'bx-time' },
+    { label: 'Company', value: 'Aloha Technology, Pune', icon: 'bx-buildings' },
+    { label: 'Email', value: 'khadearjun@gmail.com', icon: 'bx-envelope' },
+    { label: 'Phone', value: '+91 8788225355 / 9545176916', icon: 'bx-phone' },
+    { label: 'Location', value: 'Pune, Maharashtra, India', icon: 'bx-map' },
+    { label: 'Education', value: 'PG-DAC (CDAC), BE (Engineering)', icon: 'bx-graduation' },
   ];
 
-  aboutMe: string[] = [
-  'I am a passionate Software Engineer focused on building efficient, scalable, and user-centric web applications.',
-  'I have hands-on experience in frontend and backend development using technologies like Angular, React, and Java.',
-  'I design and develop applications with clean architecture and modern UI/UX principles to deliver seamless digital experiences.',
-  'I enjoy solving complex problems, optimizing performance, and creating intuitive and accessible user interfaces.',
-  'I have experience working on healthcare software and full-stack solutions across diverse projects.',
-  'I am driven by continuous learning and always strive to improve my technical and problem-solving skills.',
-  'Currently working as a Full Stack Software Developer at Aloha Technology, Pune, Maharashtra.',
-  'In my free time, I explore new frameworks, focus on fitness, and brainstorm innovative tech ideas.'
-];
+  aboutMeHighlights = [
+    {
+      title: 'Full Stack & Enterprise Architecture',
+      description: 'Designing end-to-end scalable web applications using Java 17, Spring Boot, Spring Cloud microservices, and modern Angular/React client applications.'
+    },
+    {
+      title: 'High-Throughput & Event-Driven Systems',
+      description: 'Implementing distributed, event-driven messaging with Apache Kafka for real-time recommendations, async processing, and fault-tolerant communication.'
+    },
+    {
+      title: 'AI & Next-Gen Integrations',
+      description: 'Leveraging Google Gemini AI and LLM APIs to build intelligent recommendation engines, semantic search, and AI-assisted workflows.'
+    },
+    {
+      title: 'Performance & Security Engineering',
+      description: 'Hands-on optimization delivering +25% performance boost, offline PWA capabilities, lazy-loaded architectures, Keycloak OAuth2/PKCE security, and Docker containerization.'
+    }
+  ];
+
+  codeSnippet = `/**
+ * @developer Arjun Khade
+ * @role Full Stack Engineer
+ */
+export const engineer = {
+  name: "Arjun Khade",
+  title: "Full Stack Software Developer",
+  location: "Pune, MH, India",
+  currentCompany: "Aloha Technology",
+  experienceYears: 3,
+  passions: ["Clean Code", "Microservices", "AI Systems", "High Perf"],
+  technologies: {
+    frontend: ["Angular 15-21", "Signals", "React.js", "TypeScript"],
+    backend: ["Java 17", "Spring Boot", "Spring Cloud", "Kafka"],
+    ai_cloud: ["Google Gemini AI", "Docker", "Keycloak OAuth2"],
+    databases: ["PostgreSQL", "MongoDB", "MySQL"]
+  },
+  availableForHire: true
+};`;
+
+  setActiveTab(tab: 'bio' | 'profile') {
+    this.activeTab = tab;
+  }
 }

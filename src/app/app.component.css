@@ -1,9 +1,11 @@
 :host {
   display: block;
-  background-color: var(--black);
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--bg-dark);
 }
 
-:host.pc .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+main {
+  position: relative;
+  z-index: 1;
 }

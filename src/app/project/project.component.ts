@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Project } from '../models/models';
 
 @Component({
@@ -7,84 +7,108 @@ import { Project } from '../models/models';
   styleUrls: ['./project.component.css'],
 })
 export class ProjectComponent {
-  @ViewChild('contentDiv') contentDiv!: ElementRef;
-  divHeight: number = 0;
-  winht: number = 0;
-  ngAfterViewInit() {
-    // Calculate the height based on the content
-    this.divHeight = this.contentDiv.nativeElement.scrollHeight;
-    this.winht = window.innerHeight;
+  activeFilter: 'all' | 'ai' | 'fullstack' | 'frontend' = 'all';
+  expandedProjectIndex: number | null = null;
 
-    console.log('Dynamic' + this.divHeight);
-    console.log('Dynamic' + this.winht);
+  filters = [
+    { key: 'all', label: 'All Projects' },
+    { key: 'ai', label: 'AI & Microservices' },
+    { key: 'fullstack', label: 'Full Stack Systems' },
+    { key: 'frontend', label: 'Angular & PWA' },
+  ];
+
+  projects: Project[] = [
+    {
+      title: 'AI-Powered Fitness Application',
+      category: 'ai',
+      featured: true,
+      technology: 'Java 17, Spring Boot, Spring Cloud, Apache Kafka, Google Gemini AI, Keycloak OAuth2, Docker, React',
+      techBadges: ['Spring Boot', 'Kafka', 'Gemini AI', 'Keycloak', 'Docker', 'React'],
+      icon: 'bx-dumbbell',
+      githubUrl: 'https://github.com/ArjunKhade',
+      description: [
+        'Architected a distributed microservices platform providing personalized workout and nutrition plans via Google Gemini AI integration.',
+        'Engineered event-driven message pipelines using Apache Kafka, decoupling Activity and AI recommendation consumers for real-time inference.',
+        'Secured enterprise APIs with Keycloak OAuth2 PKCE flow, Spring Cloud Gateway centralized routing, and Eureka service discovery.',
+        'Containerized microservices via Docker and applied database-per-service patterns using PostgreSQL & MongoDB with Spring Cloud Config Server.'
+      ],
+    },
+    {
+      title: 'Netflix GPT – AI Movie Streaming Platform',
+      category: 'ai',
+      featured: true,
+      technology: 'React.js, Redux Toolkit, OpenAI API, TMDB API, Firebase Auth & Hosting, Tailwind CSS',
+      techBadges: ['React.js', 'Redux Toolkit', 'OpenAI API', 'TMDB API', 'Firebase', 'Tailwind CSS'],
+      icon: 'bx-movie-play',
+      demoUrl: 'https://arjunkhade.github.io/netflix-gpt/',
+      githubUrl: 'https://github.com/ArjunKhade',
+      description: [
+        'Built a cinematic movie streaming web app featuring an intelligent AI-assisted search engine powered by OpenAI API.',
+        'Managed complex application state, user preferences, and movie catalogs seamlessly using Redux Toolkit.',
+        'Configured Firebase Authentication with protected client routes, automatic auth-state persistence, and CDN deployment.',
+        'Implemented TMDB catalog integration with client-side caching and dynamic multi-language localization.'
+      ],
+    },
+    {
+      title: 'FreshCart – Enterprise E-Commerce Store',
+      category: 'fullstack',
+      featured: false,
+      technology: 'Java, Spring Boot, Spring Data JPA, Spring Security, MySQL, ReactJS, Docker, AWS',
+      techBadges: ['Java 17', 'Spring Boot', 'Spring Security', 'MySQL', 'ReactJS', 'Docker', 'AWS'],
+      icon: 'bx-cart-alt',
+      githubUrl: 'https://github.com/ArjunKhade/CDAC-Project',
+      description: [
+        'Engineered a scalable multi-vendor eCommerce platform supporting dairy, fruits, and organic products.',
+        'Constructed high-performance RESTful APIs with Spring Boot 4-tier architecture (Controller, Service, DAO, Model).',
+        'Normalized relational schemas in MySQL and resolved complex relational mappings with optimized JPA queries.',
+        'Secured user authentication and role-based permissions with customized Spring Security and Axios JWT interceptors.'
+      ],
+    },
+    {
+      title: 'Electronic Visit Verification (EVV) Progressive Web App',
+      category: 'frontend',
+      featured: false,
+      technology: 'Angular, Angular PWA, TypeScript, Service Workers, IndexedDB, Lighthouse Audits',
+      techBadges: ['Angular PWA', 'TypeScript', 'Service Workers', 'Offline Sync', 'Lighthouse 99%'],
+      icon: 'bx-check-shield',
+      githubUrl: 'https://github.com/ArjunKhade',
+      description: [
+        'Developed an offline-first Healthcare Progressive Web App (PWA) guaranteeing uninterrupted field operations.',
+        'Configured Angular Service Workers for background data synchronization, asset caching, and offline state management.',
+        'Enabled device installation (Add to Home Screen) with full Web App Manifest and native-like responsiveness.',
+        'Achieved near-perfect Lighthouse scores for PWA, accessibility, SEO, and load performance.'
+      ],
+    },
+    {
+      title: 'Task Tracker – Modern Signal Todo App',
+      category: 'frontend',
+      featured: false,
+      technology: 'Angular 21, Signals, TypeScript, Template-driven Forms, Clean Architecture',
+      techBadges: ['Angular 21', 'Signals', 'TypeScript', 'Reactive State', 'Responsive'],
+      icon: 'bx-task',
+      demoUrl: 'https://arjunkhade.github.io/my-task/',
+      githubUrl: 'https://github.com/ArjunKhade',
+      description: [
+        'Created a cutting-edge productivity dashboard leveraging Angular 21 Signals for granular, zero-overhead reactivity.',
+        'Designed modular, self-contained components following standalone clean architecture patterns.',
+        'Implemented real-time filtering, dynamic task prioritizing, and robust form validation.',
+        'Ensured full responsive fidelity across mobile, tablet, and ultra-wide displays.'
+      ],
+    },
+  ];
+
+  get filteredProjects(): Project[] {
+    if (this.activeFilter === 'all') {
+      return this.projects;
+    }
+    return this.projects.filter(p => p.category === this.activeFilter);
   }
- projects: Project[] = [
-  {
-    title: 'AI-Powered Fitness Application',
-    technology:
-      'Java, Spring Boot, Spring Cloud, Eureka, API Gateway, Apache Kafka, Keycloak, OAuth2, Google Gemini AI, PostgreSQL, MongoDB, REST APIs, Docker, React',
-    description: [
-      'Aim and Objective: Developed an AI-powered fitness platform using a microservices architecture to provide personalized workout recommendations.',
-      'Designed independently deployable services including User, Activity, and AI Recommendation services using Java 17, Spring Boot, and Spring Cloud.',
-      'Implemented event-driven communication using Apache Kafka, where Activity Service acts as Producer and AI Service as Consumer for real-time recommendations.',
-      'Integrated Google Gemini AI API to generate intelligent fitness suggestions based on user activity data.',
-      'Secured APIs using Keycloak with OAuth2 and PKCE flow, with centralized routing and token validation via Spring Cloud Gateway and service discovery using Eureka Server.',
-      'Applied database-per-service pattern using PostgreSQL and MongoDB, and managed configurations using Spring Cloud Config Server.',
-      'Containerized services like Kafka and Keycloak using Docker and integrated a React frontend with secure backend APIs through API Gateway.',
-    ],
-  },
-  {
-    title: 'Netflix GPT - AI Movie Streaming Application',
-    technology:
-      'React.js, Redux Toolkit, Firebase Auth & Hosting, TMDB API, OpenAI API, Tailwind CSS, React Router DOM, JavaScript, HTML, CSS',
-    description: [
-      'Aim and Objective: Built a Netflix-style movie streaming web application with AI-powered search and personalized recommendations.',
-      'Implemented secure authentication using Firebase with protected routes and auth-state based redirection.',
-      'Managed application state including user profile, language preferences, and movie data using Redux Toolkit.',
-      'Integrated TMDB API for dynamic movie catalog and optimized API usage using environment variables and caching techniques.',
-      'Developed AI-powered search functionality using OpenAI API for enhanced user experience.',
-      'Designed a responsive and multi-language user interface using Tailwind CSS.',
-      'Optimized performance by reducing unnecessary network calls and improving data handling.',
-    ],
-  },
-  {
-    title: 'FreshCart- Online Store',
-    technology:
-      ' ReactJS, Java, Spring Boot, Spring Data Jpa, Spring Security, HTML, CSS, BootStrap, MySQL, Docker, AWS ',
-    description: [
-      'Aim and Objective : This project provide Online selling platform for vegetables, fruits, dairy products.',
-      'It is a form of E-Commerce website which allows customers to directly buy products and sellers to sell the products from the internet using a web browser or mobile.',
-      'Responsiblities: Developed Rest Api with SpringBoot as Backend and MySQL for Database support. Constructed SpringBoot four layers including model , DAO , service , and controller. Normalized complicated relationships among tables to optimize data structure.',
-      'Developed Single Page Application with ReactJs as Frontend , Applied routing with react-router-dom. Customized routing to build interceptor for authorization among all pages to ensure validation of current user.',
-      'Building Alert actions and Error Actions to handle alerts and errors from all components.',
-      'Applied axios to send HTTP requests including GET, POST, PUT and DELETE. Used CORS to solve cross-origin issues.',
-      'Used RestController to map APIs and return ResponseEntity from backend. Worked in Agile/Scrum development environment.',
-    ],
-  },
-  {
-    title: 'Electronic Visit Verification (EVV) Progressive Web Application(PWA)',
-    technology:
-      ' Angular, Angular PWA, TypeScript, HTML, CSS, Service Workers',
-    description: [
-      'Aim and Objective : This project delivers a Progressive Web Application with offline support and native-like experience using Angular PWA and Service Workers.',
-      'It provides users with seamless access to application features even without internet connectivity, ensuring reliability and performance across devices.',
-      'Responsibilities: Implemented caching strategies for static assets and API data to enable offline access. Configured manifest files and enabled app installation on devices for native-like usability.',
-      'Integrated Angular Service Worker to handle background synchronization and automatic update management, ensuring smooth user experience.',
-      'Optimized application performance through audits and improvements, verified using Lighthouse to meet PWA standards.',
-    ],
-  },
-  {
-  title: 'Task Tracker – Todo Application',
-  technology:
-    'Angular 21, Signals, TypeScript, Template-driven Forms, Angular CLI, Responsive Web Design',
-  description: [
-    'Aim and Objective: Built a responsive task management web application to efficiently create, manage, and track daily tasks.',
-    'Developed using Angular 21 with Signals for modern reactive state management and improved performance.',
-    'Implemented modular and reusable components following a clean component-based architecture.',
-    'Created features to add, edit, delete, and filter tasks with real-time updates.',
-    'Used template-driven forms for user input handling and validation.',
-    'Designed a mobile-friendly and responsive UI to ensure seamless usage across devices.',
-  ],
-}
-];
+
+  setFilter(filter: any) {
+    this.activeFilter = filter;
+  }
+
+  toggleExpand(index: number) {
+    this.expandedProjectIndex = this.expandedProjectIndex === index ? null : index;
+  }
 }
