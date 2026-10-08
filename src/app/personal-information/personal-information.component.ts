@@ -36,7 +36,7 @@ export class PersonalInformationComponent {
     },
     {
       title: 'Performance & Security Engineering',
-      description: 'Hands-on optimization delivering +25% performance boost, offline PWA capabilities, lazy-loaded architectures, Keycloak OAuth2/PKCE security, and Docker containerization.'
+      description: 'Hands-on optimization delivering +25% performance boost, offline PWA capabilities, lazy-loaded architectures, Keycloak OAuth2 security, and Docker containerization.'
     }
   ];
 
