@@ -8,6 +8,7 @@ import { ProjectComponent } from './project/project.component';
 import { WorkExperienceComponent } from './work-experience/work-experience.component';
 import { EducationComponent } from './education/education.component';
 import { ContactComponent } from './contact/contact.component';
+import { PwaUpdateComponent } from './pwa-update/pwa-update.component';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ import { ContactComponent } from './contact/contact.component';
     ProjectComponent,
     WorkExperienceComponent,
     EducationComponent,
-    ContactComponent
+    ContactComponent,
+    PwaUpdateComponent
   ]
 })
 export class AppComponent {
