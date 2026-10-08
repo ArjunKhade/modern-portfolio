@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Project } from '../models/models';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css'],
+  imports: [CommonModule]
 })
 export class ProjectComponent {
   activeFilter: 'all' | 'ai' | 'fullstack' | 'frontend' = 'all';

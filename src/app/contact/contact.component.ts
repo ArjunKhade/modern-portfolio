@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css'],
+  imports: [CommonModule, FormsModule]
 })
 export class ContactComponent {
   email = 'khadearjun@gmail.com';
@@ -22,6 +25,8 @@ export class ContactComponent {
 
   isSubmitting = false;
   submitSuccess = false;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   socialLinks = [
     {
@@ -57,9 +62,11 @@ export class ContactComponent {
   copyEmail() {
     navigator.clipboard.writeText(this.email).then(() => {
       this.isCopied = true;
+      this.cdr.markForCheck();
       if (this.copyTimeout) clearTimeout(this.copyTimeout);
       this.copyTimeout = setTimeout(() => {
         this.isCopied = false;
+        this.cdr.markForCheck();
       }, 2500);
     });
   }
@@ -72,6 +79,8 @@ export class ContactComponent {
     }
 
     this.isSubmitting = true;
+    this.cdr.markForCheck();
+
     setTimeout(() => {
       this.isSubmitting = false;
       this.submitSuccess = true;
@@ -80,10 +89,12 @@ export class ContactComponent {
         `Hi Arjun,\n\nName: ${this.formData.name}\nEmail: ${this.formData.email}\n\n${this.formData.message}`
       )}`;
       window.open(mailtoUrl, '_blank');
+      this.cdr.markForCheck();
 
       setTimeout(() => {
         this.submitSuccess = false;
         this.formData = { name: '', email: '', subject: '', message: '' };
+        this.cdr.markForCheck();
       }, 4000);
     }, 600);
   }

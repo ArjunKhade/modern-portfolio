@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { WorkExperience } from '../models/models';
 
 @Component({
   selector: 'app-work-experience',
   templateUrl: './work-experience.component.html',
   styleUrls: ['./work-experience.component.css'],
+  imports: [CommonModule]
 })
 export class WorkExperienceComponent {
   workExpList: WorkExperience[] = [

@@ -1,0 +1,129 @@
+<!-- New Version Available Toast -->
+<aside
+  *ngIf="updateAvailable"
+  class="pwa-toast-card pwa-update-toast glass-card"
+  role="alert"
+  aria-live="assertive"
+>
+  <div class="toast-top-glow update-glow"></div>
+
+  <button
+    type="button"
+    class="toast-close-btn"
+    (click)="dismissUpdate()"
+    aria-label="Dismiss update notification"
+  >
+    <i class="bx bx-x"></i>
+  </button>
+
+  <div class="toast-main">
+    <div class="toast-icon-wrapper update-icon">
+      <img
+        src="assets/icons/icon-96x96.png"
+        alt="Arjun.dev App Icon"
+        class="toast-app-icon"
+        (error)="fallbackIcon($event)"
+      />
+      <div class="toast-badge-corner update-corner">
+        <i class="bx bx-sync bx-spin-slow"></i>
+      </div>
+    </div>
+
+    <div class="toast-body">
+      <div class="toast-pill update-pill font-mono">
+        <span class="pulse-indicator"></span>
+        <span>UPDATE AVAILABLE</span>
+      </div>
+      <h4 class="toast-title">Update Ready</h4>
+      <p class="toast-desc">
+        A new version of Arjun.dev is cached with offline improvements and updates.
+      </p>
+    </div>
+  </div>
+
+  <div class="toast-actions">
+    <button
+      type="button"
+      class="btn-toast btn-toast-primary"
+      (click)="reloadApp()"
+      [disabled]="isUpdating"
+      aria-label="Reload and apply new version"
+    >
+      <i class="bx bx-refresh" [class.bx-spin]="isUpdating"></i>
+      <span>{{ isUpdating ? 'Updating...' : 'Update & Reload' }}</span>
+    </button>
+    <button
+      type="button"
+      class="btn-toast btn-toast-secondary"
+      (click)="dismissUpdate()"
+      aria-label="Dismiss update popup"
+    >
+      Later
+    </button>
+  </div>
+</aside>
+
+<!-- PWA Install Toast -->
+<aside
+  *ngIf="canInstall && !updateAvailable"
+  class="pwa-toast-card pwa-install-toast glass-card"
+  role="status"
+  aria-live="polite"
+>
+  <div class="toast-top-glow install-glow"></div>
+
+  <button
+    type="button"
+    class="toast-close-btn"
+    (click)="dismissInstall()"
+    aria-label="Close install prompt"
+  >
+    <i class="bx bx-x"></i>
+  </button>
+
+  <div class="toast-main">
+    <div class="toast-icon-wrapper install-icon">
+      <img
+        src="assets/icons/icon-96x96.png"
+        alt="Arjun.dev App Icon"
+        class="toast-app-icon"
+        (error)="fallbackIcon($event)"
+      />
+      <div class="toast-badge-corner install-corner">
+        <i class="bx bx-download"></i>
+      </div>
+    </div>
+
+    <div class="toast-body">
+      <div class="toast-pill install-pill font-mono">
+        <i class="bx bxs-check-shield"></i>
+        <span>STANDALONE PWA</span>
+      </div>
+      <h4 class="toast-title">Install App</h4>
+      <p class="toast-desc">
+        Install Arjun.dev for fast, offline-ready desktop and mobile experience.
+      </p>
+    </div>
+  </div>
+
+  <div class="toast-actions">
+    <button
+      type="button"
+      class="btn-toast btn-toast-primary"
+      (click)="promptInstall()"
+      [disabled]="isInstalling"
+      aria-label="Install portfolio as application"
+    >
+      <i class="bx bx-desktop"></i>
+      <span>{{ isInstalling ? 'Installing...' : 'Install Now' }}</span>
+    </button>
+    <button
+      type="button"
+      class="btn-toast btn-toast-secondary"
+      (click)="dismissInstall()"
+      aria-label="Close install banner"
+    >
+      Not now
+    </button>
+  </div>
+</aside>

@@ -1,9 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
+  imports: [CommonModule]
 })
 export class NavbarComponent {
   isScrolled = false;
@@ -20,6 +22,8 @@ export class NavbarComponent {
     { label: 'Education', link: '#education' },
     { label: 'Contact', link: '#contact' },
   ];
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -39,6 +43,7 @@ export class NavbarComponent {
         }
       }
     }
+    this.cdr.markForCheck();
   }
 
   toggleMobileMenu() {
