@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Skill } from '../models/models';
 
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.css'],
+  imports: [CommonModule]
 })
 export class SkillsComponent {
   activeCategory: 'all' | 'frontend' | 'backend' | 'ai_cloud' | 'database' = 'all';

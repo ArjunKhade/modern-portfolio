@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-personal-information',
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.css'],
+  imports: [CommonModule]
 })
 export class PersonalInformationComponent {
   activeTab: 'bio' | 'profile' = 'bio';

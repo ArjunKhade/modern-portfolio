@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, NgZone, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-baner',
@@ -20,7 +20,7 @@ export class BanerComponent implements OnInit, OnDestroy {
   private typingTimer: any;
   private animFrameId: number = 0;
 
-  constructor(private ngZone: NgZone) {}
+  constructor(private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.startRoleTypingAnimation();
@@ -61,6 +61,7 @@ export class BanerComponent implements OnInit, OnDestroy {
       }
 
       const speed = isDeleting ? 45 : 90;
+      this.cdr.markForCheck();
       this.typingTimer = setTimeout(tick, speed);
     };
 
