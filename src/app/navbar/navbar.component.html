@@ -16,10 +16,22 @@
           <a
             [href]="item.link"
             class="nav-link"
-            [class.active]="activeSection === item.link.substring(1)"
+            [class.active]="!isUpskillActive() && activeSection === item.link.substring(1)"
             (click)="scrollToSection(item.link, $event)"
           >
             {{ item.label }}
+          </a>
+        </li>
+
+        <!-- Upskills Direct Link -->
+        <li>
+          <a
+            routerLink="/upskill"
+            class="nav-link"
+            [class.active]="isUpskillActive()"
+            (click)="onUpskillClick($event)"
+          >
+            Upskills
           </a>
         </li>
       </ul>
@@ -56,12 +68,25 @@
         <a
           [href]="item.link"
           class="mobile-nav-link"
-          [class.active]="activeSection === item.link.substring(1)"
+          [class.active]="!isUpskillActive() && activeSection === item.link.substring(1)"
           (click)="scrollToSection(item.link, $event)"
         >
           {{ item.label }}
         </a>
       </li>
+
+      <!-- Mobile Upskill Direct Link -->
+      <li>
+        <a
+          routerLink="/upskill"
+          class="mobile-nav-link"
+          [class.active]="isUpskillActive()"
+          (click)="onUpskillClick($event)"
+        >
+          Upskills
+        </a>
+      </li>
+
       <li class="mobile-resume-item">
         <a [href]="resumeUrl" download="ArjunKhade_Resume.pdf" class="btn-primary mobile-btn">
           <i class="bx bx-download"></i> Download Resume

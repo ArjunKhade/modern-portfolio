@@ -57,6 +57,13 @@ export class ContactComponent {
       handle: '@me_arjun_khade',
       color: '#e1306c'
     },
+    {
+      name: 'YouTube',
+      icon: 'bxl-youtube',
+      url: 'https://www.youtube.com/@cdacengineer',
+      handle: '@cdacengineer',
+      color: '#ff0033'
+    },
   ];
 
   copyEmail() {

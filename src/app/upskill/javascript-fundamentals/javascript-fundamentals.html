@@ -1,0 +1,226 @@
+<div class="js-page">
+
+  <!-- ══ Page Header ══ -->
+  <header class="js-hero">
+    <div class="js-hero-inner">
+      <nav class="js-breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/upskill" class="breadcrumb-back-btn">
+          <i class="bx bx-left-arrow-alt"></i> Back to Upskill Hub
+        </a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">JavaScript Fundamentals</span>
+      </nav>
+
+      <div class="js-hero-badge">
+        <svg class="js-badge-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="JavaScript logo">
+          <rect width="32" height="32" rx="4" fill="#F7DF1E"/>
+          <path d="M19.5 24.5c.9.5 1.9.9 3 .9 1.4 0 2.2-.7 2.2-1.7 0-1.1-.9-1.6-2.5-2.3l-.8-.4c-2.3-1-3.8-2.3-3.8-4.9 0-2.4 1.9-4.2 4.9-4.2 1.4 0 2.6.4 3.4.9l-.9 2.1c-.6-.4-1.5-.7-2.5-.7-1.3 0-2 .6-2 1.5 0 .9.8 1.4 2.2 2l.8.4c2.6 1.1 4.1 2.4 4.1 5.2 0 2.7-2.1 4.4-5.3 4.4-1.7 0-3.1-.5-4.2-1.1l.5-2.1zm-8.8.4c.7.4 1.5.6 2.3.6 1.3 0 2.1-.6 2.1-2.3v-11.1h2.8v11.2c0 3.2-1.8 4.7-4.8 4.7-1.4 0-2.6-.4-3.3-.9l.9-2.2z" fill="#000000"/>
+        </svg>
+        <span>JavaScript Fundamentals</span>
+      </div>
+      <h1 class="js-hero-title">
+        <span class="gradient-text">JavaScript</span>
+        <span class="gradient-text-cyan"> Fundamentals</span>
+      </h1>
+      <p class="js-hero-subtitle">
+        Master core execution concepts: synchronous vs asynchronous, execution context, hoisting, closures, and modern ES6+ patterns.
+      </p>
+
+      <!-- Stats Row -->
+      <div class="js-stats">
+        <div class="js-stat">
+          <span class="js-stat-num">{{ topics.length }}</span>
+          <span class="js-stat-label">Topics</span>
+        </div>
+        <div class="js-stat-divider"></div>
+        <div class="js-stat">
+          <span class="js-stat-num">20+</span>
+          <span class="js-stat-label">Code Examples</span>
+        </div>
+        <div class="js-stat-divider"></div>
+        <div class="js-stat">
+          <span class="js-stat-num">6</span>
+          <span class="js-stat-label">Interview Topics</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ Main Layout ══ -->
+  <div class="js-layout">
+
+    <!-- ── Sidebar ── -->
+    <aside class="js-sidebar">
+      <!-- Search -->
+      <div class="js-search-wrap">
+        <i class="bx bx-search js-search-icon"></i>
+        <input
+          id="js-search"
+          class="js-search-input"
+          type="text"
+          placeholder="Search topics... (Ctrl+K)"
+          [ngModel]="searchQuery()"
+          (ngModelChange)="searchQuery.set($event)"
+          autocomplete="off"
+        />
+        @if (searchQuery()) {
+          <button class="js-search-clear" (click)="searchQuery.set('')" aria-label="Clear search">
+            <i class="bx bx-x"></i>
+          </button>
+        }
+      </div>
+
+      <!-- Topic List -->
+      <nav class="js-topic-list" aria-label="JavaScript topics navigation">
+        @for (topic of filteredTopics(); track topic.id) {
+          <button
+            class="js-topic-btn"
+            [class.active]="activeTopicId() === topic.id"
+            (click)="setActiveTopic(topic.id)"
+            [attr.aria-current]="activeTopicId() === topic.id ? 'page' : null"
+          >
+            <span class="js-topic-icon">{{ topic.icon }}</span>
+            <span class="js-topic-title-text">{{ topic.title }}</span>
+            @if (topic.badge) {
+              <span class="js-topic-badge" [class.interview-badge]="topic.badge.includes('⭐')">
+                {{ topic.badge }}
+              </span>
+            }
+          </button>
+        }
+
+        @if (filteredTopics().length === 0) {
+          <div class="js-no-results">
+            <span>🔍</span>
+            <p>No topics match "<strong>{{ searchQuery() }}</strong>"</p>
+          </div>
+        }
+      </nav>
+
+      <!-- Legend -->
+      <div class="js-legend">
+        <p class="js-legend-title">Legend</p>
+        <div class="js-legend-item"><span class="js-topic-badge interview-badge">⭐</span> Frequently asked in interviews</div>
+        <div class="js-legend-item"><span class="js-topic-badge">Tricky</span> Common misconceptions</div>
+      </div>
+    </aside>
+
+    <!-- ── Content Area ── -->
+    <main class="js-content" id="js-main-content">
+      @if (activeTopic(); as topic) {
+        <!-- Topic Header -->
+        <div class="js-content-header">
+          <span class="js-content-icon">{{ topic.icon }}</span>
+          <div>
+            <h2 class="js-content-title">{{ topic.title }}</h2>
+            @if (topic.badge) {
+              <span class="js-topic-badge" [class.interview-badge]="topic.badge.includes('⭐')">
+                {{ topic.badge }}
+              </span>
+            }
+          </div>
+        </div>
+
+        <!-- Items as Accordion -->
+        <div class="js-accordion">
+          @for (item of topic.items; track item.heading; let i = $index) {
+            <div class="js-accordion-item" [class.expanded]="isExpanded(topic.id + '-' + i)">
+              <button
+                class="js-accordion-header"
+                (click)="toggleItem(topic.id + '-' + i)"
+                [attr.aria-expanded]="isExpanded(topic.id + '-' + i)"
+              >
+                <span class="js-accordion-heading">{{ item.heading }}</span>
+                <i class="bx js-accordion-chevron"
+                   [class.bx-chevron-down]="!isExpanded(topic.id + '-' + i)"
+                   [class.bx-chevron-up]="isExpanded(topic.id + '-' + i)">
+                </i>
+              </button>
+
+              <div class="js-accordion-body" [class.open]="isExpanded(topic.id + '-' + i)">
+                <!-- Text Content -->
+                @for (line of item.content; track $index) {
+                  <p class="js-content-line" [innerHTML]="line"></p>
+                }
+
+                <!-- Table -->
+                @if (item.table) {
+                  <div class="js-table-wrap">
+                    <table class="js-table">
+                      <thead>
+                        <tr>
+                          @for (h of item.table.headers; track $index) {
+                            <th>{{ h }}</th>
+                          }
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @for (row of item.table.rows; track $index) {
+                          <tr>
+                            @for (cell of row; track $index) {
+                              <td [innerHTML]="cell"></td>
+                            }
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                }
+
+                <!-- Code Blocks -->
+                @for (cb of item.codeBlocks; track $index; let cbIdx = $index) {
+                  <div class="js-code-block">
+                    <div class="js-code-header">
+                      <div class="js-code-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                      </div>
+                      <span class="js-code-lang">{{ cb.language }}</span>
+                      <button
+                        class="js-copy-btn"
+                        (click)="copyCode(cb.code, topic.id + '-' + i + '-' + cbIdx)"
+                        [attr.aria-label]="'Copy code'"
+                      >
+                        @if (copiedCode() === topic.id + '-' + i + '-' + cbIdx) {
+                          <i class="bx bx-check"></i> Copied!
+                        } @else {
+                          <i class="bx bx-copy"></i> Copy
+                        }
+                      </button>
+                    </div>
+                    <pre class="js-pre"><code>{{ cb.code }}</code></pre>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Navigation between topics -->
+        <div class="js-topic-nav">
+          @if (filteredTopics().indexOf(topic) > 0) {
+            <button
+              class="js-nav-btn prev"
+              (click)="setActiveTopic(filteredTopics()[filteredTopics().indexOf(topic) - 1].id)"
+            >
+              <i class="bx bx-chevron-left"></i>
+              <span>{{ filteredTopics()[filteredTopics().indexOf(topic) - 1].title }}</span>
+            </button>
+          } @else {
+            <div></div>
+          }
+          @if (filteredTopics().indexOf(topic) < filteredTopics().length - 1) {
+            <button
+              class="js-nav-btn next"
+              (click)="setActiveTopic(filteredTopics()[filteredTopics().indexOf(topic) + 1].id)"
+            >
+              <span>{{ filteredTopics()[filteredTopics().indexOf(topic) + 1].title }}</span>
+              <i class="bx bx-chevron-right"></i>
+            </button>
+          }
+        </div>
+      }
+    </main>
+  </div>
+</div>

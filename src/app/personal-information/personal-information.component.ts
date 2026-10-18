@@ -50,6 +50,7 @@ export const engineer = {
   location: "Pune, MH, India",
   currentCompany: "Aloha Technology",
   experienceYears: 4,
+  youtube: "@cdacengineer",
   passions: ["Clean Code", "Microservices", "AI Systems", "High Perf"],
   technologies: {
     frontend: ["Angular 15-21", "Signals", "React.js", "TypeScript"],

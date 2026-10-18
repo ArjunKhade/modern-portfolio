@@ -1,0 +1,379 @@
+/* ═══════════════════════════════════════════
+   Upskill Hub Page
+   ═══════════════════════════════════════════ */
+
+.upskill-page {
+  min-height: 100vh;
+  padding-top: 80px;
+  color: var(--text-main);
+}
+
+/* ── Hero ── */
+.upskill-hero {
+  padding: 3rem 0 3rem;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(0, 210, 255, 0.04) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border-glass);
+  margin-bottom: 3rem;
+}
+
+.upskill-hero-top {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.45rem 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  transition: all 0.2s ease;
+}
+
+.back-home-btn:hover {
+  color: var(--primary);
+  border-color: rgba(0, 245, 160, 0.3);
+  background: rgba(0, 245, 160, 0.08);
+  transform: translateX(-2px);
+}
+
+.upskill-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.1rem;
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  color: var(--secondary);
+  background: rgba(0, 210, 255, 0.08);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+  border-radius: var(--radius-full);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.upskill-hero-badge i {
+  font-size: 1rem;
+}
+
+.upskill-hero-title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.upskill-hero-subtitle {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* ── Section ── */
+.upskill-section {
+  padding-bottom: 5rem;
+}
+
+/* ── Course Grid ── */
+.upskill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 1.5rem;
+}
+
+/* ── Course Card ── */
+.course-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.course-card.available {
+  cursor: pointer;
+}
+
+.course-card.available:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.course-card.available:hover .course-glow {
+  opacity: 1;
+}
+
+.course-card.coming-soon {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Glow Effect */
+.course-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at top left, var(--glow-color, transparent) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Top Row */
+.course-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.course-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.course-card:hover .course-icon {
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.tech-svg {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.course-soon-badge {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-dim);
+}
+
+.course-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: rgba(0, 245, 160, 0.08);
+  border: 1px solid rgba(0, 245, 160, 0.25);
+  color: var(--primary);
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 6px var(--primary);
+  animation: pulse-glow 2s infinite;
+}
+
+/* Course Info */
+.course-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.course-description {
+  font-size: 0.87rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  flex: 1;
+  margin: 0;
+}
+
+/* Footer */
+.course-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-glass);
+}
+
+.course-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.course-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+.course-meta-item i {
+  font-size: 0.85rem;
+}
+
+.course-difficulty {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.course-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.course-card:hover .course-cta {
+  color: var(--primary);
+  gap: 0.5rem;
+}
+
+.course-cta i {
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.course-card:hover .course-cta i {
+  transform: translateX(3px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .upskill-page {
+    padding-top: 70px;
+  }
+
+  .upskill-hero {
+    padding: 2.25rem 0 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .upskill-hero-title {
+    font-size: clamp(1.75rem, 6vw, 2.4rem);
+  }
+
+  .upskill-hero-subtitle {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+  }
+
+  .upskill-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .course-card {
+    padding: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .upskill-page {
+    padding-top: 65px;
+  }
+
+  .upskill-hero-badge {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .upskill-hero-title {
+    font-size: 1.65rem;
+    line-height: 1.25;
+  }
+
+  .course-card {
+    padding: 1.15rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .course-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .tech-svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .course-title {
+    font-size: 1.05rem;
+  }
+
+  .course-description {
+    font-size: 0.84rem;
+  }
+
+  .course-footer {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-top: 0.75rem;
+  }
+
+  .course-meta {
+    gap: 0.5rem;
+  }
+
+  .course-meta-item {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .course-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .course-cta {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

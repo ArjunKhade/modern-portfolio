@@ -40,7 +40,7 @@
 /* Grid */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
   gap: 2rem;
 }
 
@@ -212,5 +212,30 @@
 @media (max-width: 640px) {
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-filters {
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .filter-pill-btn {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+  }
+
+  .project-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .project-title {
+    font-size: 1.15rem;
+  }
+
+  .project-highlights li {
+    font-size: 0.84rem;
   }
 }

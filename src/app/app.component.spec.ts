@@ -1,16 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { provideRouter } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
+import { Subject } from 'rxjs';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
-      ],
-      declarations: [
         AppComponent
       ],
+      providers: [
+        provideRouter([]),
+        {
+          provide: SwUpdate,
+          useValue: { isEnabled: false, versionUpdates: new Subject() }
+        }
+      ]
     }).compileComponents();
   });
 
@@ -24,12 +30,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('my-portfolio');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('my-portfolio app is running!');
   });
 });

@@ -316,3 +316,49 @@
     text-align: center;
   }
 }
+
+@media (max-width: 480px) {
+  .info-card {
+    padding: 1.25rem 1rem;
+    gap: 1.25rem;
+  }
+
+  .info-item {
+    gap: 0.75rem;
+  }
+
+  .info-link,
+  .info-val {
+    font-size: 0.88rem;
+    word-break: break-word;
+  }
+
+  .contact-form {
+    padding: 1.25rem 1rem;
+  }
+
+  .form-title {
+    font-size: 1.2rem;
+  }
+
+  .form-input {
+    padding: 0.75rem 0.9rem;
+    font-size: 0.88rem;
+  }
+
+  .social-card {
+    padding: 0.85rem 1rem;
+  }
+
+  .portfolio-footer {
+    margin-top: 3.5rem;
+  }
+
+  .footer-brand {
+    font-size: 1.05rem;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+  }
+}

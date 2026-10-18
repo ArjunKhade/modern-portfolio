@@ -1,13 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, ElementRef, HostBinding, ChangeDetectorRef } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
-import { BanerComponent } from './baner/baner.component';
-import { PersonalInformationComponent } from './personal-information/personal-information.component';
-import { SkillsComponent } from './skills/skills.component';
-import { ProjectComponent } from './project/project.component';
-import { WorkExperienceComponent } from './work-experience/work-experience.component';
-import { EducationComponent } from './education/education.component';
-import { ContactComponent } from './contact/contact.component';
 import { PwaUpdateComponent } from './pwa-update/pwa-update.component';
 
 @Component({
@@ -15,14 +9,8 @@ import { PwaUpdateComponent } from './pwa-update/pwa-update.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   imports: [
+    RouterOutlet,
     NavbarComponent,
-    BanerComponent,
-    PersonalInformationComponent,
-    SkillsComponent,
-    ProjectComponent,
-    WorkExperienceComponent,
-    EducationComponent,
-    ContactComponent,
     PwaUpdateComponent
   ]
 })

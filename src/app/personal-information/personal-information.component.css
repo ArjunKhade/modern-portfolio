@@ -229,3 +229,43 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .terminal-bar {
+    padding: 0.65rem 0.85rem;
+  }
+
+  .terminal-tab-btn {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.75rem;
+  }
+
+  .terminal-body {
+    padding: 1.15rem 1rem;
+  }
+
+  .bio-lead {
+    font-size: 0.95rem;
+  }
+
+  .bio-text {
+    font-size: 0.88rem;
+  }
+
+  .code-block {
+    padding: 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .pillar-card {
+    padding: 1.15rem 1rem;
+  }
+
+  .pillar-title {
+    font-size: 0.98rem;
+  }
+
+  .pillar-desc {
+    font-size: 0.85rem;
+  }
+}

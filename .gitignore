@@ -2,14 +2,26 @@
 
 # Compiled output
 /dist
+dist/
 /tmp
 /out-tsc
+out-tsc/
 /bazel-out
 
-# Node
+# Node dependencies & logs
 /node_modules
-npm-debug.log
-yarn-error.log
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment and local configs
+.env
+.env.local
+.env.*.local
+!.env.example
 
 # IDEs and editors
 .idea/
@@ -19,6 +31,9 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
 
 # Visual Studio Code
 .vscode/*
@@ -28,15 +43,28 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Miscellaneous
-/.angular/cache
+# Angular & Build caches
+/.angular
+.angular/
 .sass-cache/
 /connect.lock
 /coverage
+coverage/
+*.lcov
+.nyc_output
 /libpeerconnection.log
 testem.log
 /typings
 
-# System files
+# System & OS files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+ehthumbs_vista.db
 Thumbs.db
+Thumbs.db:encryptable
+[Dd]esktop.ini
+$RECYCLE.BIN/

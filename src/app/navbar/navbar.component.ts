@@ -1,11 +1,12 @@
 import { Component, HostListener, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule],
 })
 export class NavbarComponent {
   isScrolled = false;
@@ -23,11 +24,17 @@ export class NavbarComponent {
     { label: 'Contact', link: '#contact' },
   ];
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, public router: Router) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 40;
+
+    if (this.isUpskillActive()) {
+      this.activeSection = '';
+      this.cdr.markForCheck();
+      return;
+    }
 
     const sections = ['home', 'about', 'skills', 'projects', 'experience', 'education', 'contact'];
     const scrollPosition = window.scrollY + 200;
@@ -46,6 +53,10 @@ export class NavbarComponent {
     this.cdr.markForCheck();
   }
 
+  isUpskillActive(): boolean {
+    return this.router.url.startsWith('/upskill');
+  }
+
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
@@ -54,13 +65,35 @@ export class NavbarComponent {
     this.isMobileMenuOpen = false;
   }
 
+  onUpskillClick(e: Event) {
+    this.closeMobileMenu();
+    this.router.navigate(['/upskill']);
+  }
+
   scrollToSection(sectionId: string, event: Event) {
     event.preventDefault();
     this.closeMobileMenu();
     const cleanId = sectionId.replace('#', '');
+
+    if (this.router.url !== '/' && !this.router.url.startsWith('/#')) {
+      this.router.navigate(['/'], { fragment: cleanId }).then(() => {
+        setTimeout(() => {
+          const element = document.getElementById(cleanId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }, 150);
+      });
+      return;
+    }
+
     const element = document.getElementById(cleanId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 }

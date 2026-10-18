@@ -1,0 +1,440 @@
+<div class="dsa-page">
+
+  <!-- ══ Page Header ══ -->
+  <header class="dsa-hero">
+    <div class="dsa-hero-inner">
+      <nav class="dsa-breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/upskill" class="breadcrumb-back-btn">
+          <i class="bx bx-left-arrow-alt"></i> Back to Upskill Hub
+        </a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">DSA Problem Solving</span>
+      </nav>
+
+      <div class="dsa-hero-badge">
+        <svg class="dsa-badge-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="6" r="3.5" fill="#a855f7" stroke="#c084fc" stroke-width="1.5"/>
+          <circle cx="8" cy="18" r="3" fill="#a855f7" stroke="#c084fc" stroke-width="1.5"/>
+          <circle cx="24" cy="18" r="3" fill="#a855f7" stroke="#c084fc" stroke-width="1.5"/>
+          <path d="M14 9l-4.5 6.5M18 9l4.5 6.5" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span>Data Structures & Algorithms</span>
+      </div>
+
+      <h1 class="dsa-hero-title">
+        Famous Interview <span class="gradient-text-purple">DSA Questions</span>
+      </h1>
+      <p class="dsa-hero-subtitle">
+        Curated collection of the most frequently asked LeetCode interview problems with optimal multi-language code solutions and comprehensive video explanations.
+      </p>
+
+      <!-- Stats Bar -->
+      <div class="dsa-stats">
+        <div class="dsa-stat">
+          <span class="dsa-stat-num">{{ problems.length }}</span>
+          <span class="dsa-stat-label">Core Problems</span>
+        </div>
+        <div class="dsa-stat-divider"></div>
+        <div class="dsa-stat">
+          <span class="dsa-stat-num">3</span>
+          <span class="dsa-stat-label">Languages (Java, JS, Python)</span>
+        </div>
+        <div class="dsa-stat-divider"></div>
+        <div class="dsa-stat">
+          <span class="dsa-stat-num">100%</span>
+          <span class="dsa-stat-label">With Video Solution</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ Filter & Controls Toolbar ══ -->
+  <section class="dsa-controls-section">
+    <div class="dsa-container">
+      <div class="dsa-toolbar glass-card">
+        <!-- Search Input -->
+        <div class="dsa-search-wrap">
+          <i class="bx bx-search dsa-search-icon"></i>
+          <input
+            type="text"
+            class="dsa-search-input"
+            placeholder="Search problem (e.g. Two Sum, Kadane, Stack...)"
+            [ngModel]="searchQuery()"
+            (ngModelChange)="searchQuery.set($event)"
+          />
+          @if (searchQuery()) {
+            <button class="dsa-search-clear" (click)="searchQuery.set('')" aria-label="Clear search">
+              <i class="bx bx-x"></i>
+            </button>
+          }
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div class="dsa-filter-group">
+          <div class="dsa-category-pills">
+            @for (cat of categories; track cat) {
+              <button
+                class="dsa-cat-pill"
+                [class.active]="selectedCategory() === cat"
+                (click)="setCategory(cat)"
+              >
+                {{ cat }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <!-- Difficulty Filter -->
+        <div class="dsa-diff-pills">
+          <button
+            class="dsa-diff-pill"
+            [class.active]="selectedDifficulty() === 'All'"
+            (click)="setDifficulty('All')"
+          >
+            All Difficulties
+          </button>
+          <button
+            class="dsa-diff-pill diff-easy-btn"
+            [class.active]="selectedDifficulty() === 'Easy'"
+            (click)="setDifficulty('Easy')"
+          >
+            Easy
+          </button>
+          <button
+            class="dsa-diff-pill diff-med-btn"
+            [class.active]="selectedDifficulty() === 'Medium'"
+            (click)="setDifficulty('Medium')"
+          >
+            Medium
+          </button>
+          <button
+            class="dsa-diff-pill diff-hard-btn"
+            [class.active]="selectedDifficulty() === 'Hard'"
+            (click)="setDifficulty('Hard')"
+          >
+            Hard
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Main Layout: Master-Detail ══ -->
+  <main class="dsa-main-layout">
+    <div class="dsa-container dsa-grid-layout">
+
+      <!-- ── Left: Problem List Sidebar ── -->
+      <aside class="dsa-sidebar" aria-label="DSA Problem List">
+        <div class="dsa-sidebar-header">
+          <span class="dsa-list-count">
+            Showing {{ filteredProblems().length }} of {{ problems.length }} problems
+          </span>
+        </div>
+
+        <div class="dsa-problem-list">
+          @for (prob of filteredProblems(); track prob.id) {
+            <button
+              class="dsa-problem-item"
+              [class.active]="activeProblem().id === prob.id"
+              (click)="setActiveProblem(prob.id)"
+            >
+              <div class="prob-item-top">
+                <span class="prob-number font-mono">#{{ prob.number }}</span>
+                <span class="dsa-diff-badge" [ngClass]="getDifficultyClass(prob.difficulty)">
+                  {{ prob.difficulty }}
+                </span>
+              </div>
+              <h4 class="prob-title">{{ prob.title }}</h4>
+              <div class="prob-item-footer">
+                <span class="prob-category font-mono">
+                  <i class="bx bx-folder"></i> {{ prob.category }}
+                </span>
+                <span class="prob-video-indicator" title="Has video solution">
+                  <i class="bx bxs-video"></i> Video
+                </span>
+              </div>
+            </button>
+          }
+
+          @if (filteredProblems().length === 0) {
+            <div class="dsa-empty-state">
+              <i class="bx bx-search-alt"></i>
+              <p>No problems match your filter</p>
+              <button class="reset-filter-btn" (click)="searchQuery.set(''); selectedCategory.set('All'); selectedDifficulty.set('All')">
+                Reset Filters
+              </button>
+            </div>
+          }
+        </div>
+      </aside>
+
+      <!-- ── Right: Problem Details & Solutions ── -->
+      @if (activeProblem(); as prob) {
+        <section class="dsa-detail-area" id="problem-detail-section">
+          <div class="prob-detail-card glass-card">
+
+          <!-- Problem Header -->
+          <div class="prob-detail-header">
+            <div class="prob-header-left">
+              <div class="prob-badge-group">
+                <span class="prob-num-tag font-mono">LeetCode #{{ prob.number }}</span>
+                <span class="dsa-diff-badge" [ngClass]="getDifficultyClass(prob.difficulty)">
+                  {{ prob.difficulty }}
+                </span>
+                <span class="prob-cat-tag">
+                  <i class="bx bx-category"></i> {{ prob.category }}
+                </span>
+              </div>
+              <h2 class="prob-detail-title">{{ prob.title }}</h2>
+            </div>
+
+            <!-- Quick Action: Watch Video Button -->
+            <button class="prob-quick-video-btn" (click)="openVideoModal(prob)">
+              <i class="bx bx-play-circle"></i>
+              <span>Watch Video</span>
+            </button>
+          </div>
+
+          <!-- Tags -->
+          <div class="prob-tags-row">
+            @for (tag of prob.tags; track tag) {
+              <span class="prob-tag font-mono">#{{ tag }}</span>
+            }
+          </div>
+
+          <!-- Problem Description -->
+          <div class="prob-section-block">
+            <h3 class="prob-section-heading">
+              <i class="bx bx-file"></i> Problem Statement
+            </h3>
+            <p class="prob-description-text" [innerHTML]="prob.description"></p>
+          </div>
+
+          <!-- Examples -->
+          <div class="prob-section-block">
+            <h3 class="prob-section-heading">
+              <i class="bx bx-code-curly"></i> Examples
+            </h3>
+            <div class="prob-examples-list">
+              @for (ex of prob.examples; track $index; let idx = $index) {
+                <div class="example-box">
+                  <div class="example-title font-mono">Example {{ idx + 1 }}:</div>
+                  <div class="example-row">
+                    <span class="example-label">Input:</span>
+                    <code class="example-code">{{ ex.input }}</code>
+                  </div>
+                  <div class="example-row">
+                    <span class="example-label">Output:</span>
+                    <code class="example-code">{{ ex.output }}</code>
+                  </div>
+                  @if (ex.explanation) {
+                    <div class="example-row">
+                      <span class="example-label">Explanation:</span>
+                      <span class="example-exp">{{ ex.explanation }}</span>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Constraints -->
+          <div class="prob-section-block">
+            <h3 class="prob-section-heading">
+              <i class="bx bx-shield"></i> Constraints
+            </h3>
+            <ul class="constraints-list">
+              @for (c of prob.constraints; track c) {
+                <li [innerHTML]="c"></li>
+              }
+            </ul>
+          </div>
+
+          <!-- Optimal Approach Breakdown -->
+          <div class="prob-section-block approach-block">
+            <h3 class="prob-section-heading">
+              <i class="bx bx-bulb"></i> Optimal Approach & Intuition
+            </h3>
+            <p class="approach-text" [innerHTML]="prob.approach"></p>
+
+            <div class="complexity-pills">
+              <div class="complexity-pill time">
+                <i class="bx bx-time-five"></i>
+                <span class="comp-label">Time Complexity:</span>
+                <span class="comp-val font-mono">{{ prob.timeComplexity }}</span>
+              </div>
+              <div class="complexity-pill space">
+                <i class="bx bx-hdd"></i>
+                <span class="comp-label">Space Complexity:</span>
+                <span class="comp-val font-mono">{{ prob.spaceComplexity }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ════ Solution Code Section ════ -->
+          <div class="prob-section-block code-section-block">
+            <div class="code-section-header">
+              <h3 class="prob-section-heading no-margin">
+                <i class="bx bx-code-alt"></i> Optimal Solution Code
+              </h3>
+
+              <!-- Language Selector Tabs -->
+              <div class="lang-selector">
+                <button
+                  class="lang-tab"
+                  [class.active]="selectedCodeLang() === 'java'"
+                  (click)="setCodeLang('java')"
+                >
+                  Java
+                </button>
+                <button
+                  class="lang-tab"
+                  [class.active]="selectedCodeLang() === 'javascript'"
+                  (click)="setCodeLang('javascript')"
+                >
+                  JavaScript
+                </button>
+                <button
+                  class="lang-tab"
+                  [class.active]="selectedCodeLang() === 'python'"
+                  (click)="setCodeLang('python')"
+                >
+                  Python
+                </button>
+              </div>
+            </div>
+
+            <!-- Code Editor Window -->
+            <div class="code-editor-box">
+              <div class="code-editor-top">
+                <div class="code-mac-dots">
+                  <span class="mac-dot red"></span>
+                  <span class="mac-dot yellow"></span>
+                  <span class="mac-dot green"></span>
+                </div>
+                <span class="code-lang-label font-mono">Solution.{{ selectedCodeLang() === 'java' ? 'java' : selectedCodeLang() === 'javascript' ? 'js' : 'py' }}</span>
+                <button class="code-copy-btn" (click)="copyCurrentCode()" aria-label="Copy code">
+                  @if (copiedCodeId() === prob.id) {
+                    <i class="bx bx-check"></i>
+                    <span>Copied!</span>
+                  } @else {
+                    <i class="bx bx-copy"></i>
+                    <span>Copy Code</span>
+                  }
+                </button>
+              </div>
+              <pre class="code-pre"><code class="font-mono">{{ activeCode() }}</code></pre>
+            </div>
+          </div>
+
+          <!-- ════ Video Solution Section (Directly Below Code) ════ -->
+          <div class="prob-section-block video-section-block">
+            <div class="video-section-header">
+              <div class="video-badge">
+                <i class="bx bxs-video"></i>
+                <span>Video Solution & Detailed Explanation</span>
+              </div>
+              <span class="video-tip font-mono">Click to watch in interactive popup</span>
+            </div>
+
+            <div class="video-preview-card">
+              <!-- Thumbnail with Play Overlay -->
+              <div class="video-thumb-wrap" (click)="openVideoModal(prob)">
+                <img
+                  [src]="getThumbnailUrl(prob.youtubeVideoId)"
+                  [alt]="prob.videoTitle"
+                  class="video-thumb-img"
+                  loading="lazy"
+                />
+                <div class="video-thumb-overlay">
+                  <div class="video-play-pulse">
+                    <i class="bx bx-play"></i>
+                  </div>
+                  <span class="video-play-hint">Watch Video Walkthrough</span>
+                </div>
+              </div>
+
+              <!-- Video Info & Buttons -->
+              <div class="video-info-content">
+                <h4 class="video-card-title">{{ prob.videoTitle }}</h4>
+                <p class="video-card-desc">
+                  Step-by-step visual intuition, edge cases, dry run, and time/space complexity analysis for <strong>{{ prob.title }}</strong>.
+                </p>
+
+                <div class="video-actions-row">
+                  <button class="btn-primary-purple video-popup-trigger-btn" (click)="openVideoModal(prob)">
+                    <i class="bx bx-play-circle"></i>
+                    <span>Watch Video Solution</span>
+                  </button>
+
+                  <a
+                    [href]="prob.youtubeUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-outline-glass youtube-external-btn"
+                  >
+                    <i class="bx bxl-youtube text-red"></i>
+                    <span>Open in YouTube</span>
+                    <i class="bx bx-external-link"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+      }
+
+    </div>
+  </main>
+
+  <!-- ════ Video Popup Modal ════ -->
+  @if (activeVideoProblem(); as prob) {
+    <div class="video-modal-backdrop" (click)="closeVideoModal()" role="dialog" aria-modal="true" aria-label="Video Solution Popup">
+      <div class="video-modal-container" (click)="$event.stopPropagation()">
+        
+        <!-- Modal Top Bar -->
+        <div class="video-modal-header">
+          <div class="modal-header-info">
+            <span class="modal-badge font-mono">LeetCode #{{ prob.number }}</span>
+            <h3 class="modal-title">{{ prob.videoTitle }}</h3>
+          </div>
+          <button class="modal-close-btn" (click)="closeVideoModal()" aria-label="Close video modal">
+            <i class="bx bx-x"></i>
+          </button>
+        </div>
+
+        <!-- Video Player Iframe (16:9) -->
+        <div class="video-iframe-responsive">
+          <iframe
+            [src]="getSafeEmbedUrl(prob.youtubeVideoId)"
+            [title]="prob.videoTitle"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <!-- Modal Footer Bar -->
+        <div class="video-modal-footer">
+          <div class="modal-footer-meta">
+            <span class="font-mono text-muted">Problem: {{ prob.title }}</span>
+            <span class="modal-diff-pill" [ngClass]="getDifficultyClass(prob.difficulty)">{{ prob.difficulty }}</span>
+          </div>
+
+          <a
+            [href]="prob.youtubeUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="modal-youtube-link"
+          >
+            <i class="bx bxl-youtube"></i> Watch on YouTube
+          </a>
+        </div>
+
+      </div>
+    </div>
+  }
+
+</div>

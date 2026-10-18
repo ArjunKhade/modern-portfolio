@@ -57,7 +57,7 @@
 /* Skills Grid */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1.5rem;
 }
 
@@ -169,8 +169,34 @@
 }
 
 @media (max-width: 640px) {
+  .category-tabs-wrapper {
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+  }
+
   .category-tabs {
-    flex-wrap: wrap;
-    border-radius: var(--radius-lg);
+    flex-wrap: nowrap;
+    border-radius: var(--radius-full);
+  }
+
+  .category-btn {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .skill-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .skill-name {
+    font-size: 1rem;
   }
 }
