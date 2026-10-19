@@ -173,6 +173,29 @@
 
   <!-- ══ Main Work Area: 2-Column (Editor | Single-Column Preview) ══ -->
   <main class="rb-main-container">
+
+    <!-- Mobile Switch Bar (Visible only on mobile/tablet) -->
+    <div class="mobile-mode-bar" aria-label="Toggle between Edit and Preview modes">
+      <button
+        class="mobile-mode-btn"
+        [class.active]="mobileView() === 'editor'"
+        (click)="mobileView.set('editor')"
+        type="button"
+      >
+        <i class="bx bx-edit-alt"></i>
+        <span>Edit Resume</span>
+      </button>
+      <button
+        class="mobile-mode-btn"
+        [class.active]="mobileView() === 'preview'"
+        (click)="mobileView.set('preview')"
+        type="button"
+      >
+        <i class="bx bx-file"></i>
+        <span>ATS Preview</span>
+      </button>
+    </div>
+
     <div class="rb-grid" [attr.data-mobile-view]="mobileView()">
 
       <!-- ── Left Column: Ingestion & Field Editor ── -->

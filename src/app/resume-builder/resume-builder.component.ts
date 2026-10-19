@@ -210,6 +210,9 @@ export class ResumeBuilderComponent {
     this.isGeneratingPdf.set(true);
 
     try {
+      element.classList.add('export-pdf-mode');
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
       // Create high-res canvas (scale: 2 for sharp vector-like text)
       const canvas = await html2canvas(element, {
         scale: 2,
@@ -218,6 +221,8 @@ export class ResumeBuilderComponent {
         backgroundColor: '#ffffff',
         windowWidth: 1024,
       });
+
+      element.classList.remove('export-pdf-mode');
 
       const imgData = canvas.toDataURL('image/jpeg', 0.98);
       const pdf = new jsPDF('p', 'mm', 'a4');
@@ -245,6 +250,7 @@ export class ResumeBuilderComponent {
       this.isGeneratingPdf.set(false);
     } catch (err: any) {
       console.error('Error generating PDF:', err);
+      element?.classList.remove('export-pdf-mode');
       alert('Could not generate PDF. Please try the native Print button instead.');
       this.isGeneratingPdf.set(false);
     }

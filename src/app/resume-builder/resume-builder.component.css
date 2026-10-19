@@ -4,6 +4,8 @@
 
 :host {
   display: block;
+  width: 100%;
+  overflow-x: clip;
 }
 
 .rb-page {
@@ -11,6 +13,9 @@
   color: var(--text-main);
   padding-top: 80px;
   background: var(--bg-main, #070913);
+  width: 100%;
+  overflow-x: clip;
+  box-sizing: border-box;
 }
 
 /* ── Hero ── */
@@ -353,6 +358,51 @@
   max-width: 1600px;
   margin: 0 auto;
   padding: 2rem 1.5rem 5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Mobile Dedicated Mode Bar */
+.mobile-mode-bar {
+  display: none;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-full);
+  padding: 0.3rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px);
+  gap: 0.35rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobile-mode-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-mode-btn i {
+  font-size: 1.1rem;
+}
+
+.mobile-mode-btn.active {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #07090e;
+  box-shadow: 0 2px 12px rgba(0, 245, 160, 0.35);
 }
 
 .rb-grid {
@@ -360,6 +410,8 @@
   grid-template-columns: 460px 1fr;
   gap: 2rem;
   align-items: start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ── Left Column: Editor Pane ── */
@@ -488,7 +540,10 @@
 /* Editor Tabs */
 .editor-tabs {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   gap: 0.35rem;
   background: rgba(0, 0, 0, 0.25);
   padding: 0.35rem;
@@ -496,9 +551,12 @@
   border: 1px solid var(--border-glass);
 }
 
+.editor-tabs::-webkit-scrollbar {
+  display: none;
+}
+
 .tab-btn {
-  flex: 1;
-  min-width: 90px;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -799,10 +857,13 @@
 
 /* Sheet Scroller */
 .resume-sheet-scroller {
+  width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 2rem;
   display: flex;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 /* ═══════════════════════════════════════════════
@@ -821,6 +882,15 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+}
+
+/* Export override: forces standard 794px canvas during PDF generation on any screen size */
+.single-column-resume.export-pdf-mode {
+  width: 794px !important;
+  max-width: 794px !important;
+  min-width: 794px !important;
+  min-height: 1123px !important;
+  padding: 44px 48px !important;
 }
 
 /* Spacing Densities */
@@ -1067,13 +1137,17 @@
    Responsive Breakpoints
    ═══════════════════════════════════════════════ */
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .rb-grid {
     grid-template-columns: 1fr;
   }
 
+  .mobile-mode-bar {
+    display: flex;
+  }
+
   .mobile-view-toggle {
-    display: inline-flex;
+    display: none;
   }
 
   .rb-grid[data-mobile-view="preview"] .rb-editor-pane {
@@ -1083,12 +1157,64 @@
   .rb-grid[data-mobile-view="editor"] .rb-preview-pane {
     display: none;
   }
+
+  /* Unstick toolbar on mobile/tablets so it doesn't block vertical scrolling */
+  .rb-toolbar-container {
+    position: relative;
+    top: 0;
+    padding: 0.75rem 1rem;
+  }
+
+  .resume-sheet-scroller {
+    overflow-x: visible;
+    padding-bottom: 1.5rem;
+    display: block;
+    width: 100%;
+  }
+
+  .single-column-resume {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: auto !important;
+    padding: 24px 16px !important;
+    margin: 0 auto;
+    box-sizing: border-box !important;
+    border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  }
 }
 
 @media (max-width: 768px) {
+  .rb-hero {
+    padding: 1.75rem 0 1.25rem;
+  }
+
+  .rb-hero-title {
+    font-size: 1.75rem;
+  }
+
+  .rb-hero-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .rb-stats {
+    gap: 0.4rem;
+  }
+
+  .rb-stat-item {
+    padding: 0.2rem 0.5rem;
+  }
+
+  .rb-stat-divider {
+    display: none;
+  }
+
   .rb-toolbar {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.75rem;
   }
 
   .toolbar-left,
@@ -1096,6 +1222,20 @@
   .toolbar-right {
     justify-content: center;
     flex-wrap: wrap;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .toolbar-divider {
+    display: none;
+  }
+
+  .rb-main-container {
+    padding: 1rem 0.85rem 4rem;
+  }
+
+  .editor-card {
+    padding: 1.15rem 0.85rem;
   }
 
   .form-row.two-col,
@@ -1103,25 +1243,69 @@
     grid-template-columns: 1fr;
   }
 
-  .single-column-resume {
+  .preview-header-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .preview-title-wrap {
+    justify-content: space-between;
+  }
+
+  .btn-preview-download {
     width: 100%;
-    min-height: auto;
-    padding: 24px 18px;
+    justify-content: center;
+    padding: 0.6rem 1rem;
+  }
+
+  .single-column-resume {
+    padding: 20px 12px !important;
   }
 
   .resume-name {
-    font-size: 18pt;
+    font-size: 16pt !important;
+    word-break: break-word !important;
+  }
+
+  .resume-job-title {
+    font-size: 9.5pt !important;
+  }
+
+  .resume-contact-bar {
+    gap: 4px 6px !important;
+    font-size: 8pt !important;
+  }
+
+  .contact-item {
+    white-space: normal !important;
+    word-break: break-all !important;
   }
 
   .item-header-top,
   .item-header-sub {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px !important;
   }
 
   .item-date-right,
   .item-location-right {
-    text-align: left;
+    text-align: left !important;
+    white-space: normal !important;
+    font-size: 8pt !important;
+  }
+
+  .summary-paragraph,
+  .item-bullets li {
+    text-align: left !important;
+    word-break: break-word !important;
+    font-size: 8.5pt !important;
+  }
+
+  .section-heading {
+    font-size: 9.5pt !important;
   }
 }
 
