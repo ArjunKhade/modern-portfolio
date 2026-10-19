@@ -1,6 +1,7 @@
-# Modern Developer Portfolio & ATS Resume Hub 🚀
+# Modern Developer Portfolio, Technical Upskill Hub & ATS Resume Builder 🚀
 
 [![Website](https://img.shields.io/badge/Website-cdacengineer.in-00d2ff.svg?style=for-the-badge&logo=googlechrome&logoColor=white)](https://www.cdacengineer.in/)
+[![Technical Upskill Hub](https://img.shields.io/badge/Upskill%20Hub-Angular%20•%20JS%20•%20DSA-00d2ff.svg?style=for-the-badge)](https://www.cdacengineer.in/)
 [![Angular Version](https://img.shields.io/badge/Angular-v22-dd0031.svg?style=for-the-badge&logo=angular)](https://angular.dev/)
 [![Angular Signals](https://img.shields.io/badge/Reactivity-Angular%20Signals-E91E63.svg?style=for-the-badge&logo=angular)](https://angular.dev/guide/signals)
 [![PWA Installable](https://img.shields.io/badge/PWA-Installable%20%26%20Live%20Updates-5A0FC8.svg?style=for-the-badge&logo=pwa)](https://web.dev/progressive-web-apps/)
