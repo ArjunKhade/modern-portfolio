@@ -1,10 +1,13 @@
 # Modern Developer Portfolio & ATS Resume Hub 🚀
 
+[![Website](https://img.shields.io/badge/Website-cdacengineer.in-00d2ff.svg?style=for-the-badge&logo=googlechrome&logoColor=white)](https://www.cdacengineer.in/)
 [![Angular Version](https://img.shields.io/badge/Angular-18%2B%20%2F%2019-dd0031.svg?style=for-the-badge&logo=angular)](https://angular.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Lighthouse Best Practices](https://img.shields.io/badge/Lighthouse-100%25%20Best%20Practices-00f5a0.svg?style=for-the-badge&logo=lighthouse)](https://developers.google.com/web/tools/lighthouse)
 [![PWA Ready](https://img.shields.io/badge/PWA-Offline%20Ready-5A0FC8.svg?style=for-the-badge&logo=pwa)](https://web.dev/progressive-web-apps/)
+
+> 🌐 **Official Website**: [https://www.cdacengineer.in/](https://www.cdacengineer.in/)
 
 A high-performance personal developer brand, interactive technical learning hub, and client-side ATS single-column resume builder engineered with modern **Angular Standalone Architecture**, **Zoneless Change Detection**, **Signals**, and **Core Web Vitals** optimizations.
 
@@ -176,6 +179,7 @@ modern-portfolio/
 ## 👨‍💻 Author
 
 **Arjun Khade**
+- **Website**: [https://www.cdacengineer.in/](https://www.cdacengineer.in/)
 - **Role**: Senior Full-Stack Software Developer (Angular, Java, Spring Boot & AI Solutions)
 - **LinkedIn**: [linkedin.com/in/arjun-khade-ba825017b](https://www.linkedin.com/in/arjun-khade-ba825017b/)
 - **GitHub**: [@ArjunKhade](https://github.com/ArjunKhade)
