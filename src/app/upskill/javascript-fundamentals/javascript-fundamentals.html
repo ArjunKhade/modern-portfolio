@@ -111,13 +111,21 @@
         <!-- Topic Header -->
         <div class="js-content-header">
           <span class="js-content-icon">{{ topic.icon }}</span>
-          <div>
+          <div class="js-content-header-text">
             <h2 class="js-content-title">{{ topic.title }}</h2>
             @if (topic.badge) {
               <span class="js-topic-badge" [class.interview-badge]="topic.badge.includes('⭐')">
                 {{ topic.badge }}
               </span>
             }
+          </div>
+          <div class="js-content-actions">
+            <button class="js-action-btn" (click)="expandAllForTopic()" title="Expand all sections">
+              <i class="bx bx-expand-vertical"></i> Expand All
+            </button>
+            <button class="js-action-btn" (click)="collapseAllForTopic()" title="Collapse all sections">
+              <i class="bx bx-collapse-vertical"></i> Collapse
+            </button>
           </div>
         </div>
 

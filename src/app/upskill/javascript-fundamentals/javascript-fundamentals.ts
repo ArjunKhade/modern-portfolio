@@ -36,6 +36,20 @@ export class JavascriptFundamentals {
   expandedItems = signal<Set<string>>(new Set());
   copiedCode = signal<string | null>(null);
 
+  constructor() {
+    this.expandAllForCurrentTopic(this.activeTopicId());
+  }
+
+  private expandAllForCurrentTopic(topicId: string) {
+    const topic = this.topics.find((t) => t.id === topicId);
+    if (topic && topic.items.length > 0) {
+      const allKeys = new Set<string>();
+      topic.items.forEach((_, i) => allKeys.add(`${topicId}-${i}`));
+      this.expandedItems.set(allKeys);
+    }
+  }
+
+
   readonly topics: Topic[] = [
     {
       id: 'sync-async',
@@ -812,7 +826,16 @@ const updated = nums.with(0, 99);   // replaces index 0`,
 
   setActiveTopic(id: string) {
     this.activeTopicId.set(id);
-    this.expandedItems.set(new Set()); // reset expanded on topic change
+    this.expandAllForCurrentTopic(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  expandAllForTopic() {
+    this.expandAllForCurrentTopic(this.activeTopicId());
+  }
+
+  collapseAllForTopic() {
+    this.expandedItems.set(new Set());
   }
 
   toggleItem(key: string) {

@@ -24,17 +24,6 @@ export interface UpskillCourse {
 export class Upskill {
   readonly courses: UpskillCourse[] = [
     {
-      id: 'dsa',
-      icon: 'DSA',
-      title: 'DSA Problem Solving',
-      description: 'Famous LeetCode interview questions (Two Sum, Kadane, Sliding Window, Stack, Trees) with full code & video solutions.',
-      topicsCount: 8,
-      difficulty: 'Advanced',
-      route: '/upskill/dsa',
-      available: true,
-      color: '#a855f7',
-    },
-    {
       id: 'javascript',
       icon: '𝗝𝗦',
       title: 'JavaScript Fundamentals',
@@ -50,10 +39,10 @@ export class Upskill {
       icon: '🔺',
       title: 'Angular',
       description: 'Components, directives, services, RxJS, change detection, routing, forms and Angular best practices.',
-      topicsCount: 0,
+      topicsCount: 15,
       difficulty: 'Advanced',
       route: '/upskill/angular',
-      available: false,
+      available: true,
       color: '#dd0031',
     },
     {
@@ -66,6 +55,17 @@ export class Upskill {
       route: '/upskill/react',
       available: false,
       color: '#61dafb',
+    },
+    {
+      id: 'dsa',
+      icon: 'DSA',
+      title: 'DSA Problem Solving',
+      description: 'Famous LeetCode interview questions (Two Sum, Kadane, Sliding Window, Stack, Trees) with full code & video solutions.',
+      topicsCount: 8,
+      difficulty: 'Advanced',
+      route: '/upskill/dsa',
+      available: true,
+      color: '#a855f7',
     },
     {
       id: 'java',
@@ -135,7 +135,7 @@ export class Upskill {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   navigate(course: UpskillCourse) {
     if (course.available) {

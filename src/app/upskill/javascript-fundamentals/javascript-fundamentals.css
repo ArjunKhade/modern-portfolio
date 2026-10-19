@@ -377,11 +377,17 @@
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-glass);
+  flex-wrap: wrap;
 }
 
 .js-content-icon {
   font-size: 2.25rem;
   flex-shrink: 0;
+}
+
+.js-content-header-text {
+  flex: 1;
+  min-width: 200px;
 }
 
 .js-content-title {
@@ -390,6 +396,32 @@
   color: var(--text-main);
   letter-spacing: -0.02em;
   margin-bottom: 0.35rem;
+}
+
+.js-content-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.js-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.js-action-btn:hover {
+  background: rgba(0, 245, 160, 0.08);
+  border-color: rgba(0, 245, 160, 0.3);
+  color: var(--primary);
 }
 
 /* ── Accordion ── */

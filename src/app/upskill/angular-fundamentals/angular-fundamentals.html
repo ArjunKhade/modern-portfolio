@@ -1,0 +1,247 @@
+<div class="af-page">
+
+  <!-- ══ Page Header ══ -->
+  <header class="af-hero">
+    <div class="af-hero-inner">
+      <nav class="af-breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/upskill" class="breadcrumb-back-btn">
+          <i class="bx bx-left-arrow-alt"></i> Back to Upskill Hub
+        </a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">Angular Fundamentals</span>
+      </nav>
+
+      <div class="af-hero-badge">
+        <svg class="af-badge-svg" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Angular logo">
+          <polygon points="125,30 125,30 125,30 31.9,63.2 46.1,186.3 125,230 125,230 125,230 203.9,186.3 218.1,63.2" fill="#DD0031"/>
+          <polygon points="125,30 125,52.2 125,52.1 125,153.4 125,153.4 125,230 125,230 203.9,186.3 218.1,63.2 125,30" fill="#C3002F"/>
+          <polygon points="125,52.1 66,182.6 88.3,182.6 100.2,153.4 125,153.4 149.8,153.4 161.7,182.6 184,182.6" fill="#FFFFFF"/>
+          <polygon points="125,82.8 108.6,122.9 141.4,122.9" fill="#DD0031"/>
+        </svg>
+        <span>Angular Architecture & Fundamentals</span>
+      </div>
+
+      <h1 class="af-hero-title">
+        <span class="gradient-text-red">Angular</span>
+        <span class="gradient-text-light"> Fundamentals</span>
+      </h1>
+
+      <p class="af-hero-subtitle">
+        Master core Angular architecture: standalone directives, functional guards, modern dependency injection, fine-grained Signals, reactive forms, and NgRx state management.
+      </p>
+
+      <!-- Stats Row -->
+      <div class="af-stats">
+        <div class="af-stat">
+          <span class="af-stat-num">{{ topics.length }}</span>
+          <span class="af-stat-label">Topics</span>
+        </div>
+        <div class="af-stat-divider"></div>
+        <div class="af-stat">
+          <span class="af-stat-num">67</span>
+          <span class="af-stat-label">Code Examples</span>
+        </div>
+        <div class="af-stat-divider"></div>
+        <div class="af-stat">
+          <span class="af-stat-num">v18+</span>
+          <span class="af-stat-label">Signals & Control Flow</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ Main Layout ══ -->
+  <div class="af-layout">
+
+    <!-- ── Sidebar ── -->
+    <aside class="af-sidebar">
+      <!-- Search -->
+      <div class="af-search-wrap">
+        <i class="bx bx-search af-search-icon"></i>
+        <input
+          id="af-search"
+          class="af-search-input"
+          type="text"
+          placeholder="Search topics (Ctrl+K)..."
+          [ngModel]="searchQuery()"
+          (ngModelChange)="searchQuery.set($event)"
+          autocomplete="off"
+        />
+        @if (searchQuery()) {
+          <button class="af-search-clear" (click)="searchQuery.set('')">
+            <i class="bx bx-x"></i>
+          </button>
+        }
+      </div>
+
+      <!-- Topic List -->
+      <nav class="af-topic-list" aria-label="Angular Topics List">
+        @for (topic of filteredTopics(); track topic.id; let idx = $index) {
+          <button
+            class="af-topic-btn"
+            [class.active]="activeTopic().id === topic.id"
+            (click)="setActiveTopic(topic.id)"
+          >
+            <span class="af-topic-icon">{{ topic.icon }}</span>
+            <span class="af-topic-title-text">{{ idx + 1 }}. {{ topic.title }}</span>
+            @if (topic.badge) {
+              <span class="af-topic-badge" [class.core-badge]="topic.badge === 'Core' || topic.badge === 'Directives' || topic.badge === 'Pipes'">
+                {{ topic.badge }}
+              </span>
+            }
+          </button>
+        }
+
+        @if (filteredTopics().length === 0) {
+          <div class="af-no-results">
+            <span>🔍</span>
+            <p>No topics match "<strong>{{ searchQuery() }}</strong>"</p>
+          </div>
+        }
+      </nav>
+
+      <!-- Legend -->
+      <div class="af-legend">
+        <p class="af-legend-title">Topic Coverage</p>
+        <div class="af-legend-item"><span class="af-topic-badge core-badge">Core</span> Fundamentals & Architecture</div>
+        <div class="af-legend-item"><span class="af-topic-badge signals-badge">Signals</span> Angular 18+ Fine-grained Reactivity</div>
+      </div>
+    </aside>
+
+    <!-- ── Content Area ── -->
+    <main class="af-content" id="af-main-content">
+      @if (activeTopic(); as topic) {
+        <!-- Topic Header -->
+        <div class="af-content-header">
+          <span class="af-content-icon">{{ topic.icon }}</span>
+          <div class="af-content-header-text">
+            <h2 class="af-content-title">{{ topic.title }}</h2>
+            @if (topic.badge) {
+              <span class="af-topic-badge" [class.core-badge]="topic.badge === 'Core' || topic.badge === 'Directives' || topic.badge === 'Pipes'">
+                {{ topic.badge }}
+              </span>
+            }
+          </div>
+          <div class="af-content-actions">
+            <button class="af-action-btn" (click)="expandAllForTopic()" title="Expand all sections">
+              <i class="bx bx-expand-vertical"></i> Expand All
+            </button>
+            <button class="af-action-btn" (click)="collapseAllForTopic()" title="Collapse all sections">
+              <i class="bx bx-collapse-vertical"></i> Collapse
+            </button>
+          </div>
+        </div>
+
+        <!-- Items as Accordion -->
+        <div class="af-accordion">
+          @for (item of topic.items; track item.heading; let i = $index) {
+            <div class="af-accordion-item" [class.expanded]="isExpanded(topic.id + '-' + i)">
+              <button
+                class="af-accordion-header"
+                (click)="toggleItem(topic.id + '-' + i)"
+                [attr.aria-expanded]="isExpanded(topic.id + '-' + i)"
+              >
+                <span class="af-accordion-heading">{{ item.heading }}</span>
+                <div class="af-accordion-header-right">
+                  @if (item.codeBlocks && item.codeBlocks.length > 0) {
+                    <span class="af-code-count-badge">
+                      <i class="bx bx-code-alt"></i> {{ item.codeBlocks.length }} Code
+                    </span>
+                  }
+                  <i class="bx af-accordion-chevron"
+                     [class.bx-chevron-down]="!isExpanded(topic.id + '-' + i)"
+                     [class.bx-chevron-up]="isExpanded(topic.id + '-' + i)">
+                  </i>
+                </div>
+              </button>
+
+              <div class="af-accordion-body" [class.open]="isExpanded(topic.id + '-' + i)">
+                <!-- Text Content Lines -->
+                @for (line of item.content; track $index) {
+                  <p class="af-content-line" [innerHTML]="line"></p>
+                }
+
+                <!-- Structured Table if present -->
+                @if (item.table) {
+                  <div class="af-table-wrap">
+                    <table class="af-table">
+                      <thead>
+                        <tr>
+                          @for (h of item.table.headers; track $index) {
+                            <th [innerHTML]="h"></th>
+                          }
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @for (row of item.table.rows; track $index) {
+                          <tr>
+                            @for (cell of row; track $index) {
+                              <td [innerHTML]="cell"></td>
+                            }
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                }
+
+                <!-- Separated Code Blocks -->
+                @for (cb of item.codeBlocks; track $index; let cbIdx = $index) {
+                  <div class="af-code-block">
+                    <div class="af-code-header">
+                      <div class="af-code-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                      </div>
+                      <span class="af-code-lang">{{ cb.language }}</span>
+                      <button
+                        class="af-copy-btn"
+                        (click)="copyCode(cb.code, topic.id + '-' + i + '-' + cbIdx)"
+                        [attr.aria-label]="'Copy code'"
+                      >
+                        @if (copiedCode() === topic.id + '-' + i + '-' + cbIdx) {
+                          <i class="bx bx-check"></i> Copied!
+                        } @else {
+                          <i class="bx bx-copy"></i> Copy
+                        }
+                      </button>
+                    </div>
+                    <pre class="af-pre"><code>{{ cb.code }}</code></pre>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Navigation between topics -->
+        <div class="af-topic-nav">
+          @if (filteredTopics().indexOf(topic) > 0) {
+            <button
+              class="af-nav-btn prev"
+              (click)="setActiveTopic(filteredTopics()[filteredTopics().indexOf(topic) - 1].id)"
+            >
+              <i class="bx bx-chevron-left"></i>
+              <span>{{ filteredTopics()[filteredTopics().indexOf(topic) - 1].title }}</span>
+            </button>
+          } @else {
+            <div></div>
+          }
+
+          @if (filteredTopics().indexOf(topic) < filteredTopics().length - 1) {
+            <button
+              class="af-nav-btn next"
+              (click)="setActiveTopic(filteredTopics()[filteredTopics().indexOf(topic) + 1].id)"
+            >
+              <span>{{ filteredTopics()[filteredTopics().indexOf(topic) + 1].title }}</span>
+              <i class="bx bx-chevron-right"></i>
+            </button>
+          }
+        </div>
+      }
+    </main>
+
+  </div>
+
+</div>
