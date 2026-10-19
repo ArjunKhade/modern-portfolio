@@ -24,12 +24,42 @@ import { ContactComponent } from '../contact/contact.component';
   template: `
     <main id="main-content">
       <app-baner></app-baner>
-      <app-personal-information></app-personal-information>
-      <app-skills></app-skills>
-      <app-project></app-project>
-      <app-work-experience></app-work-experience>
-      <app-education></app-education>
-      <app-contact></app-contact>
+
+      @defer (on viewport; prefetch on idle) {
+        <app-personal-information></app-personal-information>
+      } @placeholder {
+        <div id="about" style="min-height: 420px;"></div>
+      }
+
+      @defer (on viewport; prefetch on idle) {
+        <app-skills></app-skills>
+      } @placeholder {
+        <div id="skills" style="min-height: 450px;"></div>
+      }
+
+      @defer (on viewport; prefetch on idle) {
+        <app-project></app-project>
+      } @placeholder {
+        <div id="projects" style="min-height: 600px;"></div>
+      }
+
+      @defer (on viewport; prefetch on idle) {
+        <app-work-experience></app-work-experience>
+      } @placeholder {
+        <div id="experience" style="min-height: 500px;"></div>
+      }
+
+      @defer (on viewport; prefetch on idle) {
+        <app-education></app-education>
+      } @placeholder {
+        <div id="education" style="min-height: 400px;"></div>
+      }
+
+      @defer (on viewport; prefetch on idle) {
+        <app-contact></app-contact>
+      } @placeholder {
+        <div id="contact" style="min-height: 400px;"></div>
+      }
     </main>
   `,
   styles: [`

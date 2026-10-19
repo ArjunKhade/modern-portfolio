@@ -108,10 +108,19 @@
         <!-- Profile Frame -->
         <div class="profile-avatar-frame">
           <div class="avatar-ring-outer"></div>
-          <div class="avatar-ring-inner"></div>
-          <img src="assets/New_Image.png" alt="Arjun Khade - Full Stack Software Developer" class="profile-img"
-            loading="eager" />
-        </div>
+          <picture>
+            <source srcset="assets/New_Image.webp" type="image/webp" />
+            <img
+              src="assets/New_Image.png"
+              alt="Arjun Khade - Full Stack Software Developer"
+              class="profile-img"
+              width="320"
+              height="320"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
       </div>
     </div>
   </div>

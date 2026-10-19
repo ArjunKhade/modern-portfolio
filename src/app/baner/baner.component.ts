@@ -69,90 +69,104 @@ export class BanerComponent implements OnInit, OnDestroy {
   }
 
   initCyberCanvasAnimation() {
+    if (typeof window === 'undefined') return;
+
+    // Respect reduced motion
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
     this.ngZone.runOutsideAngular(() => {
-      const canvas = this.canvasRef.nativeElement;
-      if (!canvas) return;
+      // Delay canvas loop slightly to give browser free main-thread time for FCP & LCP
+      setTimeout(() => {
+        const canvas = this.canvasRef?.nativeElement;
+        if (!canvas) return;
 
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
+        const ctx = canvas.getContext('2d', { alpha: true });
+        if (!ctx) return;
 
-      let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
-      let height = (canvas.height = canvas.parentElement?.clientHeight || window.innerHeight);
+        let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
+        let height = (canvas.height = canvas.parentElement?.clientHeight || window.innerHeight);
 
-      const onResize = () => {
-        width = canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
-        height = canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
-      };
-      window.addEventListener('resize', onResize);
+        const onResize = () => {
+          if (!canvas.parentElement) return;
+          width = canvas.width = canvas.parentElement.clientWidth || window.innerWidth;
+          height = canvas.height = canvas.parentElement.clientHeight || window.innerHeight;
+        };
+        window.addEventListener('resize', onResize, { passive: true });
 
-      // Cyber particles
-      const particleCount = Math.min(Math.floor((width * height) / 14000), 75);
-      const particles: Array<{
-        x: number;
-        y: number;
-        vx: number;
-        vy: number;
-        radius: number;
-        color: string;
-      }> = [];
+        // Adaptive particle count: lightweight on mobile, balanced on desktop
+        const isMobile = width < 768;
+        const particleCount = isMobile ? 18 : Math.min(Math.floor((width * height) / 24000), 38);
+        const maxDistSq = 110 * 110;
 
-      const colors = ['#00f5a0', '#00d2ff', '#a855f7'];
+        const particles: Array<{
+          x: number;
+          y: number;
+          vx: number;
+          vy: number;
+          radius: number;
+          color: string;
+        }> = [];
 
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.7,
-          vy: (Math.random() - 0.5) * 0.7,
-          radius: Math.random() * 2 + 1,
-          color: colors[Math.floor(Math.random() * colors.length)],
-        });
-      }
+        const colors = ['#00f5a0', '#00d2ff', '#a855f7'];
 
-      const animate = () => {
-        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.55,
+            vy: (Math.random() - 0.5) * 0.55,
+            radius: Math.random() * 1.5 + 1,
+            color: colors[i % colors.length],
+          });
+        }
 
-        // Draw connections
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+        const animate = () => {
+          ctx.clearRect(0, 0, width, height);
 
-            if (dist < 130) {
-              const alpha = (1 - dist / 130) * 0.22;
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(0, 245, 160, ${alpha})`;
-              ctx.lineWidth = 0.8;
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.stroke();
+          // Fast squared-distance connection lines (avoids redundant Math.sqrt)
+          for (let i = 0; i < particles.length; i++) {
+            const pi = particles[i];
+            for (let j = i + 1; j < particles.length; j++) {
+              const pj = particles[j];
+              const dx = pi.x - pj.x;
+              const dy = pi.y - pj.y;
+              const distSq = dx * dx + dy * dy;
+
+              if (distSq < maxDistSq) {
+                const alpha = (1 - distSq / maxDistSq) * 0.2;
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(0, 245, 160, ${alpha})`;
+                ctx.lineWidth = 0.75;
+                ctx.moveTo(pi.x, pi.y);
+                ctx.lineTo(pj.x, pj.y);
+                ctx.stroke();
+              }
             }
           }
-        }
 
-        // Draw particles
-        for (const p of particles) {
-          p.x += p.vx;
-          p.y += p.vy;
+          // Draw particles without expensive shadowBlur filter passes
+          for (const p of particles) {
+            p.x += p.vx;
+            p.y += p.vy;
 
-          if (p.x < 0) p.x = width;
-          if (p.x > width) p.x = 0;
-          if (p.y < 0) p.y = height;
-          if (p.y > height) p.y = 0;
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+            if (p.y < 0) p.y = height;
+            if (p.y > height) p.y = 0;
 
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = p.color;
-          ctx.fill();
-        }
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+          }
+
+          this.animFrameId = requestAnimationFrame(animate);
+        };
 
         this.animFrameId = requestAnimationFrame(animate);
-      };
-
-      animate();
+      }, 350);
     });
   }
 
