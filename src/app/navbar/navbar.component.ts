@@ -30,7 +30,7 @@ export class NavbarComponent {
   onWindowScroll() {
     this.isScrolled = window.scrollY > 40;
 
-    if (this.isUpskillActive()) {
+    if (this.isUpskillActive() || this.isResumeBuilderActive()) {
       this.activeSection = '';
       this.cdr.markForCheck();
       return;
@@ -57,6 +57,10 @@ export class NavbarComponent {
     return this.router.url.startsWith('/upskill');
   }
 
+  isResumeBuilderActive(): boolean {
+    return this.router.url.startsWith('/resume-builder');
+  }
+
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
@@ -68,6 +72,11 @@ export class NavbarComponent {
   onUpskillClick(e: Event) {
     this.closeMobileMenu();
     this.router.navigate(['/upskill']);
+  }
+
+  onResumeBuilderClick(e: Event) {
+    this.closeMobileMenu();
+    this.router.navigate(['/resume-builder']);
   }
 
   scrollToSection(sectionId: string, event: Event) {

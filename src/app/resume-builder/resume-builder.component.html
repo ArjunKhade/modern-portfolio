@@ -1,0 +1,1036 @@
+<div class="rb-page">
+
+  <!-- ══ Hero Header ══ -->
+  <header class="rb-hero">
+    <div class="rb-hero-inner">
+      <nav class="rb-breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/" class="breadcrumb-back-btn">
+          <i class="bx bx-home-alt"></i> Home
+        </a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">ATS Resume Builder</span>
+      </nav>
+
+      <div class="rb-hero-badge">
+        <i class="bx bx-file"></i>
+        <span>ATS-Optimized Single-Column Engine</span>
+      </div>
+
+      <h1 class="rb-hero-title">
+        <span class="gradient-text-emerald">Resume</span>
+        <span class="gradient-text-light"> Builder</span>
+      </h1>
+
+      <p class="rb-hero-subtitle">
+        Upload your existing <strong>PDF, DOCX, DOC, or TXT</strong> resume. Our intelligent engine automatically extracts your profile and formats it into an authoritative, <strong>single-column ATS-friendly resume</strong> ready for instant PDF download.
+      </p>
+
+      <!-- Key Highlights -->
+      <div class="rb-stats">
+        <div class="rb-stat">
+          <span class="rb-stat-num">100%</span>
+          <span class="rb-stat-label">Single-Column (ATS Safe)</span>
+        </div>
+        <div class="rb-stat-divider"></div>
+        <div class="rb-stat">
+          <span class="rb-stat-num">PDF / DOCX / TXT</span>
+          <span class="rb-stat-label">Multi-Format Ingestion</span>
+        </div>
+        <div class="rb-stat-divider"></div>
+        <div class="rb-stat">
+          <span class="rb-stat-num">Instant</span>
+          <span class="rb-stat-label">Vector PDF Export</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ Global Action & Customization Toolbar ══ -->
+  <div class="rb-toolbar-container">
+    <div class="rb-toolbar">
+
+      <!-- Left controls: Quick Actions -->
+      <div class="toolbar-left">
+        <label class="btn-toolbar upload-label">
+          <i class="bx bx-cloud-upload"></i>
+          <span>Upload Resume</span>
+          <input
+            type="file"
+            accept=".pdf,.docx,.doc,.txt"
+            (change)="onFileInputChange($event)"
+            style="display: none;"
+          />
+        </label>
+
+        <button class="btn-toolbar outline" (click)="loadSampleResume()" title="Load full-stack engineer sample">
+          <i class="bx bx-user-check"></i>
+          <span>Load Sample</span>
+        </button>
+
+        <button class="btn-toolbar outline" (click)="resetResume()" title="Reset to blank template">
+          <i class="bx bx-reset"></i>
+          <span>Reset</span>
+        </button>
+      </div>
+
+      <!-- Center controls: Styling Pickers -->
+      <div class="toolbar-center">
+        <!-- Theme Color Swatches -->
+        <div class="color-picker-wrap" title="Select accent color">
+          <span class="picker-label">Accent:</span>
+          <div class="color-swatches">
+            @for (color of themeColors; track color.id) {
+              <button
+                class="color-swatch-btn"
+                [class.active]="themeColor() === color.id"
+                [style.background-color]="color.hex"
+                (click)="themeColor.set(color.id)"
+                [attr.aria-label]="color.label"
+                [title]="color.label"
+              ></button>
+            }
+          </div>
+        </div>
+
+        <div class="toolbar-divider"></div>
+
+        <!-- Font Family Selector -->
+        <div class="font-picker-wrap">
+          <span class="picker-label">Font:</span>
+          <select
+            class="toolbar-select"
+            [ngModel]="fontFamily()"
+            (ngModelChange)="fontFamily.set($event)"
+            aria-label="Select resume font family"
+          >
+            @for (font of fontFamilies; track font.id) {
+              <option [value]="font.id">{{ font.label }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="toolbar-divider"></div>
+
+        <!-- Spacing Selector -->
+        <div class="font-picker-wrap">
+          <span class="picker-label">Spacing:</span>
+          <select
+            class="toolbar-select"
+            [ngModel]="spacingDensity()"
+            (ngModelChange)="spacingDensity.set($event)"
+            aria-label="Select resume spacing density"
+          >
+            <option value="compact">Compact (Fit 1 Page)</option>
+            <option value="normal">Standard</option>
+            <option value="relaxed">Relaxed</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Right controls: Export Buttons -->
+      <div class="toolbar-right">
+        <!-- Mobile View Toggle -->
+        <div class="mobile-view-toggle">
+          <button
+            class="btn-toggle"
+            [class.active]="mobileView() === 'editor'"
+            (click)="mobileView.set('editor')"
+          >
+            <i class="bx bx-edit"></i> Edit
+          </button>
+          <button
+            class="btn-toggle"
+            [class.active]="mobileView() === 'preview'"
+            (click)="mobileView.set('preview')"
+          >
+            <i class="bx bx-show"></i> Preview
+          </button>
+        </div>
+
+        <button class="btn-toolbar outline" (click)="printResume()" title="Print / Browser Save">
+          <i class="bx bx-printer"></i>
+          <span>Print</span>
+        </button>
+
+        <button
+          class="btn-toolbar primary"
+          (click)="downloadPdf()"
+          [disabled]="isGeneratingPdf()"
+          title="Download single-column PDF resume"
+        >
+          @if (isGeneratingPdf()) {
+            <div class="btn-spinner"></div>
+            <span>Generating...</span>
+          } @else {
+            <i class="bx bx-download"></i>
+            <span>Download PDF</span>
+          }
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ Main Work Area: 2-Column (Editor | Single-Column Preview) ══ -->
+  <main class="rb-main-container">
+    <div class="rb-grid" [attr.data-mobile-view]="mobileView()">
+
+      <!-- ── Left Column: Ingestion & Field Editor ── -->
+      <section class="rb-editor-pane">
+
+        <!-- File Upload Drag & Drop Box -->
+        <div
+          class="rb-dropzone"
+          [class.drag-over]="isDragging()"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onFileDrop($event)"
+        >
+          @if (isParsing()) {
+            <div class="dropzone-parsing">
+              <div class="parsing-spinner"></div>
+              <p class="parsing-text">Analyzing & extracting resume structure...</p>
+            </div>
+          } @else {
+            <div class="dropzone-content">
+              <div class="dropzone-icon">
+                <i class="bx bx-upload"></i>
+              </div>
+              <div class="dropzone-text">
+                <h3>Drag & Drop your resume here</h3>
+                <p>Accepts <strong>.PDF, .DOCX, .DOC, or .TXT</strong> files</p>
+              </div>
+              <label class="btn-browse">
+                Browse Files
+                <input
+                  type="file"
+                  accept=".pdf,.docx,.doc,.txt"
+                  (change)="onFileInputChange($event)"
+                  style="display: none;"
+                />
+              </label>
+            </div>
+          }
+        </div>
+
+        <!-- Success Notification -->
+        @if (parseSuccessMsg()) {
+          <div class="rb-alert success" role="status">
+            <i class="bx bx-check-circle"></i>
+            <span>{{ parseSuccessMsg() }}</span>
+            <button class="alert-close" (click)="parseSuccessMsg.set(null)" aria-label="Close notification">
+              <i class="bx bx-x"></i>
+            </button>
+          </div>
+        }
+
+        <!-- Error Notification -->
+        @if (parseError()) {
+          <div class="rb-alert error" role="alert">
+            <i class="bx bx-error-circle"></i>
+            <span>{{ parseError() }}</span>
+            <button class="alert-close" (click)="parseError.set(null)" aria-label="Close error">
+              <i class="bx bx-x"></i>
+            </button>
+          </div>
+        }
+
+        <!-- Editor Tabs Navigation -->
+        <div class="editor-tabs" role="tablist">
+          <button
+            class="tab-btn"
+            [class.active]="activeEditorTab() === 'personal'"
+            (click)="activeEditorTab.set('personal')"
+          >
+            <i class="bx bx-user"></i> Personal
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeEditorTab() === 'summary'"
+            (click)="activeEditorTab.set('summary')"
+          >
+            <i class="bx bx-text"></i> Summary
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeEditorTab() === 'experience'"
+            (click)="activeEditorTab.set('experience')"
+          >
+            <i class="bx bx-briefcase"></i> Experience
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeEditorTab() === 'projects'"
+            (click)="activeEditorTab.set('projects')"
+          >
+            <i class="bx bx-folder"></i> Projects
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeEditorTab() === 'skills'"
+            (click)="activeEditorTab.set('skills')"
+          >
+            <i class="bx bx-wrench"></i> Skills
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeEditorTab() === 'education'"
+            (click)="activeEditorTab.set('education')"
+          >
+            <i class="bx bx-certification"></i> Edu & Certs
+          </button>
+        </div>
+
+        <!-- Editor Tab Contents -->
+        <div class="editor-card">
+
+          <!-- 1. Personal Details -->
+          @if (activeEditorTab() === 'personal') {
+            <div class="form-section">
+              <h4 class="form-title">Contact & Personal Details</h4>
+              <div class="form-row two-col">
+                <div class="form-group">
+                  <label>Full Name</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    [ngModel]="resumeData().personalInfo.fullName"
+                    (ngModelChange)="resumeData().personalInfo.fullName = $event"
+                    placeholder="e.g. Arjun Khade"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Target Job Title / Role</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    [ngModel]="resumeData().personalInfo.jobTitle"
+                    (ngModelChange)="resumeData().personalInfo.jobTitle = $event"
+                    placeholder="e.g. Senior Full-Stack Developer"
+                  />
+                </div>
+              </div>
+
+              <div class="form-row two-col">
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input
+                    type="email"
+                    class="form-input"
+                    [ngModel]="resumeData().personalInfo.email"
+                    (ngModelChange)="resumeData().personalInfo.email = $event"
+                    placeholder="e.g. arjun.khade@example.com"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    [ngModel]="resumeData().personalInfo.phone"
+                    (ngModelChange)="resumeData().personalInfo.phone = $event"
+                    placeholder="e.g. +91 98765 43210"
+                  />
+                </div>
+              </div>
+
+              <div class="form-row two-col">
+                <div class="form-group">
+                  <label>Location (City, State / Country)</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    [ngModel]="resumeData().personalInfo.location"
+                    (ngModelChange)="resumeData().personalInfo.location = $event"
+                    placeholder="e.g. Pune, Maharashtra, India"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Portfolio / Personal Website</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    [ngModel]="resumeData().personalInfo.portfolio"
+                    (ngModelChange)="resumeData().personalInfo.portfolio = $event"
+                    placeholder="e.g. https://arjun.dev"
+                  />
+                </div>
+              </div>
+
+              <div class="form-row two-col">
+                <div class="form-group">
+                  <label>LinkedIn Profile URL</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    [ngModel]="resumeData().personalInfo.linkedin"
+                    (ngModelChange)="resumeData().personalInfo.linkedin = $event"
+                    placeholder="e.g. linkedin.com/in/arjunkhade"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>GitHub Profile URL</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    [ngModel]="resumeData().personalInfo.github"
+                    (ngModelChange)="resumeData().personalInfo.github = $event"
+                    placeholder="e.g. github.com/ArjunKhade"
+                  />
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- 2. Summary -->
+          @if (activeEditorTab() === 'summary') {
+            <div class="form-section">
+              <h4 class="form-title">Professional Summary</h4>
+              <p class="form-desc">A concise 2-4 sentence executive overview summarizing your core domain expertise, years of experience, and signature technical accomplishments.</p>
+              <div class="form-group">
+                <textarea
+                  class="form-textarea"
+                  rows="5"
+                  [ngModel]="resumeData().summary"
+                  (ngModelChange)="resumeData().summary = $event"
+                  placeholder="Experienced Full-Stack Developer with 5+ years of experience..."
+                ></textarea>
+              </div>
+            </div>
+          }
+
+          <!-- 3. Experience -->
+          @if (activeEditorTab() === 'experience') {
+            <div class="form-section">
+              <div class="section-header-row">
+                <h4 class="form-title">Work Experience ({{ resumeData().experience.length }})</h4>
+                <button class="btn-sm-action" (click)="addExperience()">
+                  <i class="bx bx-plus"></i> Add Job
+                </button>
+              </div>
+
+              @for (exp of resumeData().experience; track exp.id; let idx = $index) {
+                <div class="item-card">
+                  <div class="item-card-header">
+                    <span class="item-card-title">#{{ idx + 1 }} {{ exp.jobTitle || 'Role' }} at {{ exp.company || 'Company' }}</span>
+                    <button class="btn-icon-delete" (click)="removeExperience(exp.id)" title="Delete position">
+                      <i class="bx bx-trash"></i>
+                    </button>
+                  </div>
+
+                  <div class="form-row two-col">
+                    <div class="form-group">
+                      <label>Job Title / Position</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="exp.jobTitle"
+                        (ngModelChange)="exp.jobTitle = $event"
+                        placeholder="e.g. Senior Software Engineer"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Company / Organization</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="exp.company"
+                        (ngModelChange)="exp.company = $event"
+                        placeholder="e.g. Cognizant"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-row three-col">
+                    <div class="form-group">
+                      <label>Start Date</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="exp.startDate"
+                        (ngModelChange)="exp.startDate = $event"
+                        placeholder="e.g. Aug 2022"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>End Date</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="exp.endDate"
+                        (ngModelChange)="exp.endDate = $event"
+                        placeholder="e.g. Present"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Location</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="exp.location"
+                        (ngModelChange)="exp.location = $event"
+                        placeholder="e.g. Pune, India"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Highlights / Achievements -->
+                  <div class="highlights-section">
+                    <div class="highlights-header">
+                      <label>Key Responsibilities & Achievements</label>
+                      <button class="btn-text-action" (click)="addExperienceHighlight(exp.id)">
+                        + Add Bullet
+                      </button>
+                    </div>
+
+                    @for (bullet of exp.highlights; track $index; let bIdx = $index) {
+                      <div class="bullet-row">
+                        <span class="bullet-dot">•</span>
+                        <input
+                          type="text"
+                          class="form-input bullet-input"
+                          [ngModel]="bullet"
+                          (ngModelChange)="exp.highlights[bIdx] = $event"
+                          placeholder="Action verb + task + quantified result..."
+                        />
+                        <button class="btn-icon-subtle" (click)="removeExperienceHighlight(exp.id, bIdx)" title="Remove bullet">
+                          <i class="bx bx-x"></i>
+                        </button>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- 4. Projects -->
+          @if (activeEditorTab() === 'projects') {
+            <div class="form-section">
+              <div class="section-header-row">
+                <h4 class="form-title">Key Technical Projects ({{ resumeData().projects.length }})</h4>
+                <button class="btn-sm-action" (click)="addProject()">
+                  <i class="bx bx-plus"></i> Add Project
+                </button>
+              </div>
+
+              @for (proj of resumeData().projects; track proj.id; let idx = $index) {
+                <div class="item-card">
+                  <div class="item-card-header">
+                    <span class="item-card-title">#{{ idx + 1 }} {{ proj.name || 'Project Name' }}</span>
+                    <button class="btn-icon-delete" (click)="removeProject(proj.id)" title="Delete project">
+                      <i class="bx bx-trash"></i>
+                    </button>
+                  </div>
+
+                  <div class="form-row two-col">
+                    <div class="form-group">
+                      <label>Project Name</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="proj.name"
+                        (ngModelChange)="proj.name = $event"
+                        placeholder="e.g. Modern Developer Portfolio"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Technologies Used</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="proj.technologies"
+                        (ngModelChange)="proj.technologies = $event"
+                        placeholder="e.g. Angular 18, Spring Boot, Docker"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Project / Repository Link</label>
+                    <input
+                      type="text"
+                      class="form-input"
+                      [ngModel]="proj.link"
+                      (ngModelChange)="proj.link = $event"
+                      placeholder="e.g. https://github.com/ArjunKhade/project"
+                    />
+                  </div>
+
+                  <!-- Highlights -->
+                  <div class="highlights-section">
+                    <div class="highlights-header">
+                      <label>Project Highlights</label>
+                      <button class="btn-text-action" (click)="addProjectHighlight(proj.id)">
+                        + Add Bullet
+                      </button>
+                    </div>
+
+                    @for (bullet of proj.highlights; track $index; let bIdx = $index) {
+                      <div class="bullet-row">
+                        <span class="bullet-dot">•</span>
+                        <input
+                          type="text"
+                          class="form-input bullet-input"
+                          [ngModel]="bullet"
+                          (ngModelChange)="proj.highlights[bIdx] = $event"
+                          placeholder="What did you build and what was the impact?"
+                        />
+                        <button class="btn-icon-subtle" (click)="removeProjectHighlight(proj.id, bIdx)" title="Remove bullet">
+                          <i class="bx bx-x"></i>
+                        </button>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- 5. Skills -->
+          @if (activeEditorTab() === 'skills') {
+            <div class="form-section">
+              <h4 class="form-title">Categorized Technical Skills</h4>
+              <p class="form-desc">Separate skills with commas. These are organized neatly under distinct headers in the single-column resume.</p>
+
+              <div class="form-group">
+                <label>Programming Languages</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  [ngModel]="getSkillsString('languages')"
+                  (ngModelChange)="updateSkillCategory('languages', $event)"
+                  placeholder="Java 21, TypeScript, JavaScript, SQL, Python"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Frameworks & Libraries</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  [ngModel]="getSkillsString('frameworks')"
+                  (ngModelChange)="updateSkillCategory('frameworks', $event)"
+                  placeholder="Angular 18, Spring Boot, RxJS, NgRx, Hibernate"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Cloud, DevOps & Tools</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  [ngModel]="getSkillsString('toolsAndCloud')"
+                  (ngModelChange)="updateSkillCategory('toolsAndCloud', $event)"
+                  placeholder="Docker, Kubernetes, AWS, Git, CI/CD, Kafka"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Databases & Storage</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  [ngModel]="getSkillsString('databases')"
+                  (ngModelChange)="updateSkillCategory('databases', $event)"
+                  placeholder="PostgreSQL, MongoDB, Redis, MySQL"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Architecture & Core Concepts</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  [ngModel]="getSkillsString('other')"
+                  (ngModelChange)="updateSkillCategory('other', $event)"
+                  placeholder="Microservices, RESTful APIs, System Design, PWA"
+                />
+              </div>
+            </div>
+          }
+
+          <!-- 6. Education & Certs -->
+          @if (activeEditorTab() === 'education') {
+            <div class="form-section">
+              <!-- Education -->
+              <div class="section-header-row">
+                <h4 class="form-title">Education</h4>
+                <button class="btn-sm-action" (click)="addEducation()">
+                  <i class="bx bx-plus"></i> Add Degree
+                </button>
+              </div>
+
+              @for (edu of resumeData().education; track edu.id; let idx = $index) {
+                <div class="item-card">
+                  <div class="item-card-header">
+                    <span class="item-card-title">{{ edu.degree || 'Degree' }}</span>
+                    <button class="btn-icon-delete" (click)="removeEducation(edu.id)">
+                      <i class="bx bx-trash"></i>
+                    </button>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Degree & Major</label>
+                    <input
+                      type="text"
+                      class="form-input"
+                      [ngModel]="edu.degree"
+                      (ngModelChange)="edu.degree = $event"
+                      placeholder="e.g. Bachelor of Technology in Computer Science"
+                    />
+                  </div>
+
+                  <div class="form-row three-col">
+                    <div class="form-group">
+                      <label>University / Institution</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="edu.institution"
+                        (ngModelChange)="edu.institution = $event"
+                        placeholder="e.g. Savitribai Phule Pune University"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Location</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="edu.location"
+                        (ngModelChange)="edu.location = $event"
+                        placeholder="e.g. Pune, India"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Graduation Year</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="edu.graduationYear"
+                        (ngModelChange)="edu.graduationYear = $event"
+                        placeholder="e.g. 2020"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>GPA / Honors (Optional)</label>
+                    <input
+                      type="text"
+                      class="form-input"
+                      [ngModel]="edu.gpaOrHonors"
+                      (ngModelChange)="edu.gpaOrHonors = $event"
+                      placeholder="e.g. CGPA: 8.9 / 10"
+                    />
+                  </div>
+                </div>
+              }
+
+              <!-- Certifications -->
+              <div class="section-header-row mt-4">
+                <h4 class="form-title">Certifications & Licenses</h4>
+                <button class="btn-sm-action" (click)="addCertification()">
+                  <i class="bx bx-plus"></i> Add Certification
+                </button>
+              </div>
+
+              @for (cert of resumeData().certifications; track cert.id; let idx = $index) {
+                <div class="item-card">
+                  <div class="item-card-header">
+                    <span class="item-card-title">{{ cert.name || 'Certificate' }}</span>
+                    <button class="btn-icon-delete" (click)="removeCertification(cert.id)">
+                      <i class="bx bx-trash"></i>
+                    </button>
+                  </div>
+
+                  <div class="form-row three-col">
+                    <div class="form-group" style="grid-column: span 2;">
+                      <label>Certification Name</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="cert.name"
+                        (ngModelChange)="cert.name = $event"
+                        placeholder="e.g. AWS Certified Solutions Architect"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Year</label>
+                      <input
+                        type="text"
+                        class="form-input"
+                        [ngModel]="cert.year"
+                        (ngModelChange)="cert.year = $event"
+                        placeholder="e.g. 2023"
+                      />
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+        </div>
+
+      </section>
+
+      <!-- ── Right Column: Pixel-Perfect Single-Column ATS Resume Preview ── -->
+      <section class="rb-preview-pane">
+
+        <div class="preview-header-bar">
+          <div class="preview-title-wrap">
+            <span class="badge-ats">ATS SINGLE-COLUMN FORMAT</span>
+            <span class="preview-note">Preview reflects exact downloadable PDF document</span>
+          </div>
+          <button class="btn-preview-download" (click)="downloadPdf()" [disabled]="isGeneratingPdf()">
+            <i class="bx bx-download"></i> Save PDF
+          </button>
+        </div>
+
+        <!-- ═════════════════════════════════════════════════════════
+             THE ATS SINGLE-COLUMN RESUME DOCUMENT CONTAINER
+             ═════════════════════════════════════════════════════════ -->
+        <div class="resume-sheet-scroller">
+          <article
+            #resumeDoc
+            id="single-column-resume-doc"
+            class="single-column-resume"
+            [attr.data-spacing]="spacingDensity()"
+            [style.font-family]="getSelectedFontCss()"
+          >
+
+            <!-- 1. Header (Name, Title, Contact Info Bar) -->
+            <header class="resume-header">
+              <h1 class="resume-name" [style.color]="getSelectedThemeHex()">
+                {{ resumeData().personalInfo.fullName }}
+              </h1>
+              <div class="resume-job-title">
+                {{ resumeData().personalInfo.jobTitle }}
+              </div>
+
+              <!-- Single-line contact details with bullet separators -->
+              <div class="resume-contact-bar">
+                @if (resumeData().personalInfo.phone) {
+                  <span class="contact-item">
+                    <i class="bx bx-phone"></i> {{ resumeData().personalInfo.phone }}
+                  </span>
+                }
+                @if (resumeData().personalInfo.email) {
+                  <span class="contact-sep">•</span>
+                  <span class="contact-item">
+                    <i class="bx bx-envelope"></i> {{ resumeData().personalInfo.email }}
+                  </span>
+                }
+                @if (resumeData().personalInfo.location) {
+                  <span class="contact-sep">•</span>
+                  <span class="contact-item">
+                    <i class="bx bx-map-pin"></i> {{ resumeData().personalInfo.location }}
+                  </span>
+                }
+                @if (resumeData().personalInfo.linkedin) {
+                  <span class="contact-sep">•</span>
+                  <span class="contact-item">
+                    <i class="bx bxl-linkedin-square"></i> {{ resumeData().personalInfo.linkedin }}
+                  </span>
+                }
+                @if (resumeData().personalInfo.github) {
+                  <span class="contact-sep">•</span>
+                  <span class="contact-item">
+                    <i class="bx bxl-github"></i> {{ resumeData().personalInfo.github }}
+                  </span>
+                }
+                @if (resumeData().personalInfo.portfolio) {
+                  <span class="contact-sep">•</span>
+                  <span class="contact-item">
+                    <i class="bx bx-globe"></i> {{ resumeData().personalInfo.portfolio }}
+                  </span>
+                }
+              </div>
+            </header>
+
+            <!-- 2. Professional Summary -->
+            @if (resumeData().summary) {
+              <section class="resume-section">
+                <h2 class="section-heading" [style.color]="getSelectedThemeHex()" [style.border-bottom-color]="getSelectedThemeHex()">
+                  PROFESSIONAL SUMMARY
+                </h2>
+                <p class="summary-paragraph">
+                  {{ resumeData().summary }}
+                </p>
+              </section>
+            }
+
+            <!-- 3. Technical Skills (Categorized Single-Column Format) -->
+            <section class="resume-section">
+              <h2 class="section-heading" [style.color]="getSelectedThemeHex()" [style.border-bottom-color]="getSelectedThemeHex()">
+                TECHNICAL SKILLS
+              </h2>
+              <div class="skills-block">
+                @if (resumeData().skills.languages.length > 0) {
+                  <div class="skill-row">
+                    <span class="skill-label">Languages:</span>
+                    <span class="skill-items">{{ resumeData().skills.languages.join(', ') }}</span>
+                  </div>
+                }
+                @if (resumeData().skills.frameworks.length > 0) {
+                  <div class="skill-row">
+                    <span class="skill-label">Frameworks & Libraries:</span>
+                    <span class="skill-items">{{ resumeData().skills.frameworks.join(', ') }}</span>
+                  </div>
+                }
+                @if (resumeData().skills.toolsAndCloud.length > 0) {
+                  <div class="skill-row">
+                    <span class="skill-label">Cloud & DevOps:</span>
+                    <span class="skill-items">{{ resumeData().skills.toolsAndCloud.join(', ') }}</span>
+                  </div>
+                }
+                @if (resumeData().skills.databases.length > 0) {
+                  <div class="skill-row">
+                    <span class="skill-label">Databases & Storage:</span>
+                    <span class="skill-items">{{ resumeData().skills.databases.join(', ') }}</span>
+                  </div>
+                }
+                @if (resumeData().skills.other.length > 0) {
+                  <div class="skill-row">
+                    <span class="skill-label">Architecture & Methodologies:</span>
+                    <span class="skill-items">{{ resumeData().skills.other.join(', ') }}</span>
+                  </div>
+                }
+              </div>
+            </section>
+
+            <!-- 4. Professional Experience -->
+            @if (resumeData().experience.length > 0) {
+              <section class="resume-section">
+                <h2 class="section-heading" [style.color]="getSelectedThemeHex()" [style.border-bottom-color]="getSelectedThemeHex()">
+                  WORK EXPERIENCE
+                </h2>
+
+                @for (exp of resumeData().experience; track exp.id) {
+                  <div class="resume-item">
+                    <!-- Title & Date Line -->
+                    <div class="item-header-top">
+                      <span class="item-title-bold">{{ exp.jobTitle }}</span>
+                      <span class="item-date-right">
+                        {{ exp.startDate }} – {{ exp.current ? 'Present' : exp.endDate }}
+                      </span>
+                    </div>
+
+                    <!-- Company & Location Line -->
+                    <div class="item-header-sub">
+                      <span class="item-company">{{ exp.company }}</span>
+                      @if (exp.location) {
+                        <span class="item-location-right">{{ exp.location }}</span>
+                      }
+                    </div>
+
+                    <!-- Bullet Points -->
+                    @if (exp.highlights.length > 0) {
+                      <ul class="item-bullets">
+                        @for (bullet of exp.highlights; track $index) {
+                          <li>{{ bullet }}</li>
+                        }
+                      </ul>
+                    }
+                  </div>
+                }
+              </section>
+            }
+
+            <!-- 5. Key Projects -->
+            @if (resumeData().projects.length > 0) {
+              <section class="resume-section">
+                <h2 class="section-heading" [style.color]="getSelectedThemeHex()" [style.border-bottom-color]="getSelectedThemeHex()">
+                  KEY PROJECTS
+                </h2>
+
+                @for (proj of resumeData().projects; track proj.id) {
+                  <div class="resume-item">
+                    <div class="item-header-top">
+                      <span class="item-title-bold">{{ proj.name }}</span>
+                      @if (proj.link) {
+                        <span class="item-link-right">{{ proj.link }}</span>
+                      }
+                    </div>
+
+                    @if (proj.technologies) {
+                      <div class="item-tech-line">
+                        <strong>Technologies:</strong> {{ proj.technologies }}
+                      </div>
+                    }
+
+                    @if (proj.description) {
+                      <p class="item-desc-text">{{ proj.description }}</p>
+                    }
+
+                    @if (proj.highlights.length > 0) {
+                      <ul class="item-bullets">
+                        @for (bullet of proj.highlights; track $index) {
+                          <li>{{ bullet }}</li>
+                        }
+                      </ul>
+                    }
+                  </div>
+                }
+              </section>
+            }
+
+            <!-- 6. Education -->
+            @if (resumeData().education.length > 0) {
+              <section class="resume-section">
+                <h2 class="section-heading" [style.color]="getSelectedThemeHex()" [style.border-bottom-color]="getSelectedThemeHex()">
+                  EDUCATION
+                </h2>
+
+                @for (edu of resumeData().education; track edu.id) {
+                  <div class="resume-item edu-item">
+                    <div class="item-header-top">
+                      <span class="item-title-bold">{{ edu.degree }}</span>
+                      <span class="item-date-right">{{ edu.graduationYear }}</span>
+                    </div>
+                    <div class="item-header-sub">
+                      <span class="item-company">{{ edu.institution }}</span>
+                      @if (edu.location) {
+                        <span class="item-location-right">{{ edu.location }}</span>
+                      }
+                    </div>
+                    @if (edu.gpaOrHonors) {
+                      <div class="item-gpa">{{ edu.gpaOrHonors }}</div>
+                    }
+                  </div>
+                }
+              </section>
+            }
+
+            <!-- 7. Certifications -->
+            @if (resumeData().certifications.length > 0) {
+              <section class="resume-section">
+                <h2 class="section-heading" [style.color]="getSelectedThemeHex()" [style.border-bottom-color]="getSelectedThemeHex()">
+                  CERTIFICATIONS
+                </h2>
+                <ul class="item-bullets certs-list">
+                  @for (cert of resumeData().certifications; track cert.id) {
+                    <li>
+                      <strong>{{ cert.name }}</strong>
+                      @if (cert.issuer) {
+                        – {{ cert.issuer }}
+                      }
+                      @if (cert.year) {
+                        ({{ cert.year }})
+                      }
+                    </li>
+                  }
+                </ul>
+              </section>
+            }
+
+          </article>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+</div>

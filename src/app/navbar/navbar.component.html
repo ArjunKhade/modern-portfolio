@@ -16,7 +16,7 @@
           <a
             [href]="item.link"
             class="nav-link"
-            [class.active]="!isUpskillActive() && activeSection === item.link.substring(1)"
+            [class.active]="!isUpskillActive() && !isResumeBuilderActive() && activeSection === item.link.substring(1)"
             (click)="scrollToSection(item.link, $event)"
           >
             {{ item.label }}
@@ -32,6 +32,18 @@
             (click)="onUpskillClick($event)"
           >
             Upskills
+          </a>
+        </li>
+
+        <!-- Resume Builder Direct Link -->
+        <li>
+          <a
+            routerLink="/resume-builder"
+            class="nav-link"
+            [class.active]="isResumeBuilderActive()"
+            (click)="onResumeBuilderClick($event)"
+          >
+            Resume Builder
           </a>
         </li>
       </ul>
@@ -68,7 +80,7 @@
         <a
           [href]="item.link"
           class="mobile-nav-link"
-          [class.active]="!isUpskillActive() && activeSection === item.link.substring(1)"
+          [class.active]="!isUpskillActive() && !isResumeBuilderActive() && activeSection === item.link.substring(1)"
           (click)="scrollToSection(item.link, $event)"
         >
           {{ item.label }}
@@ -84,6 +96,18 @@
           (click)="onUpskillClick($event)"
         >
           Upskills
+        </a>
+      </li>
+
+      <!-- Mobile Resume Builder Direct Link -->
+      <li>
+        <a
+          routerLink="/resume-builder"
+          class="mobile-nav-link"
+          [class.active]="isResumeBuilderActive()"
+          (click)="onResumeBuilderClick($event)"
+        >
+          Resume Builder
         </a>
       </li>
 
