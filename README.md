@@ -1,15 +1,16 @@
 # Modern Developer Portfolio & ATS Resume Hub 🚀
 
 [![Website](https://img.shields.io/badge/Website-cdacengineer.in-00d2ff.svg?style=for-the-badge&logo=googlechrome&logoColor=white)](https://www.cdacengineer.in/)
-[![Angular Version](https://img.shields.io/badge/Angular-18%2B%20%2F%2019-dd0031.svg?style=for-the-badge&logo=angular)](https://angular.dev/)
+[![Angular Version](https://img.shields.io/badge/Angular-v22-dd0031.svg?style=for-the-badge&logo=angular)](https://angular.dev/)
+[![Angular Signals](https://img.shields.io/badge/Reactivity-Angular%20Signals-E91E63.svg?style=for-the-badge&logo=angular)](https://angular.dev/guide/signals)
+[![PWA Installable](https://img.shields.io/badge/PWA-Installable%20%26%20Live%20Updates-5A0FC8.svg?style=for-the-badge&logo=pwa)](https://web.dev/progressive-web-apps/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Lighthouse Best Practices](https://img.shields.io/badge/Lighthouse-100%25%20Best%20Practices-00f5a0.svg?style=for-the-badge&logo=lighthouse)](https://developers.google.com/web/tools/lighthouse)
-[![PWA Ready](https://img.shields.io/badge/PWA-Offline%20Ready-5A0FC8.svg?style=for-the-badge&logo=pwa)](https://web.dev/progressive-web-apps/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 > 🌐 **Official Website**: [https://www.cdacengineer.in/](https://www.cdacengineer.in/)
 
-A high-performance personal developer brand, interactive technical learning hub, and client-side ATS single-column resume builder engineered with modern **Angular Standalone Architecture**, **Zoneless Change Detection**, **Signals**, and **Core Web Vitals** optimizations.
+A high-performance personal developer brand, interactive technical learning hub, and client-side ATS single-column resume builder engineered with **Angular v22**, **Angular Signal Reactivity**, **Zoneless Change Detection**, **Angular `@defer` Lazy Hydration**, and an **Installable PWA with Live Auto-Updates**.
 
 ---
 
@@ -22,6 +23,7 @@ An in-browser single-column resume generation engine that creates clean, applica
   - Extracts text from PDFs in the browser using `pdfjs-dist`.
   - Extracts formatted Word document text using `mammoth`.
   - Intelligently categorizes contact details, professional summaries, technical skills, work history, projects, education, and certifications via regex heuristics.
+- **Signal-Powered Live Updates**: Real-time reactive editing powered by Angular Signals (`signal<ResumeData>()`), instantly reflecting updates on the live canvas with zero subscription overhead.
 - **Live Single-Column ATS Canvas**: Authoritative single-column white paper format designed for high ATS parsing accuracy and zero column overlap.
 - **Dynamic Personalization**:
   - **Color Themes**: Classic Navy, Modern Emerald, Executive Slate, Burgundy, Tech Indigo, Angular Red.
@@ -30,11 +32,20 @@ An in-browser single-column resume generation engine that creates clean, applica
 - **Multi-Page Vector PDF Export**: Generates retina-sharp, multi-page vector-aligned downloadable PDFs using `html2canvas` and `jsPDF`.
 - **Mobile-Optimized Workspace**: Responsive toggle between field editor and live preview, touch-scrollable tabs, and smooth native momentum scrolling.
 
-### 2. 🧠 Technical Upskill Hub (`/upskill`)
+### 2. 📱 Installable PWA with Live Auto-Updates
+Engineered for mobile & desktop native-app experiences:
+- **Custom Native Install Prompt**: Intercepts `beforeinstallprompt` to present an integrated glassmorphic install card, enabling one-tap installation on Android, iOS, Windows, and macOS.
+- **Live Auto-Update Engine (`SwUpdate`)**:
+  - Subscribes to `SwUpdate.versionUpdates` to detect `VERSION_READY` events whenever a new production build is deployed.
+  - Automatic background update checks triggered on window focus.
+  - Interactive toast banner alerting users that a newer version is ready with an instant 1-click reload CTA.
+  - Full offline asset caching via `@angular/service-worker` and `ngsw-config.json`.
+
+### 3. 🧠 Technical Upskill Hub (`/upskill`)
 An interactive technical masterclass and interview preparation resource designed for software engineers:
 - **Angular Fundamentals (`/upskill/angular`)**:
-  - Signals vs. RxJS reactivity patterns.
-  - Zoneless Change Detection & modern Angular change detection cycles.
+  - Angular v22 Signals vs. RxJS reactivity patterns.
+  - Zoneless Change Detection (`provideZonelessChangeDetection()`).
   - Control flow syntax (`@if`, `@for`, `@defer`, `@switch`).
   - Standalone Component architecture and tree-shakable dependency injection.
   - Lifecycle hooks, input/output signals, and memory leak mitigation.
@@ -49,7 +60,7 @@ An interactive technical masterclass and interview preparation resource designed
   - Trees, Graphs (BFS/DFS), and Dynamic Programming.
   - Step-by-step code snippets with space and time complexity analysis ($O(n)$, $O(\log n)$, $O(1)$).
 
-### 3. 🎨 High-Aesthetics Developer Portfolio
+### 4. 🎨 High-Aesthetics Developer Portfolio
 - **Cyber Aesthetic Hero**: 60fps dynamic background particle mesh canvas running outside Angular's zone to prevent change detection overhead.
 - **Animated Typing Effect**: Smooth dynamic role cycler showcasing full-stack capabilities.
 - **Interactive Experience & Project Showcases**: Enterprise project highlights with direct GitHub repository and live demo links.
@@ -57,15 +68,25 @@ An interactive technical masterclass and interview preparation resource designed
 
 ---
 
-## ⚡ Engineering & Performance Best Practices
+## ⚡ Angular v22 & Engineering Best Practices
 
-This repository demonstrates enterprise-grade front-end development standards:
+This repository demonstrates cutting-edge front-end engineering standards:
 
-### 1. Angular Core Architecture
-- **Zoneless Change Detection**: Configured with `provideZonelessChangeDetection()` in `app.config.ts`, eliminating `zone.js` runtime overhead and providing predictable, high-speed signal updates.
-- **Standalone Components**: 100% standalone structure without legacy `NgModule` bottlenecks.
-- **Angular `@defer` Lazy Hydration**: Below-the-fold sections are lazy-loaded via `@defer (on viewport; prefetch on idle)`, dropping initial JavaScript transfer weight to **~94 kB**.
-- **Lazy Loaded Routes**: Code-split routes loaded on demand via `loadComponent: () => import(...)`.
+### 1. Angular v22 Modern Architecture
+- **Fine-Grained Signal Reactivity**: Uses Angular `signal()` primitives for reactive state management throughout the portfolio and Resume Builder, eliminating `BehaviorSubject` boilerplate and manual subscription cleanups.
+- **Zoneless Change Detection**: Configured with `provideZonelessChangeDetection()` in `app.config.ts`, freeing the application from `zone.js` runtime monkey-patching and dramatically accelerating change detection passes.
+- **Angular `@defer` Lazy Hydration**: Below-the-fold sections are lazy-loaded via:
+  ```html
+  @defer (on viewport; prefetch on idle) {
+    <app-project></app-project>
+  } @placeholder {
+    <div id="projects" style="min-height: 600px;"></div>
+  }
+  ```
+  This reduces initial JavaScript bundle transfer weight to just **~94 kB**!
+- **Declarative Control Flow**: Standardized on Angular's native `@if`, `@for (item of items; track item.id)`, and `@switch` blocks for cleaner template compilation and zero structural directive overhead.
+- **Standalone Components**: 100% standalone architecture without legacy `NgModule` bottlenecks.
+- **Code-Split Routing**: All routes (`/upskill`, `/upskill/angular`, `/upskill/javascript`, `/upskill/dsa`, `/resume-builder`) use lazy `loadComponent: () => import(...)` for on-demand chunk delivery.
 
 ### 2. Core Web Vitals (LCP, TBT, CLS, FCP)
 | Metric | Optimization Technique |
@@ -78,9 +99,10 @@ This repository demonstrates enterprise-grade front-end development standards:
 ### 3. Progressive Web App (PWA) & Offline Reliability
 - Configured with `@angular/service-worker` and `ngsw-config.json` for caching static assets and core shell chunks.
 - Valid Web App Manifest (`manifest.webmanifest`) with multi-density launcher icons, standalone display mode, and theme color `#080c14`.
+- Live version update listener with user-facing reload prompt.
 
 ### 4. Search Engine Optimization (SEO) & Semantic Markup
-- **JSON-LD Schema**: Embedded `Person` structured data for rich Google Search indexing.
+- **JSON-LD Schema**: Embedded `Person` structured data for rich Google Search indexing, linking official website, LinkedIn, and YouTube.
 - **Social Tags**: OpenGraph (`og:image`, `og:title`, `og:description`) and Twitter Card metadata.
 - **Accessibility (a11y)**: High-contrast focus states, ARIA landmarks, `aria-label` attributes on interactive icon buttons, and semantic heading hierarchy (`h1` through `h4`).
 
@@ -90,8 +112,9 @@ This repository demonstrates enterprise-grade front-end development standards:
 
 | Category | Technology |
 | :--- | :--- |
-| **Framework** | Angular 18+ / 19 (Standalone, Signals, Zoneless) |
+| **Framework** | **Angular v22** (Standalone, Signals, Zoneless, Control Flow) |
 | **Language** | TypeScript 5.x, HTML5, CSS3 Custom Properties |
+| **PWA & Offline** | `@angular/service-worker`, Web App Manifest, `SwUpdate` |
 | **Document Processing** | `pdfjs-dist` (PDF text extraction), `mammoth` (DOCX extraction) |
 | **PDF Export** | `html2canvas`, `jspdf` |
 | **Icons & Typography** | Boxicons, Google Fonts (Plus Jakarta Sans, JetBrains Mono, Inter) |
@@ -148,6 +171,7 @@ modern-portfolio/
 │   ├── app/
 │   │   ├── baner/                    # Hero section with cyber canvas & optimized portrait
 │   │   ├── navbar/                   # Sticky glassmorphism nav with mobile drawer
+│   │   ├── pwa-update/               # PWA install prompt & live version update notifications
 │   │   ├── personal-information/     # About me, technical summary, and bio
 │   │   ├── skills/                   # Categorized skills matrix
 │   │   ├── project/                  # Featured full-stack and distributed projects
