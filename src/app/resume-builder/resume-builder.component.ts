@@ -131,7 +131,7 @@ export class ResumeBuilderComponent {
 
   loadSampleResume(): void {
     this.resumeData.set(this.parserService.getSampleResume());
-    this.uploadedFileName.set('ArjunKhade_FullStackDev.pdf (Sample)');
+    this.uploadedFileName.set('Arjun_Khade_Software_Developer.pdf (Sample)');
     this.parseSuccessMsg.set('Loaded sample profile. Edit fields on the left or click Download PDF!');
     this.parseError.set(null);
   }

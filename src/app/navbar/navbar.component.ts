@@ -12,7 +12,7 @@ export class NavbarComponent {
   isScrolled = false;
   isMobileMenuOpen = false;
   activeSection = 'home';
-  resumeUrl = 'assets/ArjunKhade_FullStackDev.pdf';
+  resumeUrl = 'assets/Arjun_Khade_Software_Developer.pdf';
 
   navItems = [
     { label: 'Home', link: '#home' },

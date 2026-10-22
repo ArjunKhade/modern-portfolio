@@ -8,7 +8,7 @@ import { Component, OnInit, ElementRef, ViewChild, OnDestroy, NgZone, ChangeDete
 export class BanerComponent implements OnInit, OnDestroy {
   @ViewChild('cyberCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
-  resumeUrl: string = 'assets/ArjunKhade_FullStackDev.pdf';
+  resumeUrl: string = 'assets/Arjun_Khade_Software_Developer.pdf';
   roles: string[] = [
     'Full Stack Software Developer',
     'Java & Spring Boot Engineer',
