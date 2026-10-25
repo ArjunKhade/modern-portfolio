@@ -97,6 +97,21 @@ export class ProjectComponent {
         'Ensured full responsive fidelity across mobile, tablet, and ultra-wide displays.'
       ],
     },
+    {
+      title: 'Namaste React – Restaurant Discovery App',
+      category: 'frontend',
+      featured: false,
+      technology: 'React 18, React Router DOM, Parcel, JavaScript, CSS',
+      techBadges: ['React 18', 'React Router', 'Parcel', 'JavaScript', 'Responsive UI'],
+      icon: 'bx-restaurant',
+      demoUrl: 'https://namaste-react-woad.vercel.app/',
+      githubUrl: 'https://github.com/ArjunKhade/Namaste-React',
+      description: [
+        'Built a responsive restaurant discovery app with restaurant search and a top-rated restaurant filter.',
+        'Implemented restaurant detail pages with menu information and a lazy-loaded grocery route using React Router.',
+        'Bundled the application with Parcel and configured client-side routing for production hosting on Vercel and GitHub Pages.'
+      ],
+    },
   ];
 
   get filteredProjects(): Project[] {

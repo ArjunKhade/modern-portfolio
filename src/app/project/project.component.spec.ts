@@ -20,4 +20,18 @@ describe('ProjectComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should show the Namaste React project with its Vercel demo link', () => {
+    const project = component.projects.find(
+      item => item.title === 'Namaste React – Restaurant Discovery App'
+    );
+
+    expect(project?.demoUrl).toBe('https://namaste-react-woad.vercel.app/');
+
+    const demoLink = fixture.nativeElement.querySelector(
+      'a[aria-label="Live Demo link for Namaste React – Restaurant Discovery App"]'
+    ) as HTMLAnchorElement;
+    expect(demoLink).toBeTruthy();
+    expect(demoLink.href).toBe('https://namaste-react-woad.vercel.app/');
+  });
 });
