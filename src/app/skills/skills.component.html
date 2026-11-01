@@ -4,7 +4,7 @@
     <div class="section-header">
       <div class="section-tag">
         <i class="bx bx-code-block"></i>
-        <span>Technical Arsenal</span>
+        <span>Tech Stack & Tools</span>
       </div>
       <h2 class="section-title">
         Skills & <span class="gradient-text">Expertise</span>
@@ -37,7 +37,16 @@
       >
         <div class="skill-card-top">
           <div class="skill-icon-wrapper">
-            <i class="bx {{ skill.icon }} skill-icon"></i>
+            <img
+              *ngIf="skill.iconUrl"
+              [src]="skill.iconUrl"
+              [alt]="skill.name + ' icon'"
+              class="skill-icon-img"
+              loading="lazy"
+              width="46"
+              height="46"
+            />
+            <i *ngIf="!skill.iconUrl" class="bx {{ skill.icon }} skill-icon"></i>
           </div>
           <div class="skill-meta">
             <span class="skill-badge" [class.badge-expert]="skill.level === 'Expert'">

@@ -14,37 +14,47 @@ export class SkillsComponent {
   categories = [
     { key: 'all', label: 'All Technologies', icon: 'bx-grid-alt' },
     { key: 'frontend', label: 'Frontend & UI', icon: 'bx-layout' },
-    { key: 'backend', label: 'Backend & Cloud', icon: 'bx-server' },
-    { key: 'ai_cloud', label: 'AI & Streaming', icon: 'bx-brain' },
-    { key: 'database', label: 'Databases & Tools', icon: 'bx-data' },
+    { key: 'backend', label: 'Backend & Messaging', icon: 'bx-server' },
+    { key: 'database', label: 'Databases', icon: 'bx-data' },
+    { key: 'ai_cloud', label: 'Cloud, DevOps & Tools', icon: 'bx-cloud' },
   ];
 
   skills: Skill[] = [
     // Frontend
-    { name: 'Angular (v13 - v21)', level: 'Expert', rating: 92, category: 'frontend', icon: 'bxl-angular', experience: '4 Yrs' },
-    { name: 'Signals & Reactive Architecture', level: 'Expert', rating: 90, category: 'frontend', icon: 'bx-broadcast', experience: '2+ Yrs' },
-    { name: 'React.js & Redux Toolkit', level: 'Expert', rating: 86, category: 'frontend', icon: 'bxl-react', experience: '2+ Yrs' },
-    { name: 'TypeScript & JavaScript (ES6+)', level: 'Expert', rating: 92, category: 'frontend', icon: 'bxl-typescript', experience: '4 Yrs' },
-    { name: 'HTML5, Modern CSS3, Tailwind', level: 'Expert', rating: 95, category: 'frontend', icon: 'bxl-css3', experience: '4 Yrs' },
-    { name: 'PWA & Service Workers', level: 'Advanced', rating: 88, category: 'frontend', icon: 'bx-mobile-alt', experience: '2+ Yrs' },
+    { name: 'Angular (v13 - v22)', level: 'Expert', rating: 92, category: 'frontend', iconUrl: 'https://skillicons.dev/icons?i=angular', experience: '4 Yrs' },
+    { name: 'TypeScript', level: 'Expert', rating: 92, category: 'frontend', iconUrl: 'https://skillicons.dev/icons?i=ts', experience: '4 Yrs' },
+    { name: 'JavaScript (ES6+)', level: 'Expert', rating: 92, category: 'frontend', iconUrl: 'https://skillicons.dev/icons?i=js', experience: '4 Yrs' },
+    { name: 'React.js & Redux', level: 'Expert', rating: 86, category: 'frontend', iconUrl: 'https://skillicons.dev/icons?i=react', experience: '2+ Yrs' },
+    { name: 'RxJS & Signals', level: 'Expert', rating: 90, category: 'frontend', iconUrl: 'https://skillicons.dev/icons?i=reactivex', experience: '3+ Yrs' },
+    { name: 'HTML5', level: 'Expert', rating: 95, category: 'frontend', iconUrl: 'https://skillicons.dev/icons?i=html', experience: '4 Yrs' },
+    { name: 'CSS3 & Sass', level: 'Expert', rating: 95, category: 'frontend', iconUrl: 'https://skillicons.dev/icons?i=css', experience: '4 Yrs' },
+    { name: 'Tailwind CSS', level: 'Advanced', rating: 88, category: 'frontend', iconUrl: 'https://skillicons.dev/icons?i=tailwind', experience: '2+ Yrs' },
+    { name: 'Material UI', level: 'Advanced', rating: 88, category: 'frontend', iconUrl: 'https://skillicons.dev/icons?i=materialui', experience: '3+ Yrs' },
 
-    // Backend
-    { name: 'Java 17 & Spring Boot', level: 'Expert', rating: 90, category: 'backend', icon: 'bxl-spring-boot', experience: '4 Yrs' },
-    { name: 'Microservices & Spring Cloud', level: 'Expert', rating: 88, category: 'backend', icon: 'bx-network-chart', experience: '2.5+ Yrs' },
-    { name: 'REST APIs & JWT Security', level: 'Expert', rating: 92, category: 'backend', icon: 'bx-code-curly', experience: '4 Yrs' },
-    { name: 'ASP.NET Core & EF Core', level: 'Intermediate', rating: 72, category: 'backend', icon: 'bx-laptop', experience: '1.5+ Yrs' },
+    // Backend & Messaging
+    { name: 'Java 17', level: 'Expert', rating: 90, category: 'backend', iconUrl: 'https://skillicons.dev/icons?i=java', experience: '4 Yrs' },
+    { name: 'Spring Boot', level: 'Expert', rating: 90, category: 'backend', iconUrl: 'https://skillicons.dev/icons?i=spring', experience: '4 Yrs' },
+    { name: 'Apache Kafka', level: 'Advanced', rating: 85, category: 'backend', iconUrl: 'https://skillicons.dev/icons?i=kafka', experience: '2+ Yrs' },
+    { name: 'RabbitMQ', level: 'Advanced', rating: 84, category: 'backend', iconUrl: 'https://skillicons.dev/icons?i=rabbitmq', experience: '1.5+ Yrs' },
+    { name: 'Node.js', level: 'Intermediate', rating: 75, category: 'backend', iconUrl: 'https://skillicons.dev/icons?i=nodejs', experience: '1.5+ Yrs' },
+    { name: 'Express.js', level: 'Intermediate', rating: 72, category: 'backend', iconUrl: 'https://skillicons.dev/icons?i=express', experience: '1.5+ Yrs' },
 
-    // AI & Streaming
-    { name: 'Apache Kafka (Event-Driven)', level: 'Advanced', rating: 85, category: 'ai_cloud', icon: 'bx-transfer', experience: '2+ Yrs' },
-    { name: 'Google Gemini AI Integration', level: 'Advanced', rating: 86, category: 'ai_cloud', icon: 'bx-chip', experience: '1.5+ Yrs' },
-    { name: 'OpenAI API Integration', level: 'Advanced', rating: 84, category: 'ai_cloud', icon: 'bx-bot', experience: '1.5+ Yrs' },
-    { name: 'Keycloak OAuth2 / PKCE Flow', level: 'Advanced', rating: 85, category: 'ai_cloud', icon: 'bx-shield-quarter', experience: '2+ Yrs' },
+    // Databases
+    { name: 'PostgreSQL', level: 'Expert', rating: 88, category: 'database', iconUrl: 'https://skillicons.dev/icons?i=postgres', experience: '4 Yrs' },
+    { name: 'MySQL', level: 'Expert', rating: 88, category: 'database', iconUrl: 'https://skillicons.dev/icons?i=mysql', experience: '4 Yrs' },
+    { name: 'MongoDB', level: 'Advanced', rating: 82, category: 'database', iconUrl: 'https://skillicons.dev/icons?i=mongodb', experience: '2+ Yrs' },
 
-    // Databases & Tools
-    { name: 'PostgreSQL & MySQL', level: 'Expert', rating: 88, category: 'database', icon: 'bx-cylinder', experience: '4 Yrs' },
-    { name: 'MongoDB', level: 'Advanced', rating: 82, category: 'database', icon: 'bx-data', experience: '2+ Yrs' },
-    { name: 'Docker & Containerization', level: 'Advanced', rating: 84, category: 'database', icon: 'bxl-docker', experience: '2+ Yrs' },
-    { name: 'Linux OS & Shell Scripting', level: 'Expert', rating: 90, category: 'database', icon: 'bxl-tux', experience: '4 Yrs' },
+    // Cloud, DevOps & Tools
+    { name: 'Docker', level: 'Advanced', rating: 84, category: 'ai_cloud', iconUrl: 'https://skillicons.dev/icons?i=docker', experience: '2+ Yrs' },
+    { name: 'Kubernetes', level: 'Intermediate', rating: 70, category: 'ai_cloud', iconUrl: 'https://skillicons.dev/icons?i=kubernetes', experience: '1+ Yrs' },
+    { name: 'AWS', level: 'Advanced', rating: 80, category: 'ai_cloud', iconUrl: 'https://skillicons.dev/icons?i=aws', experience: '2+ Yrs' },
+    { name: 'Google Cloud (GCP)', level: 'Advanced', rating: 78, category: 'ai_cloud', iconUrl: 'https://skillicons.dev/icons?i=gcp', experience: '1.5+ Yrs' },
+    { name: 'Jenkins CI/CD', level: 'Advanced', rating: 82, category: 'ai_cloud', iconUrl: 'https://skillicons.dev/icons?i=jenkins', experience: '2+ Yrs' },
+    { name: 'Git', level: 'Expert', rating: 92, category: 'ai_cloud', iconUrl: 'https://skillicons.dev/icons?i=git', experience: '4 Yrs' },
+    { name: 'GitHub', level: 'Expert', rating: 92, category: 'ai_cloud', iconUrl: 'https://skillicons.dev/icons?i=github', experience: '4 Yrs' },
+    { name: 'Postman', level: 'Expert', rating: 90, category: 'ai_cloud', iconUrl: 'https://skillicons.dev/icons?i=postman', experience: '4 Yrs' },
+    { name: 'Linux', level: 'Expert', rating: 90, category: 'ai_cloud', iconUrl: 'https://skillicons.dev/icons?i=linux', experience: '4 Yrs' },
+    { name: 'Vite', level: 'Advanced', rating: 82, category: 'ai_cloud', iconUrl: 'https://skillicons.dev/icons?i=vite', experience: '2+ Yrs' },
   ];
 
   get filteredSkills(): Skill[] {

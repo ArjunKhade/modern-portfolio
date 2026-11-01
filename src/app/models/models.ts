@@ -20,6 +20,7 @@ export interface Skill {
   rating: number;
   category?: 'frontend' | 'backend' | 'ai_cloud' | 'database';
   icon?: string;
+  iconUrl?: string;
   experience?: string;
 }
 

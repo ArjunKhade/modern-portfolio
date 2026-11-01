@@ -86,20 +86,44 @@
 }
 
 .skill-icon-wrapper {
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--primary);
   font-size: 1.6rem;
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 
-.skill-card:hover .skill-icon-wrapper {
+/* Skill icon image from skillicons.dev */
+.skill-icon-img {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.skill-card:hover .skill-icon-img {
+  transform: scale(1.1);
+}
+
+/* Fallback boxicon styling */
+.skill-icon-wrapper i.skill-icon {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+}
+
+.skill-card:hover .skill-icon-wrapper i.skill-icon {
   background: rgba(0, 245, 160, 0.12);
   border-color: rgba(0, 245, 160, 0.4);
   transform: scale(1.08);

@@ -469,103 +469,124 @@ export class ResumeParserService {
     return certs;
   }
 
-  // Pre-configured rich sample dataset
+  // Pre-configured real resume dataset
   getSampleResume(): ResumeData {
     return {
       personalInfo: {
         fullName: 'Arjun Khade',
-        jobTitle: 'Senior Full-Stack Developer | Angular & Spring Boot Specialist',
-        email: 'arjun.khade@example.com',
-        phone: '+91 98765 43210',
+        jobTitle: 'Full Stack Software Developer',
+        email: 'khadearjun@gmail.com',
+        phone: '+91 8788225355 / 9545176916',
         location: 'Pune, Maharashtra, India',
         linkedin: 'linkedin.com/in/arjunkhade',
         github: 'github.com/ArjunKhade',
-        portfolio: 'https://arjun.dev',
+        portfolio: 'https://www.cdacengineer.in/',
       },
-      summary: 'Results-driven Full-Stack Engineer with 5+ years of experience architecting high-throughput, enterprise-grade distributed systems and modern web applications. Expert in Angular 18+, TypeScript, Spring Boot, Microservices, and cloud-native deployments. Proven track record of boosting front-end performance by 40%+ and orchestrating mission-critical backend services with 99.98% SLA.',
+      summary: 'Full Stack Software Developer with 4 years of hands-on experience architecting high-throughput enterprise microservices and modern reactive web applications. Proficient in Angular (v13–v22, Signals, Zoneless), Java 17, Spring Boot, Spring Cloud, Apache Kafka, RabbitMQ, Keycloak OAuth2/PKCE, and Docker. Proven track record boosting application performance by 25%+ and orchestrating mission-critical backend services with high availability.',
       skills: {
-        languages: ['Java 21', 'TypeScript', 'JavaScript (ES6+)', 'SQL', 'Python'],
-        frameworks: ['Angular (v14–v18+)', 'Signals & Control Flow', 'Spring Boot 3', 'RxJS', 'NgRx', 'Spring Cloud', 'Hibernate/JPA'],
-        toolsAndCloud: ['Docker', 'Kubernetes', 'AWS (EC2, S3, RDS)', 'CI/CD (GitHub Actions, Jenkins)', 'Kafka', 'Git'],
-        databases: ['PostgreSQL', 'MongoDB', 'Redis', 'MySQL'],
-        other: ['Microservices Architecture', 'RESTful API Design', 'Zoneless Change Detection', 'PWA', 'Unit Testing (Vitest, JUnit)'],
+        languages: ['Java 17', 'TypeScript', 'JavaScript (ES6+)', 'SQL', 'HTML5', 'CSS3/Sass'],
+        frameworks: ['Angular (v13–v22)', 'Angular Signals', 'Spring Boot 3', 'Spring Cloud', 'RxJS', 'React.js', 'Redux', 'Tailwind CSS'],
+        toolsAndCloud: ['Docker', 'Kubernetes', 'AWS', 'Google Cloud (GCP)', 'Jenkins CI/CD', 'Kafka', 'RabbitMQ', 'Git', 'Postman'],
+        databases: ['PostgreSQL', 'MySQL', 'MongoDB'],
+        other: ['Microservices Architecture', 'Keycloak OAuth2 / PKCE', 'RESTful API Design', 'PWA & Service Workers', 'Zoneless Change Detection'],
       },
       experience: [
         {
           id: 'exp-1',
-          jobTitle: 'Lead Software Engineer',
-          company: 'Cognizant Technology Solutions',
+          jobTitle: 'Full Stack Software Developer',
+          company: 'Aloha Technology',
           location: 'Pune, India',
-          startDate: 'Aug 2022',
+          startDate: 'Jan 2023',
           endDate: 'Present',
           current: true,
           highlights: [
-            'Spearheaded architectural migration of high-traffic enterprise dashboard to Angular 18 with standalone components and fine-grained Signals, reducing bundle size by 35% and initial load time by 42%.',
-            'Designed and deployed resilient Spring Boot microservices handling over 50,000 requests per minute with Redis caching and Kafka message broker integration.',
-            'Mentored 8 engineers in reactive state management, RxJS memory leak debugging, and automated testing pipelines, raising team test coverage from 62% to 91%.',
-            'Orchestrated automated containerized CI/CD deployment pipelines on Kubernetes cluster with zero downtime rollouts.'
-          ],
-        },
-        {
-          id: 'exp-2',
-          jobTitle: 'Full-Stack Software Engineer',
-          company: 'Infosys Limited',
-          location: 'Bengaluru, India',
-          startDate: 'Jun 2020',
-          endDate: 'Jul 2022',
-          current: false,
-          highlights: [
-            'Developed modular client portals using Angular, NgRx store, and Spring Data REST APIs consumed by 120,000+ active business users.',
-            'Implemented declarative OAuth2/JWT authentication and fine-grained role-based access control (RBAC), securing 15+ internal services.',
-            'Engineered optimized SQL queries and database indexes in PostgreSQL, reducing average report generation latency by 55%.'
+            'Architected and delivered mission-critical healthcare web applications using Angular 15+, TypeScript, Java 17, and Spring Boot.',
+            'Engineered decoupled, reusable component libraries and lazy-loading route architectures, cutting bundle load times and boosting application responsiveness by 25%.',
+            'Spearheaded enterprise Angular framework upgrades from v13 through v15 and v18 with zero production downtime and seamless regression testing.',
+            'Implemented Progressive Web App (PWA) offline capabilities and automated Service Worker caching strategies, boosting audit scores by 20%.',
+            'Constructed high-speed media delivery pipelines utilizing modern WebP and SVG vector formats with fallback strategies, optimizing First Contentful Paint (FCP).',
+            'Designed secure communication protocols between frontend clients and backend microservices using JWT authentication, OAuth2, and CORS hardening.'
           ],
         },
       ],
       projects: [
         {
           id: 'proj-1',
-          name: 'Modern Developer Portfolio & Upskill Hub',
-          technologies: 'Angular 18, TypeScript, RxJS, Zoneless Change Detection, Glassmorphism CSS',
-          link: 'https://github.com/ArjunKhade/modern-portfolio',
-          description: 'Production-grade personal brand and technical learning platform featuring curated interactive upskill modules, LeetCode problem explorer, and live code execution demos.',
+          name: 'FinEase: Digital Banking Platform',
+          technologies: 'Java 17, Spring Boot 3, Spring Cloud, Angular 22, Keycloak IAM, RabbitMQ, Redis, Docker',
+          link: 'https://github.com/ArjunKhade/finease-banking-made-easy',
+          description: 'Production-grade, event-driven digital banking microservices platform featuring dual OIDC PKCE & Direct Grant authentication and real-time OpenFeign aggregation.',
           highlights: [
-            'Achieved 98+ Google Lighthouse rating in Performance, Accessibility, Best Practices, and SEO.',
-            'Architected client-side resume parser and single-column ATS engine generating downloadable PDF documents directly in the browser.'
+            'Architected distributed microservices (Accounts, Cards, Loans, Message) with Eureka discovery, Spring Cloud Gateway, and Config Server.',
+            'Secured edge traffic with Keycloak IAM (OAuth2/OIDC PKCE, RBAC) and Redis token-bucket rate limiting.',
+            'Engineered asynchronous email/SMS notification pipeline with RabbitMQ and Spring Cloud Stream.'
           ],
         },
         {
           id: 'proj-2',
-          name: 'Distributed Cloud E-Commerce Microservices Engine',
-          technologies: 'Spring Boot 3, Apache Kafka, PostgreSQL, Redis, Docker, Kubernetes',
-          link: 'https://github.com/ArjunKhade',
-          description: 'Event-driven multi-tenant commerce engine featuring asynchronous checkout pipelines, inventory reconciliation, and real-time payment webhook processing.',
+          name: 'AI-Powered Fitness Application',
+          technologies: 'Java 17, Spring Boot, Spring Cloud, Apache Kafka, Google Gemini AI, Docker, React',
+          link: 'https://github.com/ArjunKhade/fitness-microservice',
+          description: 'Distributed microservices fitness platform providing personalized workout and nutrition plans via Google Gemini AI integration.',
           highlights: [
-            'Implemented saga pattern for distributed transactions across order, payment, and inventory services with automatic rollback mechanisms.',
-            'Constructed comprehensive Prometheus and Grafana telemetry dashboards for real-time latency and throughput monitoring.'
+            'Engineered event-driven message pipelines using Apache Kafka, decoupling Activity and AI recommendation consumers for real-time inference.',
+            'Secured enterprise APIs with Keycloak OAuth2 PKCE flow, Spring Cloud Gateway centralized routing, and Eureka service discovery.'
+          ],
+        },
+        {
+          id: 'proj-3',
+          name: 'HRMS | Human Resource Management System',
+          technologies: 'Angular, TypeScript, Angular Material, Angular Signals, Java, Spring Boot, MySQL, Docker, Jenkins CI/CD',
+          link: 'https://github.com/ArjunKhade/ems-portal',
+          description: 'Full-stack Employee Management System with JWT role-based access control (RBAC) and automated Jenkins CI/CD pipeline.',
+          highlights: [
+            'Built responsive UI with Angular Material, Signals, and Reactive Forms with server-side pagination, searching, and sorting.',
+            'Architected end-to-end CI/CD pipeline in Jenkins automating Docker builds, container deployment, and Playwright E2E tests.'
+          ],
+        },
+        {
+          id: 'proj-4',
+          name: 'Modern Developer Portfolio & ATS Resume Builder',
+          technologies: 'Angular v22, TypeScript, Angular Signals, Zoneless, PWA, pdfjs-dist, mammoth, jsPDF',
+          link: 'https://www.cdacengineer.in/',
+          description: 'High-performance personal brand, technical learning hub, and client-side ATS single-column resume builder.',
+          highlights: [
+            'Engineered in-browser PDF & DOCX parser with real-time signal reactivity and multi-page vector PDF generation.',
+            'Configured PWA offline capabilities with Service Worker caching and achieved near-perfect Google Lighthouse scores.'
           ],
         },
       ],
       education: [
         {
           id: 'edu-1',
-          degree: 'Bachelor of Technology in Computer Science & Engineering',
-          institution: 'Savitribai Phule Pune University',
+          degree: 'Post Graduate Diploma in Advanced Computing (PG-DAC)',
+          institution: 'CDAC ACTS, Pune',
           location: 'Pune, Maharashtra, India',
-          graduationYear: '2020',
-          gpaOrHonors: 'First Class with Distinction (CGPA: 8.9 / 10)',
+          graduationYear: '2022',
+          gpaOrHonors: 'Score: 76.00%',
+        },
+        {
+          id: 'edu-2',
+          degree: 'Bachelor of Engineering (BE)',
+          institution: 'Sanjivani College of Engineering, Kopargaon',
+          location: 'Maharashtra, India',
+          graduationYear: '2019',
+          gpaOrHonors: 'CGPA: 7.00',
+        },
+        {
+          id: 'edu-3',
+          degree: 'Diploma in Mechanical Engineering (DME)',
+          institution: 'Government Polytechnic, Aurangabad',
+          location: 'Maharashtra, India',
+          graduationYear: '2016',
+          gpaOrHonors: 'Score: 79.00%',
         },
       ],
       certifications: [
         {
           id: 'cert-1',
-          name: 'AWS Certified Solutions Architect – Associate',
-          issuer: 'Amazon Web Services',
-          year: '2023',
-        },
-        {
-          id: 'cert-2',
-          name: 'Oracle Certified Professional: Java SE 11 Developer',
-          issuer: 'Oracle Corporation',
+          name: 'Post Graduate Diploma in Advanced Computing (PG-DAC)',
+          issuer: 'CDAC ACTS, Pune',
           year: '2022',
         },
       ],

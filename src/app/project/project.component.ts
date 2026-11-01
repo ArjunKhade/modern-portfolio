@@ -36,6 +36,22 @@ export class ProjectComponent {
       ],
     },
     {
+      title: 'FinEase: Digital Banking Platform',
+      category: 'ai',
+      featured: true,
+      technology: 'Java 17, Spring Boot 3, Spring Cloud, Angular 22, Keycloak IAM, RabbitMQ, Redis, OpenFeign, Docker, MySQL',
+      techBadges: ['Spring Boot 3', 'Spring Cloud', 'Angular 22', 'RabbitMQ', 'Keycloak IAM', 'Redis', 'Docker'],
+      icon: 'bx-credit-card',
+      githubUrl: 'https://github.com/ArjunKhade/finease-banking-made-easy',
+      description: [
+        'Architected a production-grade, event-driven digital banking platform using Spring Boot 3, Spring Cloud (Eureka, Gateway, Config Server), and Angular 22 with reactive signals.',
+        'Implemented edge security via Spring Cloud Gateway with Keycloak IAM (OAuth2/OIDC PKCE flow, Direct Grant, and RBAC) and Redis token-bucket rate limiting.',
+        'Engineered unified customer dashboard aggregation via Spring Cloud OpenFeign, synchronously combining Accounts, Cards, and Loans microservices.',
+        'Designed an asynchronous event-driven notification pipeline using RabbitMQ and Spring Cloud Stream functions (email & SMS dispatch with delivery confirmation callbacks).',
+        'Configured multi-environment container orchestration using Docker Compose (Default, QA, Prod) with centralized configuration and Eureka service discovery.'
+      ],
+    },
+    {
       title: 'Netflix GPT – AI Movie Streaming Platform',
       category: 'ai',
       featured: true,
@@ -49,6 +65,23 @@ export class ProjectComponent {
         'Managed complex application state, user preferences, and movie catalogs seamlessly using Redux Toolkit.',
         'Configured Firebase Authentication with protected client routes, automatic auth-state persistence, and CDN deployment.',
         'Implemented TMDB catalog integration with client-side caching and dynamic multi-language localization.'
+      ],
+    },
+    {
+      title: 'Developer Portfolio, Technical Upskill Hub & ATS Resume Builder',
+      category: 'frontend',
+      featured: true,
+      technology: 'Angular v22, TypeScript, Angular Signals, Zoneless Change Detection, PWA & SwUpdate, pdfjs-dist, mammoth, html2canvas, jsPDF',
+      techBadges: ['Angular v22', 'Signals', 'Zoneless', 'PWA & Offline', 'ATS Parser', 'PDF Engine'],
+      icon: 'bx-code-alt',
+      demoUrl: 'https://www.cdacengineer.in/',
+      githubUrl: 'https://github.com/ArjunKhade/modern-portfolio',
+      description: [
+        'Engineered high-performance developer platform and learning hub using Angular v22, Zoneless Change Detection, and fine-grained Angular Signals for reactive state with zero zone.js overhead.',
+        'Built an in-browser single-column ATS Resume Builder parsing PDF and DOCX files via pdfjs-dist and mammoth, with real-time styling controls and multi-page vector PDF generation using html2canvas and jsPDF.',
+        'Implemented an installable Progressive Web App (PWA) with background service worker asset caching, custom install prompts, and SwUpdate live auto-update notifications.',
+        'Curated an interactive Technical Upskill Hub covering Angular v22 modern architecture, advanced JavaScript internals, and LeetCode algorithmic patterns.',
+        'Optimized Core Web Vitals to achieve near-perfect Lighthouse scores, reducing initial bundle transfer size to ~94 kB using Angular @defer lazy hydration.'
       ],
     },
     {
