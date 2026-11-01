@@ -27,7 +27,7 @@ export class ProjectComponent {
       technology: 'Java 17, Spring Boot, Spring Cloud, Apache Kafka, Google Gemini AI, Keycloak OAuth2, Docker, React',
       techBadges: ['Spring Boot', 'Kafka', 'Gemini AI', 'Keycloak', 'Docker', 'React'],
       icon: 'bx-dumbbell',
-      githubUrl: 'https://github.com/ArjunKhade',
+      githubUrl: 'https://github.com/ArjunKhade/fitness-microservice',
       description: [
         'Architected a distributed microservices platform providing personalized workout and nutrition plans via Google Gemini AI integration.',
         'Engineered event-driven message pipelines using Apache Kafka, decoupling Activity and AI recommendation consumers for real-time inference.',
