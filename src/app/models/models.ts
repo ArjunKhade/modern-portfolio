@@ -28,10 +28,11 @@ export interface Project {
   title: string;
   technology: string;
   description: string[];
-  category?: 'ai' | 'microservices' | 'fullstack' | 'frontend';
+  category?: 'ai' | 'microservices' | 'fullstack' | 'frontend' | 'opensource';
   featured?: boolean;
   demoUrl?: string;
   githubUrl?: string;
+  npmUrl?: string;
   icon?: string;
   techBadges?: string[];
 }

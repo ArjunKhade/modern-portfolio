@@ -9,17 +9,35 @@ import { Project } from '../models/models';
   imports: [CommonModule]
 })
 export class ProjectComponent {
-  activeFilter: 'all' | 'ai' | 'fullstack' | 'frontend' = 'all';
+  activeFilter: 'all' | 'opensource' | 'ai' | 'fullstack' | 'frontend' = 'all';
   expandedProjectIndex: number | null = null;
 
   filters = [
     { key: 'all', label: 'All Projects' },
+    { key: 'opensource', label: 'Open Source & npm' },
     { key: 'ai', label: 'AI & Microservices' },
     { key: 'fullstack', label: 'Full Stack Systems' },
     { key: 'frontend', label: 'Angular & PWA' },
   ];
 
   projects: Project[] = [
+    {
+      title: 'ngx-swipe-action – Angular Swipe & Gesture Library',
+      category: 'opensource',
+      featured: true,
+      technology: 'Angular 18+, TypeScript, Standalone Directives, Touch & Pointer API, ng-packagr, npm, Vercel',
+      techBadges: ['Angular 18+', 'npm Package', 'Open Source', 'Touch Gestures', 'Standalone Directive', 'Zero Deps'],
+      icon: 'bx-package',
+      demoUrl: 'https://ngx-swipe-action.vercel.app/',
+      npmUrl: 'https://www.npmjs.com/package/ngx-swipe-action/v/1.0.1',
+      githubUrl: 'https://github.com/ArjunKhade',
+      description: [
+        'Published an open-source, production-ready Angular swipe-to-action component and directive library on npm (v1.0.1) with zero third-party dependencies.',
+        'Engineered smooth bidirectional gestures supporting touchscreens and desktop pointer drags, featuring threshold auto-triggers, spring-back physics, and undo restorations.',
+        'Designed high-level <ngx-swipe-card> component and low-level [ngxSwipe] structural directives for frictionless plug-and-play developer adoption.',
+        'Packaged with ng-packagr as an Angular standalone-first library and deployed an interactive multi-viewport preview demo (Phone, Tablet, Desktop) with live gesture logs on Vercel.'
+      ],
+    },
     {
       title: 'AI-Powered Fitness Application',
       category: 'ai',
@@ -167,6 +185,12 @@ export class ProjectComponent {
   get filteredProjects(): Project[] {
     if (this.activeFilter === 'all') {
       return this.projects;
+    }
+    if (this.activeFilter === 'opensource') {
+      return this.projects.filter(p => p.category === 'opensource' || !!p.npmUrl);
+    }
+    if (this.activeFilter === 'frontend') {
+      return this.projects.filter(p => p.category === 'frontend' || p.category === 'opensource');
     }
     return this.projects.filter(p => p.category === this.activeFilter);
   }

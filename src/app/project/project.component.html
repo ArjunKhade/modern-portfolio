@@ -40,6 +40,17 @@
           </div>
           <div class="project-links">
             <a
+              *ngIf="project.npmUrl"
+              [href]="project.npmUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="icon-link-btn"
+              title="npm Package"
+              [attr.aria-label]="'npm package link for ' + project.title"
+            >
+              <i class="bx bx-package"></i>
+            </a>
+            <a
               *ngIf="project.demoUrl"
               [href]="project.demoUrl"
               target="_blank"
@@ -109,7 +120,18 @@
             ></i>
           </button>
           
-          <a
+          <div class="footer-links-group">
+            <a
+              *ngIf="project.npmUrl"
+              [href]="project.npmUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="npm-badge-link font-mono"
+            >
+              <i class="bx bx-package"></i>
+              <span>npm v1.0.1</span>
+            </a>
+            <a
             *ngIf="project.demoUrl"
             [href]="project.demoUrl"
             target="_blank"
@@ -119,6 +141,7 @@
             <span>Live Demo</span>
             <i class="bx bx-right-arrow-alt"></i>
           </a>
+          </div>
         </div>
       </div>
     </div>

@@ -23,6 +23,10 @@ export class PersonalInformationComponent {
 
   aboutMeHighlights = [
     {
+      title: 'Open Source & npm Package Author',
+      description: 'Author and maintainer of ngx-swipe-action (v1.0.1) on npm — a lightweight, zero-dependency gesture and swipe-to-reveal directive/component library for Angular with live Vercel interactive demo.'
+    },
+    {
       title: 'Full Stack & Enterprise Architecture',
       description: 'Designing end-to-end scalable web applications using Java 17, Spring Boot, Spring Cloud microservices, and modern Angular/React client applications.'
     },

@@ -11,6 +11,7 @@ export class BanerComponent implements OnInit, OnDestroy {
   resumeUrl: string = 'assets/Arjun_Khade_Software_Developer.pdf';
   roles: string[] = [
     'Full Stack Software Developer',
+    'Open Source npm Contributor',
     'Java & Spring Boot Engineer',
     'Angular & Frontend Specialist',
     'AI Solutions & Kafka Architect'

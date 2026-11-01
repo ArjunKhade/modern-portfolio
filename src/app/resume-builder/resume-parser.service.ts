@@ -511,6 +511,17 @@ export class ResumeParserService {
       ],
       projects: [
         {
+          id: 'proj-npm-1',
+          name: 'ngx-swipe-action (npm Package v1.0.1)',
+          technologies: 'Angular 18+, TypeScript, Standalone Directives, Pointer API, ng-packagr',
+          link: 'https://www.npmjs.com/package/ngx-swipe-action',
+          description: 'Open-source Angular gesture library providing smooth swipe-to-reveal and swipe-to-delete actions with zero third-party dependencies.',
+          highlights: [
+            'Engineered bidirectional swipe card component and low-level directive supporting touch and mouse pointer dragging with threshold triggers and undo restorations.',
+            'Published package to npm registry and deployed responsive multi-viewport interactive demo on Vercel.'
+          ],
+        },
+        {
           id: 'proj-1',
           name: 'FinEase: Digital Banking Platform',
           technologies: 'Java 17, Spring Boot 3, Spring Cloud, Angular 22, Keycloak IAM, RabbitMQ, Redis, Docker',
