@@ -52,6 +52,23 @@ export class ProjectComponent {
       ],
     },
     {
+      title: 'HRMS | Human Resource Management System',
+      category: 'fullstack',
+      featured: true,
+      technology: 'Angular, TypeScript, Angular Material, RxJS, NgRx, Angular Signals, Java, Spring Boot, Spring Security, Spring Data JPA, MySQL, REST API, JWT, Docker, Jenkins, CI/CD, Playwright',
+      techBadges: ['Angular', 'Spring Boot', 'Spring Security', 'MySQL', 'Docker', 'Jenkins', 'Playwright'],
+      icon: 'bx-id-card',
+      githubUrl: 'https://github.com/ArjunKhade/ems-portal',
+      description: [
+        'Developed EMS Portal, a full-stack Employee Management System using Angular, TypeScript, RxJS, and Angular Signals on the frontend and Java Spring Boot with Spring Security and Spring Data JPA on the backend, following REST API and layered architecture (Controller-Service-Repository) design principles.',
+        'Implemented JWT-based authentication and role-based access control (RBAC) to secure API endpoints and enforce user-level authorization across the application.',
+        'Built responsive UI components using Angular Material and Angular Reactive Forms with robust form validation, and engineered a dashboard supporting pagination, searching, and sorting for efficient data management.',
+        'Designed DTO-Entity mapping to decouple API contracts from persistence models, improving maintainability and scalability of the Spring Boot REST API.',
+        'Containerized the application using Docker and Docker Compose, orchestrating independent frontend, backend, and MySQL database services.',
+        'Architected an end-to-end CI/CD pipeline using Jenkins, automating Docker image builds, container deployment, and Playwright end-to-end (E2E) testing, with automated HTML test reporting and artifact archiving for every build.'
+      ],
+    },
+    {
       title: 'FreshCart – Enterprise E-Commerce Store',
       category: 'fullstack',
       featured: false,
